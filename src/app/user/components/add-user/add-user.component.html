@@ -1,0 +1,41 @@
+<div class="card-body">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="h4 mb-1">Add User</h2>
+      <p class="text-muted mb-0">Create a user for a tenant with role and login details.</p>
+    </div>
+    <a class="btn btn-secondary" routerLink="/user/dashboard">Back to Dashboard</a>
+  </div>
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="tenantId" class="form-label">Tenant ID</label>
+        <input id="tenantId" type="number" class="form-control" formControlName="tenantId" required>
+      </div>
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" required>
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email" class="form-control" formControlName="email" required>
+      </div>
+      <div class="col-md-6">
+        <label for="passwordHash" class="form-label">Password</label>
+        <input id="passwordHash" type="password" class="form-control" formControlName="passwordHash" required>
+      </div>
+      <div class="col-md-6">
+        <label for="role" class="form-label">Role</label>
+        <select id="role" class="form-select" formControlName="role">
+          <option value="User">User</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mt-4 text-end">
+      <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Create User</button>
+    </div>
+  </form>
+</div>

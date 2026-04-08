@@ -1,0 +1,35 @@
+<div class="card-body">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="h4 mb-1">Add Page</h2>
+      <p class="text-muted mb-0">Create a public page for site content.</p>
+    </div>
+    <a class="btn btn-secondary" routerLink="/page/dashboard">Back to Dashboard</a>
+  </div>
+
+  <form [formGroup]="pageForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="tenantId" class="form-label">Tenant ID</label>
+        <input id="tenantId" type="number" class="form-control" formControlName="tenantId" required>
+      </div>
+      <div class="col-md-4">
+        <label for="title" class="form-label">Title</label>
+        <input id="title" type="text" class="form-control" formControlName="title" required>
+      </div>
+      <div class="col-md-4">
+        <label for="slug" class="form-label">Slug</label>
+        <input id="slug" type="text" class="form-control" formControlName="slug" required>
+      </div>
+      <div class="col-12 d-flex align-items-center">
+        <div class="form-check">
+          <input id="status" class="form-check-input" type="checkbox" formControlName="status">
+          <label class="form-check-label" for="status">Published / Active</label>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 text-end">
+      <button class="btn btn-primary" type="submit" [disabled]="!pageForm.valid">Create Page</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,29 @@
+<div class="card-body">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="h4 mb-1">Add Tenant</h2>
+      <p class="text-muted mb-0">Create a new tenant with its domain and branding.</p>
+    </div>
+    <a class="btn btn-secondary" routerLink="/tenant/dashboard">Back to Dashboard</a>
+  </div>
+
+  <form [formGroup]="tenantForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input id="name" type="text" class="form-control" formControlName="name" required>
+    </div>
+    <div class="mb-3">
+      <label for="domain" class="form-label">Domain</label>
+      <input id="domain" type="text" class="form-control" formControlName="domain" required>
+    </div>
+    <div class="mb-3">
+      <label for="logo" class="form-label">Logo URL</label>
+      <input id="logo" type="text" class="form-control" formControlName="logo">
+    </div>
+    <div class="mb-3">
+      <label for="themeColor" class="form-label">Theme Color</label>
+      <input id="themeColor" type="text" class="form-control" formControlName="themeColor">
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!tenantForm.valid">Create Tenant</button>
+  </form>
+</div>
