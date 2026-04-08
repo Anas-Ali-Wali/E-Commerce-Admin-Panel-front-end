@@ -1,0 +1,45 @@
+<div class="card-body">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="h4 mb-1">Add Product</h2>
+      <p class="text-muted mb-0">Create a product record including price and stock details.</p>
+    </div>
+    <a class="btn btn-secondary" routerLink="/product/dashboard">Back to Dashboard</a>
+  </div>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="tenantId" class="form-label">Tenant ID</label>
+        <input id="tenantId" type="number" class="form-control" formControlName="tenantId" required>
+      </div>
+      <div class="col-md-8">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" required>
+      </div>
+      <div class="col-12">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label for="price" class="form-label">Price</label>
+        <input id="price" type="number" step="0.01" class="form-control" formControlName="price" required>
+      </div>
+      <div class="col-md-4">
+        <label for="stockQty" class="form-label">Stock Quantity</label>
+        <input id="stockQty" type="number" class="form-control" formControlName="stockQty" required>
+      </div>
+      <div class="col-md-4">
+        <label for="categoryId" class="form-label">Category ID</label>
+        <input id="categoryId" type="number" class="form-control" formControlName="categoryId">
+      </div>
+      <div class="col-12">
+        <label for="imageUrl" class="form-label">Image URL</label>
+        <input id="imageUrl" type="text" class="form-control" formControlName="imageUrl">
+      </div>
+    </div>
+    <div class="mt-4 text-end">
+      <button class="btn btn-primary" type="submit" [disabled]="!productForm.valid">Create Product</button>
+    </div>
+  </form>
+</div>

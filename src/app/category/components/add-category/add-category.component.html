@@ -1,0 +1,35 @@
+<div class="card-body">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="h4 mb-1">Add Category</h2>
+      <p class="text-muted mb-0">Add a category for a tenant and assign parent categories.</p>
+    </div>
+    <a class="btn btn-secondary" routerLink="/category/dashboard">Back to Dashboard</a>
+  </div>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="tenantId" class="form-label">Tenant ID</label>
+        <input id="tenantId" type="number" class="form-control" formControlName="tenantId" required>
+      </div>
+      <div class="col-md-6">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" required>
+      </div>
+      <div class="col-md-6">
+        <label for="parentCategoryId" class="form-label">Parent Category ID</label>
+        <input id="parentCategoryId" type="number" class="form-control" formControlName="parentCategoryId">
+      </div>
+      <div class="col-md-6 d-flex align-items-center">
+        <div class="form-check mt-2">
+          <input id="status" class="form-check-input" type="checkbox" formControlName="status">
+          <label class="form-check-label" for="status">Active</label>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4 text-end">
+      <button class="btn btn-primary" type="submit" [disabled]="!categoryForm.valid">Create Category</button>
+    </div>
+  </form>
+</div>

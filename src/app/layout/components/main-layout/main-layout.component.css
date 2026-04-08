@@ -1,0 +1,43 @@
+.layout-container {
+  min-height: 100vh;
+}
+
+/* Sidebar logo */
+.logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Header */
+.header {
+  background: #fff;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Toggle icon */
+.trigger {
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+/* Content */
+.content {
+  margin: 16px;
+  padding: 24px;
+  background: #f4f6f9;
+  min-height: 280px;
+  border-radius: 8px;
+}
