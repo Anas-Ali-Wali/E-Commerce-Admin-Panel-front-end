@@ -1,9 +1,8 @@
 <nz-layout class="layout-container">
 
   <!-- Sidebar -->
-  
-  <nz-sider  nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"
-    mzTheme="dark" style=" max-width: 280px; width: 280px">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"
+    nzTheme="dark" style="max-width: 280px; width: 280px">
     <div class="logo">ECommerce</div>
 
     <ul nz-menu nzTheme="dark" nzMode="inline">
@@ -44,13 +43,16 @@
   <!-- Main Layout -->
   <nz-layout>
 
-    <!-- 🔥 Header -->
+    <!-- Header -->
     <nz-header class="header">
-      <span
-        class="trigger"
-        (click)="toggleSidebar()"
-      >
+      <span class="trigger" (click)="toggleSidebar()">
         <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+      </span>
+
+      <!-- Logout -->
+      <span class="logout" (click)="logout()">
+        <span nz-icon nzType="logout"></span>
+        Logout
       </span>
     </nz-header>
 
@@ -62,13 +64,3 @@
   </nz-layout>
 
 </nz-layout>
-
-
-
-
-
-
-
-
-
-

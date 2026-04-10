@@ -1,45 +1,239 @@
-<div class="card-body">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h2 class="h4 mb-1">Add Product</h2>
-      <p class="text-muted mb-0">Create a product record including price and stock details.</p>
+<!-- <nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Product</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">Create a product record including price and stock details.</p>
     </div>
-    <a class="btn btn-secondary" routerLink="/product/dashboard">Back to Dashboard</a>
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/product/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
   </div>
 
-  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-    <div class="row g-3">
-      <div class="col-md-4">
-        <label for="tenantId" class="form-label">Tenant ID</label>
-        <input id="tenantId" type="number" class="form-control" formControlName="tenantId" required>
+  <form nz-form [formGroup]="productForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label nzRequired>Tenant ID</nz-form-label>
+          <nz-form-control nzErrorTip="Tenant ID is required">
+            <nz-input-number
+              formControlName="tenantId"
+              [nzMin]="1"
+              style="width: 100%;"
+              nzPlaceHolder="Enter Tenant ID">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col-md-8">
-        <label for="name" class="form-label">Name</label>
-        <input id="name" type="text" class="form-control" formControlName="name" required>
+
+      <div nz-col nzSpan="16">
+        <nz-form-item>
+          <nz-form-label nzRequired>Name</nz-form-label>
+          <nz-form-control nzErrorTip="Product name is required">
+            <input nz-input formControlName="name" placeholder="Enter product name" />
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col-12">
-        <label for="description" class="form-label">Description</label>
-        <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Description</nz-form-label>
+          <nz-form-control>
+            <textarea
+              nz-input
+              formControlName="description"
+              placeholder="Enter product description"
+              [nzAutosize]="{ minRows: 3, maxRows: 6 }">
+            </textarea>
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col-md-4">
-        <label for="price" class="form-label">Price</label>
-        <input id="price" type="number" step="0.01" class="form-control" formControlName="price" required>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label nzRequired>Price</nz-form-label>
+          <nz-form-control nzErrorTip="Price is required">
+            <nz-input-number
+              formControlName="price"
+              [nzMin]="0"
+              [nzStep]="0.01"
+              [nzPrecision]="2"
+              nzPrefix="$"
+              style="width: 100%;"
+              nzPlaceHolder="0.00">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col-md-4">
-        <label for="stockQty" class="form-label">Stock Quantity</label>
-        <input id="stockQty" type="number" class="form-control" formControlName="stockQty" required>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label nzRequired>Stock Quantity</nz-form-label>
+          <nz-form-control nzErrorTip="Stock quantity is required">
+            <nz-input-number
+              formControlName="stockQty"
+              [nzMin]="0"
+              style="width: 100%;"
+              nzPlaceHolder="0">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col-md-4">
-        <label for="categoryId" class="form-label">Category ID</label>
-        <input id="categoryId" type="number" class="form-control" formControlName="categoryId">
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label>Category ID</nz-form-label>
+          <nz-form-control>
+            <nz-input-number
+              formControlName="categoryId"
+              [nzMin]="1"
+              style="width: 100%;"
+              nzPlaceHolder="Enter category ID (optional)">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
       </div>
-      <div class="col-12">
-        <label for="imageUrl" class="form-label">Image URL</label>
-        <input id="imageUrl" type="text" class="form-control" formControlName="imageUrl">
+
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Image URL</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefix="🔗">
+              <input nz-input formControlName="imageUrl" placeholder="https://..." />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
       </div>
+
     </div>
-    <div class="mt-4 text-end">
-      <button class="btn btn-primary" type="submit" [disabled]="!productForm.valid">Create Product</button>
+
+    <div style="text-align: right; margin-top: 8px;">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="!productForm.valid"
+        [nzLoading]="isSubmitting">
+        Create Product
+      </button>
+    </div>
+
+  </form>
+</nz-card> -->
+
+
+
+<nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Product</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">Create a product record including price and stock details.</p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/product/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <form nz-form [formGroup]="productForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label nzRequired>Name</nz-form-label>
+          <nz-form-control nzErrorTip="Product name is required">
+            <input nz-input formControlName="name" placeholder="Enter product name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Description</nz-form-label>
+          <nz-form-control>
+            <textarea nz-input formControlName="description"
+              placeholder="Enter product description"
+              [nzAutosize]="{ minRows: 3, maxRows: 6 }">
+            </textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label nzRequired>Price</nz-form-label>
+          <nz-form-control nzErrorTip="Price is required">
+            <nz-input-number formControlName="price" [nzMin]="0"
+              [nzStep]="0.01" [nzPrecision]="2" nzPrefix="$"
+              style="width: 100%;" nzPlaceHolder="0.00">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label nzRequired>Stock Quantity</nz-form-label>
+          <nz-form-control nzErrorTip="Stock quantity is required">
+            <nz-input-number formControlName="stockQty" [nzMin]="0"
+              style="width: 100%;" nzPlaceHolder="0">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- <div nz-col nzSpan="8">
+        <nz-form-item>
+          <nz-form-label>Category ID</nz-form-label>
+          <nz-form-control>
+            <nz-input-number formControlName="categoryId" [nzMin]="1"
+              style="width: 100%;" nzPlaceHolder="Enter category ID (optional)">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div> -->
+
+      <div nz-col nzSpan="8">
+  <nz-form-item>
+    <nz-form-label>Category</nz-form-label>
+    <nz-form-control>
+      <nz-select
+        formControlName="categoryId"
+        nzAllowClear
+        style="width: 100%;">
+        <nz-option
+          *ngFor="let cat of categories"
+          [nzValue]="cat.categoryId"
+          [nzLabel]="cat.name">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</div>
+
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Image URL</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefix="🔗">
+              <input nz-input formControlName="imageUrl" placeholder="https://..." />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div style="text-align: right; margin-top: 8px;">
+      <button nz-button nzType="primary" type="submit"
+        [disabled]="!productForm.valid" [nzLoading]="isSubmitting">
+        Create Product
+      </button>
     </div>
   </form>
-</div>
+</nz-card>

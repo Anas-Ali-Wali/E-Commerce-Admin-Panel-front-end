@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { CategoryRequestDto } from '../../interfaces/category-interfaces';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-add-category',
@@ -9,11 +10,63 @@ import { CategoryRequestDto } from '../../interfaces/category-interfaces';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent {
-  categoryForm: FormGroup;
+//  categoryForm: FormGroup;
+//   isSubmitting = false;
 
-  constructor(private fb: FormBuilder, private categoryService: CategoryService) {
+//   constructor(
+//     private fb: FormBuilder,
+//     private categoryService: CategoryService,
+//     private message: NzMessageService
+//   ) {
+//     this.categoryForm = this.fb.group({
+//       tenantId: [null, Validators.required],
+//       name: ['', Validators.required],
+//       parentCategoryId: [null],
+//       status: [true]
+//     });
+//   }
+
+//   onSubmit() {
+//     if (this.categoryForm.valid) {
+//       this.isSubmitting = true;
+//       const request: CategoryRequestDto = this.categoryForm.value;
+
+//       this.categoryService.createCategory(request).subscribe({
+//         next: (response) => {
+//           this.isSubmitting = false;
+//           if (response.success) {
+//             this.message.success('Category created successfully');
+//             this.categoryForm.reset({ tenantId: null, status: true });
+//           } else {
+//             this.message.error(response.message || 'Failed to create category');
+//           }
+//         },
+//         error: (err) => {
+//           this.isSubmitting = false;
+//           console.error('API ERROR:', err);
+//           this.message.error('Server error occurred. Please try again.');
+//         }
+//       });
+//     } else {
+//       Object.values(this.categoryForm.controls).forEach(control => {
+//         if (control.invalid) {
+//           control.markAsDirty();
+//           control.updateValueAndValidity({ onlySelf: true });
+//         }
+//       });
+//     }
+//   }
+
+
+categoryForm: FormGroup;
+  isSubmitting = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    private message: NzMessageService
+  ) {
     this.categoryForm = this.fb.group({
-      tenantId: [0, Validators.required],
       name: ['', Validators.required],
       parentCategoryId: [null],
       status: [true]
@@ -21,32 +74,40 @@ export class AddCategoryComponent {
   }
 
   onSubmit() {
-  if (this.categoryForm.valid) {
-    const request: CategoryRequestDto = this.categoryForm.value;
+    if (this.categoryForm.valid) {
+      this.isSubmitting = true;
 
-    console.log('Request Payload:', request); // 🔥 debug
+      // ✅ localStorage se tenantId uthao
+      const user = JSON.parse(localStorage.getItem('user')!);
+      const payload: CategoryRequestDto = {
+        ...this.categoryForm.value,
+        tenantId: user.tenantId
+      };
 
-    this.categoryService.createCategory(request).subscribe({
-      next: (response) => {
-        console.log('API Response:', response);
-
-        if (response.success) {
-          alert('✅ Category created successfully');
-          this.categoryForm.reset({
-            tenantId: 1,
-            status: true
-          });
-        } else {
-          alert('❌ Error: ' + response.message);
+      this.categoryService.createCategory(payload).subscribe({
+        next: (response) => {
+          this.isSubmitting = false;
+          if (response.success) {
+            this.message.success('Category created successfully');
+            this.categoryForm.reset({ status: true });
+          } else {
+            this.message.error(response.message || 'Failed to create category');
+          }
+        },
+        error: (err) => {
+          this.isSubmitting = false;
+          console.error('API ERROR:', err);
+          this.message.error('Server error occurred. Please try again.');
         }
-      },
-      error: (err) => {
-        console.error('API ERROR:', err);
-        alert('🚨 Server error aa gaya');
-      }
-    });
-  } else {
-    alert('⚠️ Form invalid hai');
+      });
+    } else {
+      Object.values(this.categoryForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
+    }
   }
-}
+
 }
