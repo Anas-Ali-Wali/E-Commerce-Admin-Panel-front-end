@@ -1,0 +1,57 @@
+<nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Tenant</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">Create a new tenant with its domain and branding.</p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/tenant/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <form nz-form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Name</nz-form-label>
+      <nz-form-control nzErrorTip="Name is required">
+        <input nz-input formControlName="name" placeholder="Enter tenant name" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzRequired>Domain</nz-form-label>
+      <nz-form-control nzErrorTip="Domain is required">
+        <input nz-input formControlName="domain" placeholder="e.g. example.com" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Logo URL</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="logo" placeholder="https://..." />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label>Theme Color</nz-form-label>
+      <nz-form-control>
+        <input nz-input formControlName="themeColor" placeholder="#FFFFFF" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <div style="text-align: right; margin-top: 8px;">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="!tenantForm.valid"
+        [nzLoading]="isSubmitting">
+        Create Tenant
+      </button>
+    </div>
+
+  </form>
+</nz-card>

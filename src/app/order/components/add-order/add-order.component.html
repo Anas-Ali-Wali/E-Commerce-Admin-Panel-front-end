@@ -1,0 +1,193 @@
+<!-- <nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Order</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">Create a new order with customer and total amount details.</p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/order/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <form nz-form [formGroup]="orderForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Tenant ID</nz-form-label>
+          <nz-form-control nzErrorTip="Tenant ID is required">
+            <nz-input-number
+              formControlName="tenantId"
+              [nzMin]="1"
+              style="width: 100%;"
+              nzPlaceHolder="Enter Tenant ID">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Customer Name</nz-form-label>
+          <nz-form-control nzErrorTip="Customer name is required">
+            <input nz-input formControlName="customerName" placeholder="Enter customer name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Customer Email</nz-form-label>
+          <nz-form-control nzErrorTip="Please enter a valid email">
+            <input nz-input formControlName="customerEmail" type="email" placeholder="customer@example.com" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Customer Phone</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefix="+">
+              <input nz-input formControlName="customerPhone" placeholder="e.g. 923001234567" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Total Amount</nz-form-label>
+          <nz-form-control nzErrorTip="Total amount is required">
+            <nz-input-number
+              formControlName="totalAmount"
+              [nzMin]="0"
+              [nzStep]="0.01"
+              [nzPrecision]="2"
+              nzPrefix="$"
+              style="width: 100%;"
+              nzPlaceHolder="0.00">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Status</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="status" style="width: 100%;">
+              <nz-option nzValue="Pending" nzLabel="Pending"></nz-option>
+              <nz-option nzValue="Completed" nzLabel="Completed"></nz-option>
+              <nz-option nzValue="Cancelled" nzLabel="Cancelled"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div style="text-align: right; margin-top: 8px;">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="!orderForm.valid"
+        [nzLoading]="isSubmitting">
+        Create Order
+      </button>
+    </div>
+
+  </form>
+</nz-card> -->
+
+
+<nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Order</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">Create a new order with customer and total amount details.</p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/order/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <form nz-form [formGroup]="orderForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Customer Name</nz-form-label>
+          <nz-form-control nzErrorTip="Customer name is required">
+            <input nz-input formControlName="customerName" placeholder="Enter customer name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Customer Email</nz-form-label>
+          <nz-form-control nzErrorTip="Please enter a valid email">
+            <input nz-input formControlName="customerEmail" type="email" placeholder="customer@example.com" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Customer Phone</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzPrefix="+">
+              <input nz-input formControlName="customerPhone" placeholder="e.g. 923001234567" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Total Amount</nz-form-label>
+          <nz-form-control nzErrorTip="Total amount is required">
+            <nz-input-number
+              formControlName="totalAmount"
+              [nzMin]="0"
+              [nzStep]="0.01"
+              [nzPrecision]="2"
+              nzPrefix="$"
+              style="width: 100%;"
+              nzPlaceHolder="0.00">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Status</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="status" style="width: 100%;">
+              <nz-option nzValue="Pending" nzLabel="Pending"></nz-option>
+              <nz-option nzValue="Completed" nzLabel="Completed"></nz-option>
+              <nz-option nzValue="Cancelled" nzLabel="Cancelled"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div style="text-align: right; margin-top: 8px;">
+      <button nz-button nzType="primary" type="submit"
+        [disabled]="!orderForm.valid" [nzLoading]="isSubmitting">
+        Create Order
+      </button>
+    </div>
+  </form>
+</nz-card>

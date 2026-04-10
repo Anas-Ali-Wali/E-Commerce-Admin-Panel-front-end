@@ -1,0 +1,23 @@
+<nz-card style="width: 400px; margin: auto; margin-top: 100px;">
+  <h2 style="text-align:center;">Login</h2>
+
+  <form nz-form [formGroup]="loginForm" (ngSubmit)="submit()">
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Enter valid email">
+        <input nz-input formControlName="email" placeholder="Email" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Enter password">
+        <input nz-input type="password" formControlName="password" placeholder="Password" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" [nzLoading]="loading" nzBlock>
+      Login
+    </button>
+
+  </form>
+</nz-card>

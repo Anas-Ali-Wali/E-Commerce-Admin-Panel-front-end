@@ -1,0 +1,66 @@
+<nz-layout class="layout-container">
+
+  <!-- Sidebar -->
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"
+    nzTheme="dark" style="max-width: 280px; width: 280px">
+    <div class="logo">ECommerce</div>
+
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+
+      <li nz-menu-item routerLink="/tenant/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="team"></span>
+        <span *ngIf="!isCollapsed">Tenant</span>
+      </li>
+
+      <li nz-menu-item routerLink="/user/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="user"></span>
+        <span *ngIf="!isCollapsed">User</span>
+      </li>
+
+      <li nz-menu-item routerLink="/category/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="appstore"></span>
+        <span *ngIf="!isCollapsed">Category</span>
+      </li>
+
+      <li nz-menu-item routerLink="/product/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="shopping"></span>
+        <span *ngIf="!isCollapsed">Product</span>
+      </li>
+
+      <li nz-menu-item routerLink="/order/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="shopping-cart"></span>
+        <span *ngIf="!isCollapsed">Order</span>
+      </li>
+
+      <li nz-menu-item routerLink="/page/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="file"></span>
+        <span *ngIf="!isCollapsed">Page</span>
+      </li>
+
+    </ul>
+  </nz-sider>
+
+  <!-- Main Layout -->
+  <nz-layout>
+
+    <!-- Header -->
+    <nz-header class="header">
+      <span class="trigger" (click)="toggleSidebar()">
+        <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+      </span>
+
+      <!-- Logout -->
+      <span class="logout" (click)="logout()">
+        <span nz-icon nzType="logout"></span>
+        Logout
+      </span>
+    </nz-header>
+
+    <!-- Content -->
+    <nz-content class="content">
+      <router-outlet></router-outlet>
+    </nz-content>
+
+  </nz-layout>
+
+</nz-layout>
