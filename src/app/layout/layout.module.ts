@@ -4,9 +4,12 @@ import { RouterModule } from '@angular/router';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+// import { NzLayoutModule } from 'ng-zorro-antd/layout';
+// import { NzMenuModule } from 'ng-zorro-antd/menu';
+// import { NzIconModule } from 'ng-zorro-antd/icon';
+
+import { SharedModule } from '../shared/shared.module';
+
 
 
 
@@ -20,10 +23,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     CommonModule,
     LayoutRoutingModule,
     RouterModule,
-     NzLayoutModule,
-    NzMenuModule,
-    NzIconModule
-
+   SharedModule
   ]
 })
 export class LayoutModule { }

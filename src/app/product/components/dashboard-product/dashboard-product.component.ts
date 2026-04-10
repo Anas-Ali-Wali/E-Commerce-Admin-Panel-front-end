@@ -1,33 +1,110 @@
-import { Component } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { ProductResponseDto } from '../../interfaces/product-interfaces';
+  import { Component } from '@angular/core';
+  import { ProductService } from '../../services/product.service';
+  import { ProductResponseDto } from '../../interfaces/product-interfaces';
+  import { NzMessageService } from 'ng-zorro-antd/message';
 
-@Component({
-  selector: 'app-dashboard-product',
-  templateUrl: './dashboard-product.component.html',
-  styleUrls: ['./dashboard-product.component.css']
-})
-export class DashboardProductComponent {
+  @Component({
+    selector: 'app-dashboard-product',
+    templateUrl: './dashboard-product.component.html',
+    styleUrls: ['./dashboard-product.component.css']
+  })
+  export class DashboardProductComponent {
+  // products: ProductResponseDto[] = [];
+  //   tenantId = 1;
+  //   currentPage = 1;
+  //   pageSize = 10;
+  //   totalCount = 0;
+  //   isLoading = false;
+
+  //   constructor(
+  //     private productService: ProductService,
+  //     private message: NzMessageService
+  //   ) {}
+
+  //   ngOnInit() {
+  //     this.loadProducts();
+  //   }
+
+  //   loadProducts() {
+  //     this.isLoading = true;
+  //     this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
+  //       next: (response) => {
+  //         this.isLoading = false;
+  //         if (response.success && response.data) {
+  //           this.products = response.data.items;
+  //           this.totalCount = response.data.totalCount;
+  //         }
+  //       },
+  //       error: (err) => {
+  //         this.isLoading = false;
+  //         console.error('Load Error:', err);
+  //         this.message.error('Failed to load products.');
+  //       }
+  //     });
+  //   }
+
+  //   onTenantChange() {
+  //     this.currentPage = 1;
+  //     this.loadProducts();
+  //   }
+
+  //   onPageChange(page: number) {
+  //     this.currentPage = page;
+  //     this.loadProducts();
+  //   }
+
+  //   deleteProduct(id: number) {
+  //     this.productService.deleteProduct(id).subscribe({
+  //       next: (response) => {
+  //         if (response.success) {
+  //           this.message.success('Product deleted successfully');
+  //           this.loadProducts();
+  //         } else {
+  //           this.message.error('Failed to delete product');
+  //         }
+  //       },
+  //       error: (err) => {
+  //         console.error('Delete Error:', err);
+  //         this.message.error('Server error occurred. Please try again.');
+  //       }
+  //     });
+  //   }
+
+
   products: ProductResponseDto[] = [];
-  tenantId = 1;
+  tenantId!: number;
   currentPage = 1;
   pageSize = 10;
   totalCount = 0;
+  isLoading = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private message: NzMessageService
+  ) {}
 
-  loadProducts() {
-    this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe(response => {
-      if (response.success && response.data) {
-        this.products = response.data.items;
-        this.totalCount = response.data.totalCount;
-      }
-    });
+  ngOnInit() {
+    // ✅ localStorage se tenantId uthao
+    const user = JSON.parse(localStorage.getItem('user')!);
+    this.tenantId = user.tenantId;
+    this.loadProducts();
   }
 
-  onTenantChange() {
-    this.currentPage = 1;
-    this.loadProducts();
+  loadProducts() {
+    this.isLoading = true;
+    this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        if (response.success && response.data) {
+          this.products = response.data.items;
+          this.totalCount = response.data.totalCount;
+        }
+      },
+      error: () => {
+        this.isLoading = false;
+        this.message.error('Failed to load products.');
+      }
+    });
   }
 
   onPageChange(page: number) {
@@ -36,12 +113,17 @@ export class DashboardProductComponent {
   }
 
   deleteProduct(id: number) {
-    if (confirm('Are you sure?')) {
-      this.productService.deleteProduct(id).subscribe(response => {
+    this.productService.deleteProduct(id).subscribe({
+      next: (response) => {
         if (response.success) {
+          this.message.success('Product deleted successfully');
           this.loadProducts();
+        } else {
+          this.message.error('Failed to delete product');
         }
-      });
-    }
+      },
+      error: () => this.message.error('Server error occurred.')
+    });
   }
-}
+
+  }

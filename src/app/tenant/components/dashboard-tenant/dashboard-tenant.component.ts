@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TenantService } from '../../services/tenant.service';
 import { TenantResponseDto } from '../../interfaces/tenant-interfaces';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-dashboard-tenant',
@@ -8,22 +9,35 @@ import { TenantResponseDto } from '../../interfaces/tenant-interfaces';
   styleUrls: ['./dashboard-tenant.component.css']
 })
 export class DashboardTenantComponent implements OnInit {
-  tenants: TenantResponseDto[] = [];
+ tenants: TenantResponseDto[] = [];
   currentPage = 1;
   pageSize = 10;
   totalCount = 0;
+  isLoading = false;
 
-  constructor(private tenantService: TenantService) { }
+  constructor(
+    private tenantService: TenantService,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit() {
     this.loadTenants();
   }
 
   loadTenants() {
-    this.tenantService.getAllTenants(this.currentPage, this.pageSize).subscribe(response => {
-      if (response.success && response.data) {
-        this.tenants = response.data.items;
-        this.totalCount = response.data.totalCount;
+    this.isLoading = true;
+    this.tenantService.getAllTenants(this.currentPage, this.pageSize).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        if (response.success && response.data) {
+          this.tenants = response.data.items;
+          this.totalCount = response.data.totalCount;
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Load Error:', err);
+        this.message.error('Failed to load tenants.');
       }
     });
   }
@@ -34,12 +48,20 @@ export class DashboardTenantComponent implements OnInit {
   }
 
   deleteTenant(id: number) {
-    if (confirm('Are you sure?')) {
-      this.tenantService.deleteTenant(id).subscribe(response => {
+    this.tenantService.deleteTenant(id).subscribe({
+      next: (response) => {
         if (response.success) {
+          this.message.success('Tenant deleted successfully');
           this.loadTenants();
+        } else {
+          this.message.error('Failed to delete tenant');
         }
-      });
-    }
+      },
+      error: (err) => {
+        console.error('Delete Error:', err);
+        this.message.error('Server error occurred. Please try again.');
+      }
+    });
   }
+
 }

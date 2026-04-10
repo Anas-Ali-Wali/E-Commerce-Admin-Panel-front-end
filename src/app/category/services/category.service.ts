@@ -8,7 +8,8 @@ import { environment } from 'src/Environment/environment';
   providedIn: 'root'
 })
 export class CategoryService {
-private apiUrl = `${environment.apiUrl}/category`;
+private apiUrl = `${environment.apiUrl}/Category`;
+
 
   constructor(private http: HttpClient) {}
 
@@ -32,6 +33,15 @@ private apiUrl = `${environment.apiUrl}/category`;
 
   deleteCategory(id: number) {
     return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/${id}`);
+  }
+
+
+
+  // ✅ Naya method — dropdown ke liye
+  getAllCategoriesByTenant(tenantId: number) {
+    return this.http.get<ApiResponse<PaginatedResponse<CategoryResponseDto>>>(
+      `${this.apiUrl}/tenant/${tenantId}?pageNumber=1&pageSize=1000`
+    );
   }
 
 }
