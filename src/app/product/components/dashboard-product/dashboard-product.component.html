@@ -108,6 +108,14 @@
     </div>
   </div>
 
+  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
+  <input
+    nz-input
+    placeholder="Search product..."
+    [(ngModel)]="searchText"
+    (ngModelChange)="onSearch()" />
+</nz-input-group>
+
   <nz-table
     #productTable
     [nzData]="products"
@@ -115,7 +123,7 @@
     [nzTotal]="totalCount"
     [nzPageIndex]="currentPage"
     [nzPageSize]="pageSize"
-    [nzFrontPagination]="false"
+    [nzFrontPagination]="true"
     (nzPageIndexChange)="onPageChange($event)"
     nzBordered
     nzSize="middle">

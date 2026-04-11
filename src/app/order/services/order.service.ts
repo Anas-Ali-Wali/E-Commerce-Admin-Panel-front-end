@@ -48,4 +48,9 @@ export class OrderService {
     return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/detail/${detailId}`);
   }
 
+  getAllOrdersByTenant(tenantId: number) {
+  return this.http.get<ApiResponse<PaginatedResponse<OrderResponseDto>>>(
+    `${this.apiUrl}/tenant/${tenantId}?pageNumber=1&pageSize=1000`
+  );
+}
 }

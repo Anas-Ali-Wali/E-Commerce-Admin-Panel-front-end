@@ -12,27 +12,26 @@
     </div>
   </div>
 
-  <!-- ✅ Name Search Filter -->
-  <div style="margin-bottom: 16px;">
-    <input
-      nz-input
-      placeholder="Search by name..."
-      [(ngModel)]="searchName"
-      (ngModelChange)="onSearch()"
-      style="width: 300px;" />
-  </div>
+  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
+  <input
+    nz-input
+    placeholder="Search user..."
+    [(ngModel)]="searchText"
+    (ngModelChange)="onSearch()" />
+</nz-input-group>
 
   <nz-table
-    #userTable
-    [nzData]="filteredUsers"
-    [nzLoading]="isLoading"
-    [nzTotal]="totalCount"
-    [nzPageIndex]="currentPage"
-    [nzPageSize]="pageSize"
-    [nzFrontPagination]="false"
-    (nzPageIndexChange)="onPageChange($event)"
-    nzBordered
-    nzSize="middle">
+  #userTable
+  [nzData]="users"
+  [nzLoading]="isLoading"
+  [nzTotal]="totalCount"
+  [nzPageIndex]="currentPage"
+  [nzPageSize]="pageSize"
+  [nzFrontPagination]="true"
+  (nzPageIndexChange)="onPageChange($event)"
+  nzBordered
+  nzSize="middle">
+
 
     <thead>
       <tr>
@@ -46,7 +45,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let user of filteredUsers">
+      <tr *ngFor="let user of users">
         <td>{{ user.userId }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>

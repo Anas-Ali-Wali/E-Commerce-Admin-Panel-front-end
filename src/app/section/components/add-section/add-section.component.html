@@ -1,0 +1,62 @@
+<nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Section</h2>
+      <p nz-typography nzType="secondary">Add a new section to Page ID: {{ pageId }}</p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default"
+        [routerLink]="['/section/dashboard']"
+        [queryParams]="{ pageId: pageId }">
+        <span nz-icon nzType="arrow-left"></span>
+        Back
+      </button>
+    </div>
+  </div>
+
+  <form nz-form [formGroup]="sectionForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Section Type</nz-form-label>
+          <nz-form-control nzErrorTip="Type is required">
+            <nz-select formControlName="type" nzPlaceHolder="Select section type">
+              <nz-option *ngFor="let t of sectionTypes"
+                [nzLabel]="t" [nzValue]="t">
+              </nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Order No</nz-form-label>
+          <nz-form-control nzErrorTip="Order No is required">
+            <nz-input-number formControlName="orderNo"
+              [nzMin]="1" style="width: 100%;">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12" style="padding-top: 28px;">
+        <nz-form-item>
+          <nz-form-control>
+            <label nz-checkbox formControlName="status">Active</label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <div style="text-align: right; margin-top: 16px;">
+      <button nz-button nzType="primary" type="submit"
+        [disabled]="sectionForm.invalid"
+        [nzLoading]="isSubmitting">
+        Create Section
+      </button>
+    </div>
+  </form>
+</nz-card>

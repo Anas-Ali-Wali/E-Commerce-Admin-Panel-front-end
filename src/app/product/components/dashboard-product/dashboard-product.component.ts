@@ -72,6 +72,8 @@
 
 
   products: ProductResponseDto[] = [];
+  originalProducts: ProductResponseDto[] = []; // 🔥 important
+searchText: string = '';
   tenantId!: number;
   currentPage = 1;
   pageSize = 10;
@@ -90,22 +92,53 @@
     this.loadProducts();
   }
 
+  // loadProducts() {
+  //   this.isLoading = true;
+  //   this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
+  //     next: (response) => {
+  //       this.isLoading = false;
+  //       if (response.success && response.data) {
+  //         this.products = response.data.items;
+  //         this.totalCount = response.data.totalCount;
+  //       }
+  //     },
+  //     error: () => {
+  //       this.isLoading = false;
+  //       this.message.error('Failed to load products.');
+  //     }
+  //   });
+  // }
+
+
   loadProducts() {
-    this.isLoading = true;
-    this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        if (response.success && response.data) {
-          this.products = response.data.items;
-          this.totalCount = response.data.totalCount;
-        }
-      },
-      error: () => {
-        this.isLoading = false;
-        this.message.error('Failed to load products.');
+  this.isLoading = true;
+
+  this.productService.getProductsByTenant(this.tenantId).subscribe({
+    next: (response) => {
+      this.isLoading = false;
+
+      if (response.success && response.data) {
+        this.originalProducts = response.data.items;
+        this.products = [...this.originalProducts];
+        this.totalCount = this.products.length; // frontend pagination
       }
-    });
-  }
+    },
+    error: () => {
+      this.isLoading = false;
+      this.message.error('Failed to load products.');
+    }
+  });
+}
+
+onSearch() {
+  const value = this.searchText.toLowerCase();
+
+  this.products = this.originalProducts.filter(item =>
+    Object.values(item).some(val =>
+      val && val.toString().toLowerCase().includes(value)
+    )
+  );
+}
 
   onPageChange(page: number) {
     this.currentPage = page;
