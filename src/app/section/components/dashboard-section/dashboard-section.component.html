@@ -1,0 +1,71 @@
+<nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Section Dashboard</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        Manage sections for Page ID: {{ pageId }}
+      </p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="primary"
+        [routerLink]="['/section/add']"
+        [queryParams]="{ pageId: pageId }">
+        <span nz-icon nzType="plus"></span>
+        Add Section
+      </button>
+    </div>
+  </div>
+
+  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
+    <input nz-input placeholder="Search section..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearch()" />
+  </nz-input-group>
+
+  <nz-table
+    [nzData]="sections"
+    [nzLoading]="isLoading"
+    [nzFrontPagination]="true"
+    nzBordered
+    nzSize="middle">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Order No</th>
+        <th>Status</th>
+        <th nzAlign="right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let section of sections">
+        <td>{{ section.sectionId }}</td>
+        <td>{{ section.type }}</td>
+        <td>{{ section.orderNo }}</td>
+        <td>
+          <nz-tag [nzColor]="section.status ? 'success' : 'error'">
+            {{ section.status ? 'Active' : 'Inactive' }}
+          </nz-tag>
+        </td>
+        <td nzAlign="right">
+          <!-- SectionData dekho -->
+          <button nz-button nzType="default" nzSize="small"
+            style="margin-right: 8px;"
+            [routerLink]="['/section-data/dashboard']"
+            [queryParams]="{ sectionId: section.sectionId }">
+            <span nz-icon nzType="eye"></span>
+            Data
+          </button>
+
+          <button nz-button nzType="default" nzDanger nzSize="small"
+            nz-popconfirm
+            nzPopconfirmTitle="Delete this section?"
+            (nzOnConfirm)="deleteSection(section.sectionId)">
+            <span nz-icon nzType="delete"></span>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

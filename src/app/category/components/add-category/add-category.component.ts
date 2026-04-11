@@ -77,7 +77,6 @@ categoryForm: FormGroup;
     if (this.categoryForm.valid) {
       this.isSubmitting = true;
 
-      // ✅ localStorage se tenantId uthao
       const user = JSON.parse(localStorage.getItem('user')!);
       const payload: CategoryRequestDto = {
         ...this.categoryForm.value,

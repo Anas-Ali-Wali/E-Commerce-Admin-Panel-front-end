@@ -76,6 +76,8 @@ export class DashboardCategoryComponent {
 
 
 categories: CategoryResponseDto[] = [];
+originalCategories: CategoryResponseDto[] = []; // 🔥 important
+searchText = '';
   tenantId!: number;
   currentPage = 1;
   pageSize = 10;
@@ -94,23 +96,57 @@ categories: CategoryResponseDto[] = [];
     this.loadCategories();
   }
 
-  loadCategories() {
-    this.isLoading = true;
-    this.categoryService.getCategoriesByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        if (response.success && response.data) {
-          this.categories = response.data.items;
-          this.totalCount = response.data.totalCount;
-        }
-      },
-      error: (err) => {
-        this.isLoading = false;
-        this.message.error('Failed to load categories.');
-      }
-    });
-  }
+//  loadCategories() {
+//   this.isLoading = true;
 
+//   this.categoryService
+//     .getCategoriesByTenant(this.tenantId, this.currentPage, this.pageSize)
+//     .subscribe({
+//       next: (response) => {
+//         this.isLoading = false;
+
+//         if (response.success && response.data) {
+//           this.categories = response.data.items;
+//           this.originalCategories = response.data.items; // 🔥 store original
+//           this.totalCount = response.data.totalCount;
+//         }
+//       },
+//       error: () => {
+//         this.isLoading = false;
+//         this.message.error('Failed to load categories.');
+//       }
+//     });
+// }
+
+loadCategories() {
+  this.isLoading = true;
+
+  this.categoryService.getAllCategoriesByTenant(this.tenantId).subscribe({
+    next: (response) => {
+      this.isLoading = false;
+
+      if (response.success && response.data) {
+        this.originalCategories = response.data.items;
+        this.categories = [...this.originalCategories];
+        this.totalCount = response.data.items.length; // frontend pagination
+      }
+    },
+    error: () => {
+      this.isLoading = false;
+      this.message.error('Failed to load categories.');
+    }
+  });
+}
+
+onSearch() {
+  const value = this.searchText.toLowerCase();
+
+  this.categories = this.originalCategories.filter(item =>
+    Object.values(item).some(val =>
+      val && val.toString().toLowerCase().includes(value)
+    )
+  );
+}
   onPageChange(page: number) {
     this.currentPage = page;
     this.loadCategories();
