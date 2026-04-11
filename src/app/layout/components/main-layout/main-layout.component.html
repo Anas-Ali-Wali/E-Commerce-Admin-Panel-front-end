@@ -1,6 +1,5 @@
 <nz-layout class="layout-container">
 
-  <!-- Sidebar -->
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"
     nzTheme="dark" style="max-width: 280px; width: 280px">
     <div class="logo">ECommerce</div>
@@ -37,30 +36,30 @@
         <span *ngIf="!isCollapsed">Page</span>
       </li>
 
+     <li nz-menu-item routerLink="/customer/dashboard" routerLinkActive="ant-menu-item-selected">
+  <span nz-icon nzType="appstore"></span>
+  <span *ngIf="!isCollapsed">Customer</span>
+</li>
+
+      <!-- ❌ Section sidebar se remove kiya -->
+
     </ul>
   </nz-sider>
 
-  <!-- Main Layout -->
   <nz-layout>
-
-    <!-- Header -->
     <nz-header class="header">
       <span class="trigger" (click)="toggleSidebar()">
         <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
       </span>
-
-      <!-- Logout -->
       <span class="logout" (click)="logout()">
         <span nz-icon nzType="logout"></span>
         Logout
       </span>
     </nz-header>
 
-    <!-- Content -->
     <nz-content class="content">
       <router-outlet></router-outlet>
     </nz-content>
-
   </nz-layout>
 
 </nz-layout>

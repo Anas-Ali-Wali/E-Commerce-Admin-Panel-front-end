@@ -1,0 +1,74 @@
+<nz-card>
+
+  <!-- Header -->
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Section Data Dashboard</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        Manage key-value data for Section ID: {{ sectionId }}
+      </p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="primary"
+        [routerLink]="['/section-data/add']"
+        [queryParams]="{ sectionId: sectionId }">
+        <span nz-icon nzType="plus"></span>
+        Add Data
+      </button>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
+    <input
+      nz-input
+      placeholder="Search key or value..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearch()" />
+  </nz-input-group>
+
+  <!-- Table -->
+  <nz-table
+    [nzData]="sectionDataList"
+    [nzLoading]="isLoading"
+    [nzFrontPagination]="true"
+    nzBordered
+    nzSize="middle">
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Section ID</th>
+        <th>Key</th>
+        <th>Value</th>
+        <th nzAlign="right">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of sectionDataList">
+        <td>{{ item.dataId }}</td>
+        <td>{{ item.sectionId }}</td>
+        <td>
+          <nz-tag nzColor="blue">{{ item.key }}</nz-tag>
+        </td>
+        <td>{{ item.value || '-' }}</td>
+        <td nzAlign="right">
+          <button
+            nz-button
+            nzType="default"
+            nzDanger
+            nzSize="small"
+            nz-popconfirm
+            nzPopconfirmTitle="Are you sure you want to delete this data?"
+            (nzOnConfirm)="deleteSectionData(item.dataId)">
+            <span nz-icon nzType="delete"></span>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+  </nz-table>
+
+</nz-card>

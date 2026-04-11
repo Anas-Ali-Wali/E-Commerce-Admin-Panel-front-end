@@ -18,12 +18,11 @@ import { AuthGuard } from '../auth/core/guards/auth.guard';
 //     ]
 //   }
 // ];
-
 const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-        canActivate: [AuthGuard],  // ✅ yahan lagao
+    canActivate: [AuthGuard],
     children: [
       { path: 'tenant', loadChildren: () => import('../tenant/tenant.module').then(m => m.TenantModule) },
       { path: 'user', loadChildren: () => import('../user/user.module').then(m => m.UserModule) },
@@ -31,6 +30,13 @@ const routes: Routes = [
       { path: 'product', loadChildren: () => import('../product/product.module').then(m => m.ProductModule) },
       { path: 'order', loadChildren: () => import('../order/order.module').then(m => m.OrderModule) },
       { path: 'page', loadChildren: () => import('../page/page.module').then(m => m.PageModule) },
+
+            { path: 'customer', loadChildren: () => import('../customer/customer.module').then(m => m.CustomerModule) },
+
+      // ✅ Section + SectionData add karo
+      { path: 'section', loadChildren: () => import('../section/section.module').then(m => m.SectionModule) },
+      { path: 'section-data', loadChildren: () => import('../section-data/section-data.module').then(m => m.SectionDataModule) },
+
       { path: '', redirectTo: 'tenant/dashboard', pathMatch: 'full' },
     ]
   }

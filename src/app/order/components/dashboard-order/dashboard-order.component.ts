@@ -81,6 +81,8 @@ export class DashboardOrderComponent {
 
 
 orders: OrderResponseDto[] = [];
+originalOrders: OrderResponseDto[] = []; // 🔥 important
+searchText: string = '';
   tenantId!: number;
   currentPage = 1;
   pageSize = 10;
@@ -99,22 +101,52 @@ orders: OrderResponseDto[] = [];
     this.loadOrders();
   }
 
+  // loadOrders() {
+  //   this.isLoading = true;
+  //   this.orderService.getOrdersByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
+  //     next: (response) => {
+  //       this.isLoading = false;
+  //       if (response.success && response.data) {
+  //         this.orders = response.data.items;
+  //         this.totalCount = response.data.totalCount;
+  //       }
+  //     },
+  //     error: () => {
+  //       this.isLoading = false;
+  //       this.message.error('Failed to load orders.');
+  //     }
+  //   });
+  // }
+
   loadOrders() {
-    this.isLoading = true;
-    this.orderService.getOrdersByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        if (response.success && response.data) {
-          this.orders = response.data.items;
-          this.totalCount = response.data.totalCount;
-        }
-      },
-      error: () => {
-        this.isLoading = false;
-        this.message.error('Failed to load orders.');
+  this.isLoading = true;
+
+  this.orderService.getAllOrdersByTenant(this.tenantId).subscribe({
+    next: (response) => {
+      this.isLoading = false;
+
+      if (response.success && response.data) {
+        this.originalOrders = response.data.items;
+        this.orders = [...this.originalOrders];
+        this.totalCount = this.orders.length; // frontend pagination
       }
-    });
-  }
+    },
+    error: () => {
+      this.isLoading = false;
+      this.message.error('Failed to load orders.');
+    }
+  });
+}
+
+onSearch() {
+  const value = this.searchText.toLowerCase();
+
+  this.orders = this.originalOrders.filter(item =>
+    Object.values(item).some(val =>
+      val && val.toString().toLowerCase().includes(value)
+    )
+  );
+}
 
   onPageChange(page: number) {
     this.currentPage = page;

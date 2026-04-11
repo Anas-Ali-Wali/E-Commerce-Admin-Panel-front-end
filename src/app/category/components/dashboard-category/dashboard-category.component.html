@@ -102,6 +102,14 @@
     </div>
   </div>
 
+  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
+  <input
+    nz-input
+    placeholder="Search category..."
+    [(ngModel)]="searchText"
+    (ngModelChange)="onSearch()" />
+</nz-input-group>
+
   <nz-table
     #categoryTable
     [nzData]="categories"

@@ -1,0 +1,88 @@
+<nz-card>
+  <!-- Header -->
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Customer</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        Create a new customer for your tenant.
+      </p>
+    </div>
+
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/customer/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form nz-form [formGroup]="customerForm" (ngSubmit)="submit()" nzLayout="vertical">
+
+    <div nz-row [nzGutter]="16">
+
+      <!-- First Name -->
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>First Name</nz-form-label>
+          <nz-form-control nzErrorTip="First name is required">
+            <input nz-input formControlName="firstName" placeholder="Enter first name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Last Name -->
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Last Name</nz-form-label>
+          <nz-form-control nzErrorTip="Last name is required">
+            <input nz-input formControlName="lastName" placeholder="Enter last name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Email -->
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Email</nz-form-label>
+          <nz-form-control nzErrorTip="Enter valid email">
+            <input nz-input formControlName="email" placeholder="Enter email" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Password -->
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Password</nz-form-label>
+          <nz-form-control nzErrorTip="Password is required">
+            <input nz-input type="password" formControlName="password" placeholder="Enter password" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Status -->
+      <div nz-col nzSpan="12" style="display: flex; align-items: center; padding-top: 28px;">
+        <nz-form-item style="margin-bottom: 0;">
+          <nz-form-control>
+            <label nz-checkbox formControlName="status">Active</label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <!-- Submit Button -->
+    <div style="text-align: right; margin-top: 16px;">
+      <button nz-button nzType="primary"
+        type="submit"
+        [disabled]="!customerForm.valid"
+        [nzLoading]="isSubmitting">
+
+        <span nz-icon nzType="save"></span>
+        Create Customer
+      </button>
+    </div>
+
+  </form>
+</nz-card>

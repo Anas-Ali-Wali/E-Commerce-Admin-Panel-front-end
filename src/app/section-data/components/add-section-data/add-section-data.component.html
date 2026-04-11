@@ -1,0 +1,71 @@
+<nz-card>
+
+  <!-- Header -->
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Add Section Data</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        Add key-value data for Section ID: {{ sectionId }}
+      </p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default"
+        [routerLink]="['/section-data/dashboard']"
+        [queryParams]="{ sectionId: sectionId }">
+        <span nz-icon nzType="arrow-left"></span>
+        Back
+      </button>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form nz-form [formGroup]="sectionDataForm"
+    (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+    <div nz-row [nzGutter]="16">
+
+      <!-- Key -->
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Key</nz-form-label>
+          <nz-form-control nzErrorTip="Key is required">
+            <input
+              nz-input
+              formControlName="key"
+              placeholder="e.g. title, image, subtitle" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- Value -->
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Value</nz-form-label>
+          <nz-form-control>
+            <textarea
+              nz-input
+              formControlName="value"
+              placeholder="e.g. Welcome to Store"
+              [nzAutosize]="{ minRows: 2, maxRows: 5 }">
+            </textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <!-- Submit -->
+    <div style="text-align: right; margin-top: 16px;">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="sectionDataForm.invalid"
+        [nzLoading]="isSubmitting">
+        Save Data
+      </button>
+    </div>
+
+  </form>
+
+</nz-card>
