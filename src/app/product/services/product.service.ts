@@ -15,7 +15,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  createProduct(request: ProductCreateRequestDto) {
+  createProduct(request: FormData) {
     return this.http.post<ApiResponse<ProductResponseDto>>(`${this.apiUrl}/create`, request);
   }
 

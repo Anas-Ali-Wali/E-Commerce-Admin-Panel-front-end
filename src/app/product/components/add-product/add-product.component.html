@@ -216,7 +216,7 @@
   </nz-form-item>
 </div>
 
-      <div nz-col nzSpan="24">
+      <!-- <div nz-col nzSpan="24">
         <nz-form-item>
           <nz-form-label>Image URL</nz-form-label>
           <nz-form-control>
@@ -225,7 +225,22 @@
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>
-      </div>
+      </div> -->
+
+  <div nz-col nzSpan="24">
+  <nz-form-item>
+    <nz-form-label>Product Image</nz-form-label>
+    <nz-form-control>
+      <input type="file" (change)="onFileSelected($event)" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Preview -->
+  <div *ngIf="previewUrl" style="margin-top:10px;">
+    <img [src]="previewUrl"
+      style="width:150px;height:150px;object-fit:cover;border-radius:8px;" />
+  </div>
+</div>
 
     </div>
 

@@ -125,6 +125,18 @@
         </nz-form-item>
       </div>
 
+      <div nz-col nzSpan="24">
+  <nz-form-item>
+    <nz-form-label>Image</nz-form-label>
+    <nz-form-control>
+      <input type="file" (change)="onFileSelected($event)" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <div *ngIf="previewUrl">
+    <img [src]="previewUrl" width="120" height="120" style="object-fit:cover;border-radius:8px;" />
+  </div>
+</div>
     </div>
 
     <div style="text-align: right; margin-top: 16px;">
