@@ -48,7 +48,8 @@ sectionDataForm!: FormGroup;
     this.sectionDataService.createSectionData(payload).subscribe({
       next: (res) => {
         this.isSubmitting = false;
-        if (res.success) {
+        if (res.success) 
+          {
           this.message.success('Section data added successfully');
           // back to dashboard with same sectionId
           this.router.navigate(['/section-data/dashboard'], {
@@ -65,4 +66,41 @@ sectionDataForm!: FormGroup;
     });
   }
 
+
 }
+
+//   onSubmit() {
+//   if (this.sectionDataForm.invalid) return;
+
+//   this.isSubmitting = true;
+
+//   const formValue = this.sectionDataForm.value;
+
+//   const payload = {
+//     sectionId: this.sectionId,
+//     key: String(formValue.key).trim(),
+//     value: formValue.value?.trim() || null
+//   };
+
+//   console.log("FINAL PAYLOAD =>", payload); // 🔥 DEBUG
+
+//   this.sectionDataService.createSectionData(payload).subscribe({
+//     next: (res) => {
+//       this.isSubmitting = false;
+
+//       if (res.success) {
+//         this.message.success('Section data added successfully');
+
+//         this.router.navigate(['/section-data/dashboard'], {
+//           queryParams: { sectionId: this.sectionId }
+//         });
+//       } else {
+//         this.message.error(res.message || 'Failed to create');
+//       }
+//     },
+//     error: () => {
+//       this.isSubmitting = false;
+//       this.message.error('Server error occurred.');
+//     }
+//   });
+// }

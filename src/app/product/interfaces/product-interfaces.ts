@@ -3,7 +3,7 @@ export interface ProductCreateRequestDto {
   name: string;
   description?: string;
   price: number;
-  imageUrl?: string;
+  image?: File;   // ✅ NEW (file)
   categoryId?: number;
   stockQty: number;
 }

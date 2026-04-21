@@ -14,7 +14,13 @@ sectionForm!: FormGroup;
   isSubmitting = false;
   pageId!: number;
 
-  sectionTypes = ['Hero', 'Products', 'Banner', 'Testimonial', 'Footer'];
+  // sectionTypes = ['Hero', 'Products', 'Banner', 'Testimonial', 'Footer'];
+  sectionTypes = [
+  'hero-banner',
+  'featured-products',
+  'category-grid',
+  'promo-banner'
+];
 
   constructor(
     private fb: FormBuilder,

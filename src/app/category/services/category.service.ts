@@ -13,7 +13,7 @@ private apiUrl = `${environment.apiUrl}/Category`;
 
   constructor(private http: HttpClient) {}
 
-  createCategory(request: CategoryRequestDto) {
+  createCategory(request: FormData) {
     return this.http.post<ApiResponse<CategoryResponseDto>>(`${this.apiUrl}/create`, request);
   }
 

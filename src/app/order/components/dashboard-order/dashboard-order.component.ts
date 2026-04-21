@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OrderService } from '../../services/order.service';
-import { OrderResponseDto } from '../../interfaces/order-interfaces';
+import { OrderResponseDto, OrderUpdateRequestDto } from '../../interfaces/order-interfaces';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -151,6 +151,29 @@ onSearch() {
   onPageChange(page: number) {
     this.currentPage = page;
     this.loadOrders();
+  }
+
+
+  updateStatus(order: OrderResponseDto, newStatus: string): void {
+    const payload: OrderUpdateRequestDto = {
+      customerName: order.customerName,
+      customerEmail: order.customerEmail,
+      customerPhone: order.customerPhone,
+      totalAmount: order.totalAmount,
+      status: newStatus
+    };
+
+    this.orderService.updateOrder(order.orderId, payload).subscribe({
+      next: (response) => {
+        if (response.success) {
+          order.status = newStatus;
+          this.message.success('Status updated successfully');
+        } else {
+          this.message.error('Failed to update status');
+        }
+      },
+      error: () => this.message.error('Server error occurred.')
+    });
   }
 
   getStatusColor(status: string): string {
