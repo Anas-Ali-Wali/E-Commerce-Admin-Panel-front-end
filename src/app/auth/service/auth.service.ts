@@ -22,6 +22,7 @@ export class AuthService {
         if (res.success) {
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('user', JSON.stringify(res.data));
+           localStorage.setItem('tenantId', res.data.tenantId); // ✅ ye add karo
         }
       })
     );

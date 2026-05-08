@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header fw-semibold">
+    <i class="bi bi-palette me-2"></i>Theme Changes
+  </div>
+  <div class="card-body">
+
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+      <div *ngIf="errorMsg"   class="alert alert-danger">{{ errorMsg }}</div>
+
+      <!-- Font Family -->
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Font Family</label>
+        <select class="form-select w-auto" formControlName="fontFamily">
+          <option *ngFor="let f of fontFamilies" [value]="f">{{ f }}</option>
+        </select>
+      </div>
+
+      <!-- Color Fields -->
+      <div class="row g-3">
+        <div class="col-md-4" *ngFor="let field of colorFields">
+          <label class="form-label">{{ field.label }}</label>
+          <div class="input-group">
+            <input type="color"
+                   class="form-control form-control-color"
+                   [formControlName]="field.key" />
+            <input type="text"
+                   class="form-control"
+                   [formControlName]="field.key"
+                   placeholder="#ffffff" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary px-4"
+                [disabled]="saving || form.invalid">
+          <span *ngIf="saving"
+                class="spinner-border spinner-border-sm me-2"></span>
+          {{ saving ? 'Saving...' : 'Save Theme' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

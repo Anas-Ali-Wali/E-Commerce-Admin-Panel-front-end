@@ -41,7 +41,34 @@
   <span *ngIf="!isCollapsed">Customer</span>
 </li>
 
-      <!-- ❌ Section sidebar se remove kiya -->
+
+
+<!-- ✅ Settings Submenu -->
+      <li nz-submenu nzTitle="Settings" nzIcon="setting">
+        <ul>
+          <li nz-menu-item routerLink="/settings/general"
+              routerLinkActive="ant-menu-item-selected">
+            <span nz-icon nzType="setting"></span>
+            General Settings
+          </li>
+          <li nz-menu-item routerLink="/settings/theme"
+              routerLinkActive="ant-menu-item-selected">
+            <span nz-icon nzType="bg-colors"></span>
+            Theme Changes
+          </li>
+          <li nz-menu-item routerLink="/settings/social"
+              routerLinkActive="ant-menu-item-selected">
+            <span nz-icon nzType="share-alt"></span>
+            Social Media
+          </li>
+          <li nz-menu-item routerLink="/settings/slider"
+              routerLinkActive="ant-menu-item-selected">
+            <span nz-icon nzType="picture"></span>
+            Website Slider
+          </li>
+        </ul>
+      </li>
+
 
     </ul>
   </nz-sider>

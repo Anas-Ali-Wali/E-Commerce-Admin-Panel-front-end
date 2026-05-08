@@ -37,6 +37,9 @@ const routes: Routes = [
       { path: 'section', loadChildren: () => import('../section/section.module').then(m => m.SectionModule) },
       { path: 'section-data', loadChildren: () => import('../section-data/section-data.module').then(m => m.SectionDataModule) },
 
+      { path: 'settings',     loadChildren: () => import('../settings/settings.module').then(m => m.SettingsModule) },
+
+
       { path: '', redirectTo: 'tenant/dashboard', pathMatch: 'full' },
     ]
   }

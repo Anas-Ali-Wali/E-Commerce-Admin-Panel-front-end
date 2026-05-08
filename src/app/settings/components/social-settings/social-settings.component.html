@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="card-header fw-semibold">
+    <i class="bi bi-share me-2"></i>Social Media Settings
+  </div>
+  <div class="card-body">
+
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+      <div *ngIf="errorMsg"   class="alert alert-danger">{{ errorMsg }}</div>
+
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label class="form-label">Facebook URL</label>
+          <div class="input-group">
+            <span class="input-group-text bg-primary text-white">
+              <i class="bi bi-facebook"></i>
+            </span>
+            <input type="text" class="form-control"
+                   formControlName="facebookUrl"
+                   placeholder="https://facebook.com/yourpage" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Instagram URL</label>
+          <div class="input-group">
+            <span class="input-group-text bg-danger text-white">
+              <i class="bi bi-instagram"></i>
+            </span>
+            <input type="text" class="form-control"
+                   formControlName="instagramUrl"
+                   placeholder="https://instagram.com/yourpage" />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">WhatsApp Number</label>
+          <div class="input-group">
+            <span class="input-group-text bg-success text-white">
+              <i class="bi bi-whatsapp"></i>
+            </span>
+            <input type="text" class="form-control"
+                   formControlName="whatsappNumber"
+                   placeholder="923001234567" />
+          </div>
+          <small class="text-muted">
+            Country code ke saath likho (e.g. 923001234567)
+          </small>
+        </div>
+
+      </div>
+
+      <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary px-4"
+                [disabled]="saving">
+          <span *ngIf="saving"
+                class="spinner-border spinner-border-sm me-2"></span>
+          {{ saving ? 'Saving...' : 'Save Social Links' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
