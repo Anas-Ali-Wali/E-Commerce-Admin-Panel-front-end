@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-header fw-semibold">
+    <i class="bi bi-gear me-2"></i>General Settings
+  </div>
+  <div class="card-body">
+
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+      <div *ngIf="errorMsg"   class="alert alert-danger">{{ errorMsg }}</div>
+
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label class="form-label">Store Name</label>
+          <input type="text" class="form-control"
+                 formControlName="storeName"
+                 placeholder="My Awesome Store" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Footer Tagline</label>
+          <input type="text" class="form-control"
+                 formControlName="footerTagline"
+                 placeholder="Best store in town!" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Logo URL</label>
+          <input type="text" class="form-control"
+                 formControlName="logoUrl"
+                 placeholder="https://..." />
+          <img *ngIf="form.value.logoUrl"
+               [src]="form.value.logoUrl"
+               class="mt-2 rounded" height="60"
+               alt="Logo Preview" />
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Favicon URL</label>
+          <input type="text" class="form-control"
+                 formControlName="faviconUrl"
+                 placeholder="https://..." />
+          <img *ngIf="form.value.faviconUrl"
+               [src]="form.value.faviconUrl"
+               class="mt-2" height="32"
+               alt="Favicon Preview" />
+        </div>
+
+      </div>
+
+      <div class="mt-4 text-end">
+        <button type="submit" class="btn btn-primary px-4"
+                [disabled]="saving">
+          <span *ngIf="saving"
+                class="spinner-border spinner-border-sm me-2"></span>
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
