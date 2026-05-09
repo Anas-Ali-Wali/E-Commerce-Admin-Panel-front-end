@@ -3,6 +3,7 @@
 export const environment = {
   production: true,
   // apiUrl: 'http://localhost:5025/api'
+    imgbbApiKey: 'aapki_real_imgbb_key_yahan',
 
     apiUrl: 'http://anasali1-001-site1.ltempurl.com/api'  // ✅ Live URL
 

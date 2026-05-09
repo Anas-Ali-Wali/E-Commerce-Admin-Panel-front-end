@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   // apiUrl: 'http://localhost:5025/api'
-    apiUrl: 'http://localhost:5025/api'  // ✅ Local development theek hai
+    apiUrl: 'http://localhost:5025/api',  // ✅ Local development theek hai
+      imgbbApiKey: 'aapki_real_imgbb_key_yahan'
+
 
 
 };

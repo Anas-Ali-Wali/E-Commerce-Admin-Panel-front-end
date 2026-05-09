@@ -3,6 +3,7 @@ import { TenantSliderResponse } from '../../interface/tenant-slider';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TenantSliderService } from '../../services/tenant-slider.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/Environment/environment';
 
 @Component({
   selector: 'app-website-slider',
@@ -24,7 +25,10 @@ export class WebsiteSliderComponent {
   imagePreview = '';
  
   // ── ImgBB free API key — imgbb.com pe account banao, free milti hai ──
-  private IMGBB_API_KEY = 'YOUR_IMGBB_API_KEY';
+  // private IMGBB_API_KEY = 'YOUR_IMGBB_API_KEY';
+
+  private IMGBB_API_KEY = environment.imgbbApiKey;
+
  
   constructor(
     private fb: FormBuilder,
