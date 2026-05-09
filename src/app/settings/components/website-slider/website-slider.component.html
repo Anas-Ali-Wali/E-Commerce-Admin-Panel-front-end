@@ -14,7 +14,7 @@
     </div>
 
     <!-- ADD / EDIT FORM -->
-    <div class="form-sectition mb-4">
+    <div class="form-section mb-4">
       <h6 class="fw-semibold mb-3">
         <i class="bi {{ editingId ? 'bi-pencil' : 'bi-plus-circle' }} me-2"></i>
         {{ editingId ? 'Edit Slider' : 'Add New Slider' }}
@@ -36,7 +36,7 @@
             </select>
           </div>
 
-          <!-- OVERLAY — sirf image layouts ke liye -->
+          <!-- OVERLAY — sirf full-image layout ke liye -->
           <div class="col-md-6" *ngIf="isImageLayout && isFullImage">
             <label class="form-label fw-semibold">
               <i class="bi bi-circle-half me-1"></i>
@@ -57,14 +57,11 @@
               <i class="bi bi-palette me-1"></i> Background Color
             </label>
             <div class="d-flex gap-2 align-items-center">
-              <input type="color"
-                     class="form-control form-control-color"
+              <input type="color" class="form-control form-control-color"
                      formControlName="bgColor"
-                     style="width: 50px; height: 38px; padding: 2px;" />
-              <input type="text"
-                     class="form-control"
-                     formControlName="bgColor"
-                     placeholder="#1a1a2e" />
+                     style="width:50px; height:38px; padding:2px;" />
+              <input type="text" class="form-control"
+                     formControlName="bgColor" placeholder="#1a1a2e" />
             </div>
             <small class="text-muted">
               {{ form.value.layoutType === 'full-image' ? 'Button color ke liye use hoga' : 'Banner background color' }}
@@ -76,29 +73,89 @@
               <i class="bi bi-fonts me-1"></i> Text Color
             </label>
             <div class="d-flex gap-2 align-items-center">
-              <input type="color"
-                     class="form-control form-control-color"
+              <input type="color" class="form-control form-control-color"
                      formControlName="textColor"
-                     style="width: 50px; height: 38px; padding: 2px;" />
-              <input type="text"
-                     class="form-control"
-                     formControlName="textColor"
-                     placeholder="#ffffff" />
+                     style="width:50px; height:38px; padding:2px;" />
+              <input type="text" class="form-control"
+                     formControlName="textColor" placeholder="#ffffff" />
             </div>
           </div>
 
-          <!-- IMAGE URL — text-only mein hide -->
+          <!-- ════════════════════════════════════════
+               IMAGE SECTION — Upload + URL dono
+               ════════════════════════════════════════ -->
           <div class="col-md-12" *ngIf="isImageLayout">
             <label class="form-label fw-semibold">
-              <i class="bi bi-image me-1"></i> Image URL
+              <i class="bi bi-image me-1"></i> Banner Image
             </label>
-            <input type="text" class="form-control"
-                   formControlName="imageUrl"
-                   placeholder="https://example.com/banner.jpg" />
-            <div *ngIf="form.value.imageUrl" class="mt-2">
-              <img [src]="form.value.imageUrl"
-                   class="rounded border" height="80"
-                   alt="Preview" />
+
+            <!-- Tab style — Upload ya URL -->
+            <div class="border rounded p-3">
+
+              <!-- Option 1: File Upload -->
+              <div class="mb-3">
+                <label class="form-label text-muted small">
+                  <i class="bi bi-upload me-1"></i>
+                  Computer se upload karein (auto cloud pe save hoga)
+                </label>
+                <div class="d-flex align-items-center gap-2">
+                  <input type="file"
+                         class="form-control"
+                         accept="image/jpeg,image/png,image/webp,image/gif"
+                         (change)="onImageFileSelect($event)"
+                         [disabled]="imageUploading" />
+                  <div *ngIf="imageUploading"
+                       class="spinner-border spinner-border-sm text-primary flex-shrink-0">
+                  </div>
+                </div>
+                <small class="text-muted">Max 5MB — JPG, PNG, WebP supported</small>
+              </div>
+
+              <!-- Divider -->
+              <div class="d-flex align-items-center gap-2 my-2">
+                <hr class="flex-grow-1 m-0" />
+                <span class="text-muted small px-2">YA</span>
+                <hr class="flex-grow-1 m-0" />
+              </div>
+
+              <!-- Option 2: URL Paste -->
+              <div>
+                <label class="form-label text-muted small">
+                  <i class="bi bi-link-45deg me-1"></i>
+                  Image URL directly paste karein
+                </label>
+                <input type="text"
+                       class="form-control"
+                       formControlName="imageUrl"
+                       placeholder="https://example.com/banner.jpg"
+                       (input)="onUrlInput($event)" />
+              </div>
+
+              <!-- Preview -->
+              <div *ngIf="imagePreview" class="mt-3">
+                <label class="form-label text-muted small">Preview:</label>
+                <div class="position-relative d-inline-block">
+                  <img [src]="imagePreview"
+                       class="rounded border"
+                       style="height:100px; max-width:100%; object-fit:cover;"
+                       alt="Image preview"
+                       (error)="imagePreview = ''" />
+                  <button type="button"
+                          class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                          style="padding: 2px 6px; font-size: 0.7rem;"
+                          (click)="imagePreview=''; form.patchValue({imageUrl:''})">
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <!-- Uploading state -->
+              <div *ngIf="imageUploading" class="mt-2">
+                <small class="text-primary">
+                  <i class="bi bi-cloud-upload me-1"></i>
+                  Image upload ho rahi hai, please wait...
+                </small>
+              </div>
             </div>
           </div>
 
@@ -108,32 +165,32 @@
               <i class="bi bi-eye me-1"></i> Live Preview
             </label>
             <div class="rounded border overflow-hidden position-relative"
-                 style="height: 150px; display: flex; align-items: center;"
-                 [style.background]="isImageLayout && form.value.imageUrl
-                   ? 'url(' + form.value.imageUrl + ') center/cover no-repeat'
+                 style="height:150px; display:flex; align-items:center;"
+                 [style.background]="isImageLayout && imagePreview
+                   ? 'url(' + imagePreview + ') center/cover no-repeat'
                    : form.value.bgColor">
 
               <!-- overlay for full-image -->
-              <div *ngIf="isFullImage && form.value.imageUrl"
+              <div *ngIf="isFullImage && imagePreview"
                    class="position-absolute top-0 start-0 w-100 h-100"
-                   [style.background]="'rgba(0,0,0,' + (form.value.overlayOpacity / 100) + ')'">
+                   [style.background]="'rgba(0,0,0,' + (form.value.overlayOpacity/100) + ')'">
               </div>
 
-              <!-- split right image side preview -->
-              <div *ngIf="form.value.layoutType === 'split-right' && form.value.imageUrl"
+              <!-- split-right: image left side -->
+              <div *ngIf="form.value.layoutType === 'split-right' && imagePreview"
                    class="position-absolute top-0 start-0 h-100"
                    style="width:45%; background-size:cover; background-position:center;"
-                   [style.background-image]="'url(' + form.value.imageUrl + ')'">
+                   [style.background-image]="'url(' + imagePreview + ')'">
               </div>
 
-              <!-- split left image side preview -->
-              <div *ngIf="form.value.layoutType === 'split-left' && form.value.imageUrl"
+              <!-- split-left: image right side -->
+              <div *ngIf="form.value.layoutType === 'split-left' && imagePreview"
                    class="position-absolute top-0 end-0 h-100"
                    style="width:45%; background-size:cover; background-position:center;"
-                   [style.background-image]="'url(' + form.value.imageUrl + ')'">
+                   [style.background-image]="'url(' + imagePreview + ')'">
               </div>
 
-              <!-- text content preview -->
+              <!-- Text preview -->
               <div class="position-relative px-4"
                    [style.color]="form.value.textColor"
                    [style.margin-left]="form.value.layoutType === 'split-right' ? '45%' : '0'"
@@ -159,30 +216,26 @@
           <div class="col-md-6">
             <label class="form-label">Title</label>
             <input type="text" class="form-control"
-                   formControlName="title"
-                   placeholder="Summer Sale!" />
+                   formControlName="title" placeholder="Summer Sale!" />
           </div>
 
           <div class="col-md-6">
             <label class="form-label">Subtitle</label>
             <input type="text" class="form-control"
-                   formControlName="subtitle"
-                   placeholder="Up to 50% off" />
+                   formControlName="subtitle" placeholder="Up to 50% off" />
           </div>
 
           <!-- BUTTON -->
           <div class="col-md-4">
             <label class="form-label">Button Text</label>
             <input type="text" class="form-control"
-                   formControlName="buttonText"
-                   placeholder="Shop Now" />
+                   formControlName="buttonText" placeholder="Shop Now" />
           </div>
 
           <div class="col-md-4">
             <label class="form-label">Button Link</label>
             <input type="text" class="form-control"
-                   formControlName="buttonLink"
-                   placeholder="/products" />
+                   formControlName="buttonLink" placeholder="/products" />
           </div>
 
           <!-- ORDER & ACTIVE -->
@@ -204,14 +257,13 @@
 
         <div class="mt-3 d-flex gap-2">
           <button type="submit" class="btn btn-primary"
-                  [disabled]="saving || form.invalid">
+                  [disabled]="saving || imageUploading">
             <span *ngIf="saving"
                   class="spinner-border spinner-border-sm me-1"></span>
             {{ editingId ? 'Update Slider' : 'Add Slider' }}
           </button>
           <button *ngIf="editingId" type="button"
-                  class="btn btn-secondary"
-                  (click)="resetForm()">
+                  class="btn btn-secondary" (click)="resetForm()">
             Cancel
           </button>
         </div>
@@ -254,9 +306,8 @@
           <tr *ngFor="let slider of sliders">
             <td>{{ slider.sliderId }}</td>
 
-            <!-- Preview -->
             <td>
-              <div *ngIf="slider.imageUrl; else colorBox"
+              <div *ngIf="slider.imageUrl && slider.imageUrl.startsWith('http'); else colorBox"
                    class="rounded border"
                    style="width:70px; height:45px; background-size:cover; background-position:center;"
                    [style.background-image]="'url(' + slider.imageUrl + ')'">
@@ -271,29 +322,23 @@
 
             <td>{{ slider.title || '-' }}</td>
 
-            <!-- Layout badge -->
             <td>
               <span class="badge bg-info text-dark">
-                {{ slider.layoutType === 'full-image'   ? '🖼️ Full Image'    :
-                   slider.layoutType === 'text-only'    ? '🎨 Color BG'      :
-                   slider.layoutType === 'split-left'   ? '◧ Split Left'     :
-                   slider.layoutType === 'split-right'  ? '◨ Split Right'    : slider.layoutType }}
+                {{ slider.layoutType === 'full-image'  ? '🖼️ Full Image'  :
+                   slider.layoutType === 'text-only'   ? '🎨 Color BG'    :
+                   slider.layoutType === 'split-left'  ? '◧ Split Left'   :
+                   slider.layoutType === 'split-right' ? '◨ Split Right'  : slider.layoutType }}
               </span>
             </td>
 
-            <!-- Colors preview -->
             <td>
               <div class="d-flex gap-1 align-items-center">
-                <div class="rounded border"
-                     style="width:20px; height:20px;"
+                <div class="rounded border" style="width:20px; height:20px;"
                      [style.background]="slider.bgColor"
-                     [title]="'BG: ' + slider.bgColor">
-                </div>
-                <div class="rounded border"
-                     style="width:20px; height:20px;"
+                     [title]="'BG: ' + slider.bgColor"></div>
+                <div class="rounded border" style="width:20px; height:20px;"
                      [style.background]="slider.textColor"
-                     [title]="'Text: ' + slider.textColor">
-                </div>
+                     [title]="'Text: ' + slider.textColor"></div>
               </div>
             </td>
 
@@ -301,8 +346,8 @@
 
             <td>
               <span class="badge rounded-pill"
-                [class.bg-success]="slider.isActive"
-                [class.bg-secondary]="!slider.isActive">
+                    [class.bg-success]="slider.isActive"
+                    [class.bg-secondary]="!slider.isActive">
                 {{ slider.isActive ? 'Active' : 'Inactive' }}
               </span>
             </td>
