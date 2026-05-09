@@ -32,6 +32,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { HttpClientModule } from '@angular/common/http';  // ← ADD KARO
+
 
 const ZORRO_MODULES = [
   NzButtonModule,
@@ -62,7 +64,8 @@ const ZORRO_MODULES = [
   NzMenuModule,
   NzBreadCrumbModule,
   NzAlertModule,
-  NzAvatarModule
+  NzAvatarModule,
+  HttpClientModule
 ];
 
 @NgModule({
@@ -71,12 +74,14 @@ const ZORRO_MODULES = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ...ZORRO_MODULES
   ],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     ...ZORRO_MODULES
   ]
 })
