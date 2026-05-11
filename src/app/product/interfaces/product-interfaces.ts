@@ -3,9 +3,13 @@ export interface ProductCreateRequestDto {
   name: string;
   description?: string;
   price: number;
-  image?: File;   // ✅ NEW (file)
+  image?: File;
   categoryId?: number;
   stockQty: number;
+  sizes?: string[];
+  colors?: string[];
+  sku?: string;
+  brand?: string;
 }
 
 export interface ProductUpdateRequestDto {
@@ -16,6 +20,10 @@ export interface ProductUpdateRequestDto {
   categoryId?: number;
   stockQty: number;
   status: boolean;
+  sizes?: string[];
+  colors?: string[];
+  sku?: string;
+  brand?: string;
 }
 
 export interface ProductResponseDto {
@@ -29,6 +37,10 @@ export interface ProductResponseDto {
   stockQty: number;
   status: boolean;
   createdDate: string;
+  sizes: string[];
+  colors: string[];
+  sku?: string;
+  brand?: string;
 }
 
 export interface ApiResponse<T> {
