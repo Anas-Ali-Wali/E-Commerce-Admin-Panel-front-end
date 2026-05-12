@@ -11,6 +11,7 @@ menuItems = [
     { label: 'Theme Changes',         icon: 'bi-palette', route: 'theme'   },
     { label: 'Social Media',          icon: 'bi-share',   route: 'social'  },
     { label: 'Website Slider/Banner', icon: 'bi-images',  route: 'slider'  },
+    { label: 'Integration',           icon: 'bi-plug',    route: 'integration' },
   ];
 
 }
