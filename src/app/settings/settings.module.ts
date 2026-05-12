@@ -8,6 +8,7 @@ import { GeneralSettingsComponent } from './components/general-settings/general-
 import { ThemeChangesComponent } from './components/theme-changes/theme-changes.component';
 import { SocialSettingsComponent } from './components/social-settings/social-settings.component';
 import { WebsiteSliderComponent } from './components/website-slider/website-slider.component';
+import { IntegrationComponent } from './components/integration/integration.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { WebsiteSliderComponent } from './components/website-slider/website-slid
     GeneralSettingsComponent,
     ThemeChangesComponent,
     SocialSettingsComponent,
-    WebsiteSliderComponent
+    WebsiteSliderComponent,
+    IntegrationComponent
   ],
   imports: [
     CommonModule,
