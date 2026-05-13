@@ -1,154 +1,204 @@
-<div class="page-wrapper">
+<div class="integration-page">
 
-  <!-- Header -->
+  <!-- ═══════════════════════════════════════
+       PAGE HEADER
+  ═══════════════════════════════════════ -->
   <div class="page-header">
-    <div>
-      <h2>Integration Settings</h2>
-      <p>Configure Email and WhatsApp notification settings for your store.</p>
+    <div class="header-left">
+      <h2 class="page-title">
+        <span class="title-icon">🔗</span>
+        Integrations
+      </h2>
+      <p class="page-subtitle">Configure Email & WhatsApp notifications for your store</p>
     </div>
   </div>
 
-  <!-- Loading Spinner -->
-  <div *ngIf="loading" class="loading-box">
-    <nz-spin nzSize="large" nzTip="Loading..."></nz-spin>
+  <!-- ═══════════════════════════════════════
+       LOADING STATE
+  ═══════════════════════════════════════ -->
+  <div *ngIf="loading" class="loading-wrapper">
+    <nz-spin nzTip="Loading settings..."></nz-spin>
   </div>
 
-  <!-- Form -->
-  <form *ngIf="!loading" [formGroup]="form" nz-form nzLayout="vertical">
-    <div class="settings-grid">
+  <form [formGroup]="form" *ngIf="!loading">
 
-      <!-- EMAIL CARD -->
-      <nz-card>
-        <div class="card-title-row">
-          <div class="card-title">
-            <span nz-icon nzType="mail" nzTheme="outline" class="card-icon email-icon"></span>
-            <span class="card-label">Email Settings</span>
+    <!-- ═══════════════════════════════════════
+         WHATSAPP CARD
+    ═══════════════════════════════════════ -->
+    <nz-card class="integration-card wa-card">
+      <div class="card-header-row">
+        <div class="card-brand">
+          <div class="brand-icon wa-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.533 5.854L.057 23.172a.75.75 0 00.918.919l5.375-1.48A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.93 9.93 0 01-5.077-1.388.75.75 0 00-.576-.077l-3.8 1.047 1.051-3.737a.75.75 0 00-.079-.589A9.93 9.93 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            </svg>
           </div>
-          <nz-form-item style="margin: 0">
-            <nz-form-control>
-              <nz-switch formControlName="isEmailEnabled"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-
-        <nz-divider></nz-divider>
-
-        <div [class.disabled-section]="!isEmailEnabled">
-
-          <nz-form-item>
-            <nz-form-label>Email Provider</nz-form-label>
-            <nz-form-control>
-              <nz-select formControlName="emailProvider" nzPlaceHolder="Select Provider">
-                <nz-option nzValue="SendGrid" nzLabel="SendGrid"></nz-option>
-                <nz-option nzValue="SMTP"     nzLabel="SMTP"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label>API Key</nz-form-label>
-            <nz-form-control>
-              <nz-input-group [nzSuffix]="emailKeyTpl">
-                <input nz-input formControlName="emailApiKey"
-                  [type]="showEmailKey ? 'text' : 'password'"
-                  placeholder="Enter API Key" />
-              </nz-input-group>
-              <ng-template #emailKeyTpl>
-                <span nz-icon [nzType]="showEmailKey ? 'eye' : 'eye-invisible'"
-                  (click)="showEmailKey = !showEmailKey" style="cursor:pointer"></span>
-              </ng-template>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label>Sender Email</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="emailSenderAddress"
-                placeholder="from@yourstore.com" />
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label>Sender Name</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="emailSenderName"
-                placeholder="Your Store Name" />
-            </nz-form-control>
-          </nz-form-item>
-
-        </div>
-      </nz-card>
-
-      <!-- WHATSAPP CARD -->
-      <nz-card>
-        <div class="card-title-row">
-          <div class="card-title">
-            <span nz-icon nzType="message" nzTheme="outline" class="card-icon wa-icon"></span>
-            <span class="card-label">WhatsApp Settings</span>
+          <div>
+            <h3 class="brand-name">WhatsApp Business</h3>
+            <span class="brand-sub">Meta Cloud API — Free 1,000 msgs/month</span>
           </div>
-          <nz-form-item style="margin: 0">
-            <nz-form-control>
-              <nz-switch formControlName="isWhatsAppEnabled"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
+        </div>
+        <div class="toggle-wrap">
+          <nz-switch formControlName="isWhatsAppEnabled" nzCheckedChildren="ON" nzUnCheckedChildren="OFF"></nz-switch>
+        </div>
+      </div>
+
+      <!-- WhatsApp Fields -->
+      <div class="fields-grid" *ngIf="isWhatsAppEnabled">
+        <nz-divider class="section-divider"></nz-divider>
+
+        <!-- Provider -->
+        <div class="field-row">
+          <label class="field-label">Provider</label>
+          <nz-select formControlName="whatsAppProvider" class="field-input" nzPlaceHolder="Select provider">
+            <nz-option nzValue="Meta" nzLabel="Meta WhatsApp Cloud API"></nz-option>
+            <nz-option nzValue="Twilio" nzLabel="Twilio WhatsApp"></nz-option>
+          </nz-select>
         </div>
 
-        <nz-divider></nz-divider>
-
-        <div [class.disabled-section]="!isWhatsAppEnabled">
-
-          <nz-form-item>
-            <nz-form-label>WhatsApp Provider</nz-form-label>
-            <nz-form-control>
-              <nz-select formControlName="whatsAppProvider" nzPlaceHolder="Select Provider">
-                <nz-option nzValue="Meta"   nzLabel="Meta (Official)"></nz-option>
-                <nz-option nzValue="Twilio" nzLabel="Twilio"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label>Access Token</nz-form-label>
-            <nz-form-control>
-              <nz-input-group [nzSuffix]="waTokenTpl">
-                <input nz-input formControlName="whatsAppToken"
-                  [type]="showWaToken ? 'text' : 'password'"
-                  placeholder="Enter Access Token" />
-              </nz-input-group>
-              <ng-template #waTokenTpl>
-                <span nz-icon [nzType]="showWaToken ? 'eye' : 'eye-invisible'"
-                  (click)="showWaToken = !showWaToken" style="cursor:pointer"></span>
-              </ng-template>
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label>Phone Number ID</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="whatsAppPhoneNumberId"
-                placeholder="Meta Phone Number ID" />
-            </nz-form-control>
-          </nz-form-item>
-
-          <nz-form-item>
-            <nz-form-label>Business ID</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="whatsAppBusinessId"
-                placeholder="Meta Business ID" />
-            </nz-form-control>
-          </nz-form-item>
-
+        <!-- Phone Number ID -->
+        <div class="field-row">
+          <label class="field-label">
+            Phone Number ID
+            <a href="https://developers.facebook.com/apps/" target="_blank" class="help-link">
+              (Find in Meta App ↗)
+            </a>
+          </label>
+          <input nz-input formControlName="whatsAppPhoneNumberId"
+                 class="field-input"
+                 placeholder="e.g. 123456789012345" />
         </div>
-      </nz-card>
 
-    </div>
+        <!-- Access Token -->
+        <div class="field-row">
+          <label class="field-label">Permanent Access Token</label>
+          <nz-input-group [nzSuffix]="waSuffix" class="field-input">
+            <input nz-input
+                   formControlName="whatsAppToken"
+                   [type]="showWaToken ? 'text' : 'password'"
+                   placeholder="EAAxxxxxxxxxx..." />
+          </nz-input-group>
+          <ng-template #waSuffix>
+            <span class="eye-btn" (click)="showWaToken = !showWaToken">
+              {{ showWaToken ? '🙈' : '👁️' }}
+            </span>
+          </ng-template>
+        </div>
 
-    <!-- Save Button -->
+        <!-- Business Account ID -->
+        <div class="field-row">
+          <label class="field-label">Business Account ID <span class="optional-tag">Optional</span></label>
+          <input nz-input formControlName="whatsAppBusinessId"
+                 class="field-input"
+                 placeholder="e.g. 987654321" />
+        </div>
+
+        <!-- Webhook Info -->
+        <div class="webhook-info-box">
+          <div class="webhook-title">📡 Webhook Setup (Meta Dashboard)</div>
+          <div class="webhook-row">
+            <span class="webhook-label">Webhook URL:</span>
+            <code class="webhook-code">https://yourdomain.com/api/WhatsAppWebhook</code>
+          </div>
+          <div class="webhook-row">
+            <span class="webhook-label">Verify Token:</span>
+            <code class="webhook-code">YOUR_VERIFY_TOKEN_HERE</code>
+          </div>
+          <div class="webhook-row">
+            <span class="webhook-label">Subscribe to:</span>
+            <code class="webhook-code">messages</code>
+          </div>
+        </div>
+
+        <!-- Test Button -->
+        <div class="test-section">
+          <input nz-input [(ngModel)]="testWaPhone" [ngModelOptions]="{standalone: true}"
+                 placeholder="+923001234567 (with country code)"
+                 class="test-input" />
+          <button nz-button nzType="default" class="test-btn wa-test-btn"
+                  (click)="testWhatsApp()" [nzLoading]="testWaLoading">
+            📨 Send Test Message
+          </button>
+        </div>
+      </div>
+    </nz-card>
+
+    <!-- ═══════════════════════════════════════
+         EMAIL CARD
+    ═══════════════════════════════════════ -->
+    <nz-card class="integration-card email-card">
+      <div class="card-header-row">
+        <div class="card-brand">
+          <div class="brand-icon email-icon">✉️</div>
+          <div>
+            <h3 class="brand-name">Email Notifications</h3>
+            <span class="brand-sub">SendGrid / SMTP</span>
+          </div>
+        </div>
+        <div class="toggle-wrap">
+          <nz-switch formControlName="isEmailEnabled" nzCheckedChildren="ON" nzUnCheckedChildren="OFF"></nz-switch>
+        </div>
+      </div>
+
+      <div class="fields-grid" *ngIf="isEmailEnabled">
+        <nz-divider class="section-divider"></nz-divider>
+
+        <div class="field-row">
+          <label class="field-label">Email Provider</label>
+          <nz-select formControlName="emailProvider" class="field-input" nzPlaceHolder="Select provider">
+            <nz-option nzValue="SendGrid" nzLabel="SendGrid"></nz-option>
+            <nz-option nzValue="SMTP" nzLabel="SMTP"></nz-option>
+          </nz-select>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label">API Key / Password</label>
+          <nz-input-group [nzSuffix]="emailSuffix" class="field-input">
+            <input nz-input
+                   formControlName="emailApiKey"
+                   [type]="showEmailKey ? 'text' : 'password'"
+                   placeholder="SG.xxxxxxxxxxxx" />
+          </nz-input-group>
+          <ng-template #emailSuffix>
+            <span class="eye-btn" (click)="showEmailKey = !showEmailKey">
+              {{ showEmailKey ? '🙈' : '👁️' }}
+            </span>
+          </ng-template>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label">Sender Email</label>
+          <input nz-input formControlName="emailSenderAddress"
+                 class="field-input" placeholder="orders@yourstore.com" />
+        </div>
+
+        <div class="field-row">
+          <label class="field-label">Sender Name</label>
+          <input nz-input formControlName="emailSenderName"
+                 class="field-input" placeholder="Your Store Name" />
+        </div>
+
+        <!-- Test Email -->
+        <div class="test-section">
+          <input nz-input [(ngModel)]="testEmail" [ngModelOptions]="{standalone: true}"
+                 placeholder="test@email.com"
+                 class="test-input" />
+          <button nz-button nzType="default" class="test-btn email-test-btn"
+                  (click)="testEmailFn()" [nzLoading]="testEmailLoading">
+            📧 Send Test Email
+          </button>
+        </div>
+      </div>
+    </nz-card>
+
+    <!-- ═══════════════════════════════════════
+         SAVE BUTTON
+    ═══════════════════════════════════════ -->
     <div class="save-row">
       <button nz-button nzType="primary" nzSize="large"
-        [nzLoading]="saveLoading" (click)="save()">
-        <span nz-icon nzType="save"></span>
-        Save Settings
+              class="save-btn" (click)="save()" [nzLoading]="saveLoading">
+        💾 Save Settings
       </button>
     </div>
 
