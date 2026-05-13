@@ -134,7 +134,8 @@
       <tr *ngFor="let order of orders">
         <td>{{ order.orderId }}</td>
         <td>{{ order.customerName }}</td>
-        <td>{{ order.totalAmount | currency }}</td>
+        <!-- <td>{{ order.totalAmount | currency }}</td> -->
+         <td>{{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}</td>
         <!-- <td>
           <nz-tag [nzColor]="getStatusColor(order.status)">
             {{ order.status }}
