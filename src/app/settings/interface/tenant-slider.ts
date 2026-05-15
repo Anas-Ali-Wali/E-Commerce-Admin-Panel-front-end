@@ -13,6 +13,7 @@ export interface TenantSliderRequest {
   bgColor: string;
   textColor: string;
   overlayOpacity: number;
+  isPresetImage: boolean;  // ← NEW
 
 }
 
@@ -30,6 +31,7 @@ export interface UpdateSliderRequest {
   bgColor: string;
   textColor: string;
   overlayOpacity: number;
+  isPresetImage: boolean;  // ← NEW
 
 }
 
@@ -49,5 +51,6 @@ export interface TenantSliderResponse {
   bgColor: string;
   textColor: string;
   overlayOpacity: number;
+  isPresetImage: boolean;  // ← NEW
 
 }

@@ -47,6 +47,8 @@ private apiUrl = `${environment.apiUrl}/TenantSlider`;
     );
   }
 
+  
+
   // DELETE — sp_TenantSliders_Delete
   deleteSlider(sliderId: number): Observable<ApiResponse<boolean>> {
     return this.http.delete<ApiResponse<boolean>>(
@@ -55,5 +57,10 @@ private apiUrl = `${environment.apiUrl}/TenantSlider`;
   }
 
 
-  
+  // GET preset images — naya section ke liye
+getPresetImages(tenantId: number): Observable<ApiResponse<TenantSliderResponse[]>> {
+  return this.http.get<ApiResponse<TenantSliderResponse[]>>(
+    `${this.apiUrl}/preset/${tenantId}`
+  );
+}
 }
