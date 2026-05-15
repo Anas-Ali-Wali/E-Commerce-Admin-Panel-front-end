@@ -17,6 +17,7 @@ sectionForm!: FormGroup;
   // sectionTypes = ['Hero', 'Products', 'Banner', 'Testimonial', 'Footer'];
   sectionTypes = [
   'hero-banner',
+    'image-gallery',
   'featured-products',
   'category-grid',
   'promo-banner'

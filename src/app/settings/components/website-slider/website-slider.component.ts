@@ -53,7 +53,9 @@ export class WebsiteSliderComponent {
       layoutType:     ['full-image'],
       bgColor:        ['#1a1a2e'],
       textColor:      ['#ffffff'],
-      overlayOpacity: [50]
+      overlayOpacity: [50],
+          isPresetImage:  [false]  // ← NEW
+
     });
  
     // imageUrl change hone par preview update karo
@@ -132,51 +134,106 @@ export class WebsiteSliderComponent {
     });
   }
  
+  // onSubmit(): void {
+  //   if (this.form.invalid) return;
+ 
+  //   // base64 check — galti se base64 na jaye
+  //   const imageUrl = this.form.value.imageUrl || '';
+  //   if (imageUrl.startsWith('data:')) {
+  //     this.errorMsg = 'Base64 image allowed nahi. Pehle file upload karein ya URL paste karein.';
+  //     return;
+  //   }
+ 
+  //   this.saving = true;
+  //   this.successMsg = '';
+  //   this.errorMsg = '';
+ 
+  //   if (this.editingId) {
+  //     this.service.updateSlider(this.editingId, this.form.value).subscribe({
+  //       next: () => {
+  //         this.successMsg = 'Slider updated successfully!';
+  //         this.resetForm();
+  //         this.loadSliders();
+  //         this.saving = false;
+  //       },
+  //       error: () => {
+  //         this.errorMsg = 'Error updating slider!';
+  //         this.saving = false;
+  //       }
+  //     });
+  //   } else {
+  //     this.service.addSlider({
+  //       tenantId: this.tenantId,
+  //       ...this.form.value
+  //     }).subscribe({
+  //       next: () => {
+  //         this.successMsg = 'Slider added successfully!';
+  //         this.resetForm();
+  //         this.loadSliders();
+  //         this.saving = false;
+  //       },
+  //       error: () => {
+  //         this.errorMsg = 'Error adding slider!';
+  //         this.saving = false;
+  //       }
+  //     });
+  //   }
+  // }
+
+
   onSubmit(): void {
-    if (this.form.invalid) return;
- 
-    // base64 check — galti se base64 na jaye
-    const imageUrl = this.form.value.imageUrl || '';
-    if (imageUrl.startsWith('data:')) {
-      this.errorMsg = 'Base64 image allowed nahi. Pehle file upload karein ya URL paste karein.';
-      return;
-    }
- 
-    this.saving = true;
-    this.successMsg = '';
-    this.errorMsg = '';
- 
-    if (this.editingId) {
-      this.service.updateSlider(this.editingId, this.form.value).subscribe({
-        next: () => {
-          this.successMsg = 'Slider updated successfully!';
-          this.resetForm();
-          this.loadSliders();
-          this.saving = false;
-        },
-        error: () => {
-          this.errorMsg = 'Error updating slider!';
-          this.saving = false;
-        }
-      });
-    } else {
-      this.service.addSlider({
-        tenantId: this.tenantId,
-        ...this.form.value
-      }).subscribe({
-        next: () => {
-          this.successMsg = 'Slider added successfully!';
-          this.resetForm();
-          this.loadSliders();
-          this.saving = false;
-        },
-        error: () => {
-          this.errorMsg = 'Error adding slider!';
-          this.saving = false;
-        }
-      });
-    }
+  if (this.form.invalid) return;
+
+  const imageUrl = this.form.value.imageUrl || '';
+  const isPreset = this.form.value.isPresetImage;
+  const layoutType = this.form.value.layoutType;
+
+  console.log('isPresetImage:', isPreset);  // ← debug
+  console.log('imageUrl:', imageUrl);        // ← debug
+
+  if (imageUrl.startsWith('data:')) {
+    this.errorMsg = 'Base64 image allowed nahi.';
+    return;
   }
+
+  // Image required check (text-only ke ilawa)
+  if (layoutType !== 'text-only' && !imageUrl) {
+    this.errorMsg = 'Pehle image upload karein ya URL paste karein!';
+    return;
+  }
+
+  this.saving = true;
+  this.successMsg = '';
+  this.errorMsg = '';
+
+  if (this.editingId) {
+    this.service.updateSlider(this.editingId, this.form.value).subscribe({
+      next: () => {
+        this.successMsg = 'Slider updated!';
+        this.resetForm();
+        this.loadSliders();
+        this.saving = false;
+      },
+      error: () => { this.errorMsg = 'Error!'; this.saving = false; }
+    });
+  } else {
+    const payload = {
+      tenantId: this.tenantId,
+      ...this.form.value
+    };
+    console.log('Final payload:', payload);  // ← debug
+
+    this.service.addSlider(payload).subscribe({
+      next: () => {
+        this.successMsg = 'Slider added!';
+        this.resetForm();
+        this.loadSliders();
+        this.saving = false;
+      },
+      error: () => { this.errorMsg = 'Error!'; this.saving = false; }
+    });
+  }
+}
  
   onEdit(slider: TenantSliderResponse): void {
     this.editingId = slider.sliderId;
@@ -192,7 +249,9 @@ export class WebsiteSliderComponent {
       layoutType:     slider.layoutType     || 'full-image',
       bgColor:        slider.bgColor        || '#1a1a2e',
       textColor:      slider.textColor      || '#ffffff',
-      overlayOpacity: slider.overlayOpacity ?? 50
+      overlayOpacity: slider.overlayOpacity ?? 50,
+      isPresetImage:  slider.isPresetImage  ?? false  // ← NEW
+
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -217,7 +276,9 @@ export class WebsiteSliderComponent {
       layoutType:     'full-image',
       bgColor:        '#1a1a2e',
       textColor:      '#ffffff',
-      overlayOpacity: 50
+      overlayOpacity: 50,
+          isPresetImage:  false  // ← NEW
+
     });
   }
  
