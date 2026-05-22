@@ -9,6 +9,7 @@ import { ThemeChangesComponent } from './components/theme-changes/theme-changes.
 import { SocialSettingsComponent } from './components/social-settings/social-settings.component';
 import { WebsiteSliderComponent } from './components/website-slider/website-slider.component';
 import { IntegrationComponent } from './components/integration/integration.component';
+import { CardStyleComponent } from './components/card-style/card-style.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { IntegrationComponent } from './components/integration/integration.compo
     ThemeChangesComponent,
     SocialSettingsComponent,
     WebsiteSliderComponent,
-    IntegrationComponent
+    IntegrationComponent,
+    CardStyleComponent
   ],
   imports: [
     CommonModule,

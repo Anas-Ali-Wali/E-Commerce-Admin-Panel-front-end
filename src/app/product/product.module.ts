@@ -6,11 +6,13 @@ import { ProductRoutingModule } from './product-routing.module';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { DashboardProductComponent } from './components/dashboard-product/dashboard-product.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProductImagesComponent } from './components/product-images/product-images.component';
 
 @NgModule({
   declarations: [
     AddProductComponent,
-    DashboardProductComponent
+    DashboardProductComponent,
+    ProductImagesComponent
   ],
   imports: [
     CommonModule,

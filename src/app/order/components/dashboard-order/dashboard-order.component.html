@@ -87,12 +87,14 @@
 </nz-card> -->
 
 
-
 <nz-card>
+  <!-- Header -->
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Order Dashboard</h2>
-      <p nz-typography nzType="secondary" style="margin-bottom: 0;">Track orders by tenant and manage order lifecycle.</p>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        Track and manage all orders with real-time notifications.
+      </p>
     </div>
     <div nz-col>
       <button nz-button nzType="primary" routerLink="/order/add">
@@ -102,14 +104,28 @@
     </div>
   </div>
 
-  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
-  <input
-    nz-input
-    placeholder="Search order..."
-    [(ngModel)]="searchText"
-    (ngModelChange)="onSearch()" />
-</nz-input-group>
+  <!-- ✅ Filter Tabs -->
+  <div style="margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+    <button
+      *ngFor="let tab of filterTabs"
+      nz-button
+      [nzType]="activeFilter === tab ? 'primary' : 'default'"
+      nzSize="small"
+      (click)="filterByStatus(tab)">
+      {{ tab }}
+    </button>
+  </div>
 
+  <!-- Search -->
+  <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
+    <input
+      nz-input
+      placeholder="Search order..."
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearch()" />
+  </nz-input-group>
+
+  <!-- Table -->
   <nz-table
     #orderTable
     [nzData]="orders"
@@ -124,38 +140,54 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Customer Name</th>
-        <th>Total Amount</th>
+        <th>Customer</th>
+        <th>Phone</th>
+        <th>Products</th>
+        <th>Amount</th>
+        <th>Date</th>
         <th>Status</th>
         <th nzAlign="right">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of orders">
-        <td>{{ order.orderId }}</td>
-        <td>{{ order.customerName }}</td>
-        <!-- <td>{{ order.totalAmount | currency }}</td> -->
-         <td>{{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}</td>
-        <!-- <td>
-          <nz-tag [nzColor]="getStatusColor(order.status)">
+      <tr *ngFor="let order of orderTable.data">
+        <td>#{{ order.orderId }}</td>
+        <td>
+          <div>{{ order.customerName }}</div>
+          <small style="color: gray;">{{ order.customerEmail }}</small>
+        </td>
+        <td>{{ order.customerPhone }}</td>
+        <td>
+          <span style="font-size: 12px; color: #666;">
+            {{ order.productsSummary || '—' }}
+          </span>
+        </td>
+        <td>{{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}</td>
+        <td>{{ order.createdDate | date:'dd MMM, yyyy' }}</td>
+        <td>
+          <!-- ✅ Status Badge -->
+          <nz-tag [nzColor]="getStatusColor(order.status)" style="margin-bottom: 4px;">
             {{ order.status }}
           </nz-tag>
-        </td> -->
-                <td>
+          <br/>
+          <!-- ✅ Status Dropdown -->
           <nz-select
             [ngModel]="order.status"
             (ngModelChange)="updateStatus(order, $event)"
             nzSize="small"
-            style="width: 130px;">
-            <nz-option nzValue="Pending" nzLabel="Pending"></nz-option>
-            <nz-option nzValue="Confirmed" nzLabel="Confirmed"></nz-option>
-            <nz-option nzValue="Cancelled" nzLabel="Cancelled"></nz-option>
+            style="width: 170px;">
+            <nz-option
+              *ngFor="let s of statusOptions"
+              [nzValue]="s.value"
+              [nzLabel]="s.label">
+            </nz-option>
           </nz-select>
         </td>
-
         <td nzAlign="right">
-          <button nz-button nzType="default" nzDanger nzSize="small"
-            nz-popconfirm nzPopconfirmTitle="Are you sure you want to delete this order?"
+          <button
+            nz-button nzType="default" nzDanger nzSize="small"
+            nz-popconfirm
+            nzPopconfirmTitle="Are you sure you want to delete this order?"
             (nzOnConfirm)="deleteOrder(order.orderId)">
             <span nz-icon nzType="delete"></span>
             Delete

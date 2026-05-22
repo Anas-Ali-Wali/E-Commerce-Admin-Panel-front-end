@@ -24,6 +24,7 @@ export interface OrderResponseDto {
   totalAmount: number;
   status: string;
   createdDate: string;
+  productsSummary?: string;        // ✅ NEW
   orderDetails?: OrderDetailResponseDto[];
 }
 

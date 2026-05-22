@@ -60,3 +60,24 @@ export interface PaginatedResponse<T> {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
+
+
+
+
+export interface ProductImageResponseDto {
+  imageId: number;
+  productId: number;
+  imageUrl: string;
+  colorName?: string;
+  isPrimary: boolean;
+  orderNo: number;
+  createdDate: string;
+}
+
+export interface ProductImageAddDto {
+  productId: number;
+  image: File;
+  colorName?: string;
+  isPrimary: boolean;
+  orderNo: number;
+}

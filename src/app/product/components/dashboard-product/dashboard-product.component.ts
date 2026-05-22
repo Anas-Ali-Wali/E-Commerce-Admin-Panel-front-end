@@ -9,67 +9,6 @@
     styleUrls: ['./dashboard-product.component.css']
   })
   export class DashboardProductComponent {
-  // products: ProductResponseDto[] = [];
-  //   tenantId = 1;
-  //   currentPage = 1;
-  //   pageSize = 10;
-  //   totalCount = 0;
-  //   isLoading = false;
-
-  //   constructor(
-  //     private productService: ProductService,
-  //     private message: NzMessageService
-  //   ) {}
-
-  //   ngOnInit() {
-  //     this.loadProducts();
-  //   }
-
-  //   loadProducts() {
-  //     this.isLoading = true;
-  //     this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
-  //       next: (response) => {
-  //         this.isLoading = false;
-  //         if (response.success && response.data) {
-  //           this.products = response.data.items;
-  //           this.totalCount = response.data.totalCount;
-  //         }
-  //       },
-  //       error: (err) => {
-  //         this.isLoading = false;
-  //         console.error('Load Error:', err);
-  //         this.message.error('Failed to load products.');
-  //       }
-  //     });
-  //   }
-
-  //   onTenantChange() {
-  //     this.currentPage = 1;
-  //     this.loadProducts();
-  //   }
-
-  //   onPageChange(page: number) {
-  //     this.currentPage = page;
-  //     this.loadProducts();
-  //   }
-
-  //   deleteProduct(id: number) {
-  //     this.productService.deleteProduct(id).subscribe({
-  //       next: (response) => {
-  //         if (response.success) {
-  //           this.message.success('Product deleted successfully');
-  //           this.loadProducts();
-  //         } else {
-  //           this.message.error('Failed to delete product');
-  //         }
-  //       },
-  //       error: (err) => {
-  //         console.error('Delete Error:', err);
-  //         this.message.error('Server error occurred. Please try again.');
-  //       }
-  //     });
-  //   }
-
 
   products: ProductResponseDto[] = [];
   originalProducts: ProductResponseDto[] = []; // 🔥 important
@@ -160,3 +99,78 @@ onSearch() {
   }
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // products: ProductResponseDto[] = [];
+  //   tenantId = 1;
+  //   currentPage = 1;
+  //   pageSize = 10;
+  //   totalCount = 0;
+  //   isLoading = false;
+
+  //   constructor(
+  //     private productService: ProductService,
+  //     private message: NzMessageService
+  //   ) {}
+
+  //   ngOnInit() {
+  //     this.loadProducts();
+  //   }
+
+  //   loadProducts() {
+  //     this.isLoading = true;
+  //     this.productService.getProductsByTenant(this.tenantId, this.currentPage, this.pageSize).subscribe({
+  //       next: (response) => {
+  //         this.isLoading = false;
+  //         if (response.success && response.data) {
+  //           this.products = response.data.items;
+  //           this.totalCount = response.data.totalCount;
+  //         }
+  //       },
+  //       error: (err) => {
+  //         this.isLoading = false;
+  //         console.error('Load Error:', err);
+  //         this.message.error('Failed to load products.');
+  //       }
+  //     });
+  //   }
+
+  //   onTenantChange() {
+  //     this.currentPage = 1;
+  //     this.loadProducts();
+  //   }
+
+  //   onPageChange(page: number) {
+  //     this.currentPage = page;
+  //     this.loadProducts();
+  //   }
+
+  //   deleteProduct(id: number) {
+  //     this.productService.deleteProduct(id).subscribe({
+  //       next: (response) => {
+  //         if (response.success) {
+  //           this.message.success('Product deleted successfully');
+  //           this.loadProducts();
+  //         } else {
+  //           this.message.error('Failed to delete product');
+  //         }
+  //       },
+  //       error: (err) => {
+  //         console.error('Delete Error:', err);
+  //         this.message.error('Server error occurred. Please try again.');
+  //       }
+  //     });
+  //   }
+

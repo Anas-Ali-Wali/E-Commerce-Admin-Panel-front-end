@@ -1,7 +1,7 @@
 <nz-layout class="layout-container">
 
-  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null"
-    nzTheme="dark" style="max-width: 280px; width: 280px">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzTheme="dark"
+    style="max-width: 280px; width: 280px">
     <div class="logo">ECommerce</div>
 
     <ul nz-menu nzTheme="dark" nzMode="inline">
@@ -36,42 +36,41 @@
         <span *ngIf="!isCollapsed">Page</span>
       </li>
 
-     <li nz-menu-item routerLink="/customer/dashboard" routerLinkActive="ant-menu-item-selected">
-  <span nz-icon nzType="appstore"></span>
-  <span *ngIf="!isCollapsed">Customer</span>
-</li>
+      <li nz-menu-item routerLink="/customer/dashboard" routerLinkActive="ant-menu-item-selected">
+        <span nz-icon nzType="appstore"></span>
+        <span *ngIf="!isCollapsed">Customer</span>
+      </li>
 
 
 
-<!-- ✅ Settings Submenu -->
+      <!-- ✅ Settings Submenu -->
       <li nz-submenu nzTitle="Settings" nzIcon="setting">
         <ul>
-          <li nz-menu-item routerLink="/settings/general"
-              routerLinkActive="ant-menu-item-selected">
+          <li nz-menu-item routerLink="/settings/general" routerLinkActive="ant-menu-item-selected">
             <span nz-icon nzType="setting"></span>
             General Settings
           </li>
-          <li nz-menu-item routerLink="/settings/theme"
-              routerLinkActive="ant-menu-item-selected">
+          <li nz-menu-item routerLink="/settings/theme" routerLinkActive="ant-menu-item-selected">
             <span nz-icon nzType="bg-colors"></span>
             Theme Changes
           </li>
-          <li nz-menu-item routerLink="/settings/social"
-              routerLinkActive="ant-menu-item-selected">
+          <li nz-menu-item routerLink="/settings/social" routerLinkActive="ant-menu-item-selected">
             <span nz-icon nzType="share-alt"></span>
             Social Media
           </li>
-          <li nz-menu-item routerLink="/settings/slider"
-              routerLinkActive="ant-menu-item-selected">
+          <li nz-menu-item routerLink="/settings/slider" routerLinkActive="ant-menu-item-selected">
             <span nz-icon nzType="picture"></span>
             Website Slider
           </li>
-          <li nz-menu-item routerLink="/settings/integration"
-    routerLinkActive="ant-menu-item-selected">
-  <span nz-icon nzType="api"></span>
-  Integration
-</li>
+          <li nz-menu-item routerLink="/settings/integration" routerLinkActive="ant-menu-item-selected">
+            <span nz-icon nzType="api"></span>
+            Integration
+          </li>
 
+          <li nz-menu-item routerLink="/settings/card-style" routerLinkActive="ant-menu-item-selected">
+            <span nz-icon nzType="appstore"></span>
+            Card Style
+          </li>
         </ul>
       </li>
 
