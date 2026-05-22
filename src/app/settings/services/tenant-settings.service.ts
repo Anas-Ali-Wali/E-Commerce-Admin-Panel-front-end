@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/Environment/environment';
+// import { environment } from 'src/Environment/environment';
 import { TenantSettingsRequest, TenantSettingsResponse } from '../interface/TenantSettingsRequest';
 import { ApiResponse } from '../interface/api-response';
+import { environment } from 'src/Environment/environment.prod';
 
 @Injectable({
   providedIn: 'root'

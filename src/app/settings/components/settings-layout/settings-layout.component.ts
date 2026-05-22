@@ -12,6 +12,7 @@ menuItems = [
     { label: 'Social Media',          icon: 'bi-share',   route: 'social'  },
     { label: 'Website Slider/Banner', icon: 'bi-images',  route: 'slider'  },
     { label: 'Integration',           icon: 'bi-plug',    route: 'integration' },
+    { label: 'Card Style',            icon: 'bi-card-checklist', route: 'card-style' },
   ];
 
 }

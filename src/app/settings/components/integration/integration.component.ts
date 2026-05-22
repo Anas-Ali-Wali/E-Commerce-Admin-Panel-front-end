@@ -11,34 +11,35 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class IntegrationComponent {
 form!: FormGroup;
   tenantId: number = 0;
- 
+
   // Loading states
-  loading       = false;
-  saveLoading   = false;
+  loading          = false;
+  saveLoading      = false;
   testWaLoading    = false;
   testEmailLoading = false;
- 
+
   // Show/hide sensitive fields
-  showEmailKey = false;
-  showWaToken  = false;
- 
+  showEmailKey    = false;
+  showWaToken     = false;
+  showTwilioToken = false; // ✅ NEW
+
   // Test inputs
   testWaPhone = '';
   testEmail   = '';
- 
+
   constructor(
     private fb: FormBuilder,
     private integrationService: TenantIntegrationService,
     private message: NzMessageService
   ) {}
- 
+
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     this.tenantId = user.tenantId;
     this.initForm();
     this.loadData();
   }
- 
+
   initForm(): void {
     this.form = this.fb.group({
       tenantId:              [this.tenantId],
@@ -48,13 +49,14 @@ form!: FormGroup;
       emailSenderAddress:    [''],
       emailSenderName:       [''],
       isWhatsAppEnabled:     [false],
-      whatsAppProvider:      ['Meta'],
+      whatsAppProvider:      ['Twilio'],
       whatsAppToken:         [''],
       whatsAppPhoneNumberId: [''],
-      whatsAppBusinessId:    ['']
+      whatsAppBusinessId:    [''],
+      twilioAuthToken:       ['']  // ✅ NEW
     });
   }
- 
+
   loadData(): void {
     this.loading = true;
     this.integrationService.getByTenant(this.tenantId).subscribe({
@@ -70,16 +72,17 @@ form!: FormGroup;
       }
     });
   }
- 
-  // ✅ Getters for template
+
+  // ✅ Getters
   get isEmailEnabled()    { return this.form.get('isEmailEnabled')?.value; }
   get isWhatsAppEnabled() { return this.form.get('isWhatsAppEnabled')?.value; }
- 
+  get whatsAppProvider()  { return this.form.get('whatsAppProvider')?.value; } // ✅ NEW
+
   // ✅ Save
   save(): void {
     this.saveLoading = true;
     const payload = { ...this.form.value, tenantId: this.tenantId };
- 
+
     this.integrationService.save(payload).subscribe({
       next: (res) => {
         if (res.success) {
@@ -95,7 +98,7 @@ form!: FormGroup;
       }
     });
   }
- 
+
   // ✅ Test WhatsApp
   testWhatsApp(): void {
     if (!this.testWaPhone) {
@@ -118,7 +121,7 @@ form!: FormGroup;
       }
     });
   }
- 
+
   // ✅ Test Email
   testEmailFn(): void {
     if (!this.testEmail) {

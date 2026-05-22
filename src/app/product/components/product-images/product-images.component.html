@@ -1,0 +1,168 @@
+<nz-card>
+
+  <!-- Header -->
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">
+        Product Images
+      </h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        {{ product?.name }} — Add multiple color images
+      </p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/product/dashboard">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+
+    <!-- LEFT: Upload Form -->
+    <div nz-col nzSpan="8">
+      <nz-card nzTitle="Add New Image" style="border: 1px solid #f0f0f0;">
+
+        <!-- File Upload -->
+        <nz-form-item>
+          <nz-form-label nzRequired>Select Image</nz-form-label>
+          <nz-form-control>
+            <label class="file-upload-box">
+              <input
+                type="file"
+                (change)="onFileSelected($event)"
+                accept="image/*"
+                style="display:none;" />
+              <span nz-icon nzType="upload"></span>
+              <span>{{ selectedFile ? selectedFile.name : 'Click to upload' }}</span>
+            </label>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Preview -->
+        <div *ngIf="previewUrl" style="margin-bottom: 16px; text-align: center;">
+          <img [src]="previewUrl"
+            style="width:120px; height:120px; object-fit:cover;
+                   border-radius:8px; border:1px solid #eee;" />
+          <br/>
+          <button nz-button nzType="link" nzDanger
+            style="margin-top:4px;" (click)="clearFile()">
+            <span nz-icon nzType="close"></span> Remove
+          </button>
+        </div>
+
+        <!-- Color Name -->
+        <nz-form-item>
+          <nz-form-label>Color Name</nz-form-label>
+          <nz-form-control>
+            <input nz-input
+              [(ngModel)]="colorName"
+              placeholder="e.g. Red, Black, Blue" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Is Primary -->
+        <nz-form-item>
+          <nz-form-control>
+            <label nz-checkbox [(ngModel)]="isPrimary">
+              Set as Primary Image
+              <span nz-typography nzType="secondary" style="font-size:12px;">
+                (Shop page pe dikhegi)
+              </span>
+            </label>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Upload Button -->
+        <button nz-button nzType="primary" nzBlock
+          [nzLoading]="isUploading"
+          (click)="uploadImage()">
+          <span nz-icon nzType="upload"></span>
+          Upload Image
+        </button>
+
+      </nz-card>
+    </div>
+
+    <!-- RIGHT: Images Grid -->
+    <div nz-col nzSpan="16">
+      <nz-card nzTitle="Product Images ({{ images.length }})">
+
+        <!-- Loading -->
+        <div *ngIf="isLoading" style="text-align:center; padding: 40px;">
+          <nz-spin nzSimple></nz-spin>
+        </div>
+
+        <!-- Empty -->
+        <nz-empty
+          *ngIf="!isLoading && images.length === 0"
+          nzNotFoundContent="No images added yet">
+        </nz-empty>
+
+        <!-- Images Grid -->
+        <div *ngIf="!isLoading && images.length > 0"
+          style="display: grid;
+                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                 gap: 16px;">
+
+          <div *ngFor="let img of images"
+            style="border: 1px solid #f0f0f0;
+                   border-radius: 8px;
+                   overflow: hidden;
+                   position: relative;">
+
+            <!-- Primary Badge -->
+            <nz-tag
+              *ngIf="img.isPrimary"
+              nzColor="gold"
+              style="position:absolute; top:6px; left:6px; z-index:1;">
+              <span nz-icon nzType="star"></span>
+              Primary
+            </nz-tag>
+
+            <img [src]="baseUrl + img.imageUrl"
+  style="width:100%; height:150px;
+         object-fit:cover; display:block;" />
+
+            <!-- Info + Actions -->
+            <div style="padding: 8px;">
+
+              <!-- Color Name -->
+              <p style="margin:0; font-size:13px; font-weight:500;
+                        color:#333; text-align:center;">
+                {{ img.colorName || 'No color' }}
+              </p>
+
+              <!-- Action Buttons -->
+              <div style="display:flex; gap:6px;
+                          margin-top:8px; justify-content:center;">
+
+                <!-- Set Primary -->
+                <button nz-button nzSize="small"
+                  nzType="default"
+                  [disabled]="img.isPrimary"
+                  nz-tooltip nzTooltipTitle="Set as primary"
+                  (click)="setPrimary(img.imageId)">
+                  <span nz-icon nzType="star"></span>
+                </button>
+
+                <!-- Delete -->
+                <button nz-button nzSize="small"
+                  nzType="default" nzDanger
+                  nz-popconfirm
+                  nzPopconfirmTitle="Delete this image?"
+                  (nzOnConfirm)="deleteImage(img.imageId)">
+                  <span nz-icon nzType="delete"></span>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </nz-card>
+    </div>
+
+  </div>
+</nz-card>

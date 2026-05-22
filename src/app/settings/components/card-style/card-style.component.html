@@ -1,0 +1,117 @@
+<nz-card>
+  <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 28px;">
+    <div nz-col>
+      <h2 nz-typography style="margin-bottom: 4px;">Card Style Picker</h2>
+      <p nz-typography nzType="secondary" style="margin-bottom: 0;">
+        Choose how product and category cards look on your storefront.
+      </p>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="primary" [nzLoading]="saving" (click)="save()">
+        <span nz-icon nzType="save"></span> Save Changes
+      </button>
+    </div>
+  </div>
+
+  <!-- PRODUCT CARDS -->
+  <div class="section-title">
+    <span nz-icon nzType="appstore" style="margin-right:8px;"></span>
+    Product Card Style
+  </div>
+  <p nz-typography nzType="secondary" style="margin-bottom: 16px; font-size: 13px;">
+    Select how individual product cards appear in your shop.
+  </p>
+
+  <div class="card-grid">
+    <div *ngFor="let style of productStyles"
+         class="card-option"
+         [class.selected]="selectedProductStyle === style.id"
+         (click)="selectProduct(style.id)">
+
+      <ng-container [ngSwitch]="style.id">
+
+        <!-- Fashion -->
+        <div *ngSwitchCase="'fashion'" class="preview-wrap product-fashion">
+          <div class="img-area"></div>
+          <div class="info">
+            <div class="name">Product Name</div>
+            <div class="price-row">
+              <span class="price-old">Rs. 3,000</span>
+              <span class="price">Rs. 2,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge Grid -->
+        <div *ngSwitchCase="'badge'" class="preview-wrap product-badge">
+          <div class="img-area">
+            <div class="badge">New</div>
+          </div>
+          <div class="info">
+            <div class="name">Floral Dress</div>
+            <div class="price">Rs. 3,000</div>
+          </div>
+        </div>
+
+        <!-- Minimal -->
+        <div *ngSwitchCase="'minimal'" class="preview-wrap product-minimal">
+          <div class="img-area"></div>
+          <div class="info">
+            <div class="name">Product Long Name Here</div>
+            <div class="price">Rs. 3,670</div>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <div class="card-label">
+        <span class="style-num">{{ productStyles.indexOf(style) + 1 }}</span>
+        {{ style.label }}
+      </div>
+
+      <div class="selected-badge" *ngIf="selectedProductStyle === style.id">
+        <span nz-icon nzType="check-circle" nzTheme="fill"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <nz-divider></nz-divider>
+
+  <!-- CATEGORY CARDS -->
+  <div class="section-title" style="margin-top: 8px;">
+    <span nz-icon nzType="picture" style="margin-right:8px;"></span>
+    Category Card Shape
+  </div>
+  <p nz-typography nzType="secondary" style="margin-bottom: 16px; font-size: 13px;">
+    Select the layout used for category cards on your homepage.
+  </p>
+
+  <div class="card-grid">
+    <div *ngFor="let style of categoryStyles"
+         class="card-option"
+         [class.selected]="selectedCategoryStyle === style.id"
+         (click)="selectCategory(style.id)">
+
+      <div class="preview-wrap layout-preview">
+        <div class="layout-row">
+          <div class="layout-card" *ngFor="let c of getLayoutCount(style.id)">
+            <div class="layout-card-img"></div>
+            <div class="layout-card-text"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-label">
+        <span class="style-num">{{ categoryStyles.indexOf(style) + 1 }}</span>
+        {{ style.label }}
+      </div>
+
+      <div class="selected-badge" *ngIf="selectedCategoryStyle === style.id">
+        <span nz-icon nzType="check-circle" nzTheme="fill"></span>
+      </div>
+
+    </div>
+  </div>
+
+</nz-card>

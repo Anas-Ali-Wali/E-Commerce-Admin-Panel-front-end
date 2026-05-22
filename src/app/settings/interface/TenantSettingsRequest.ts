@@ -26,6 +26,15 @@ export interface TenantSettingsRequest {
   promoBannerText: string;
   cardBg: string;
   cardText: string;
+
+    cardStyle: string;
+  categoryCardStyle: string;
+  cardRadius: string;
+  fontHeading: string;
+  fontBody: string;
+  buttonRadius: string;
+  imageAspectRatio: string;
+
 }
 
 export interface TenantSettingsResponse {
@@ -58,4 +67,13 @@ export interface TenantSettingsResponse {
   promoBannerText: string;
   cardBg: string;
   cardText: string;
+
+    cardStyle: string;
+  categoryCardStyle: string;
+  cardRadius: string;
+  fontHeading: string;
+  fontBody: string;
+  buttonRadius: string;
+  imageAspectRatio: string;
+
 }

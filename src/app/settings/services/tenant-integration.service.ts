@@ -8,49 +8,58 @@ import { environment } from 'src/Environment/environment';
 })
 export class TenantIntegrationService {
 
+  private apiUrl       = `${environment.apiUrl}/TenantIntegrations`;
+  private logsApiUrl   = `${environment.apiUrl}/NotificationLogs`;
 
-  private apiUrl = `${environment.apiUrl}/TenantIntegrations`;
-  
   constructor(private http: HttpClient) {}
- 
+
   // ✅ Get settings by tenant
   getByTenant(tenantId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${tenantId}`);
   }
- 
+
   // ✅ Save (upsert)
   save(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/save`, data);
   }
- 
+
   // ✅ Delete
   delete(tenantId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${tenantId}`);
   }
- 
-  // ✅ Test WhatsApp
+
+  // ✅ Test WhatsApp — FIXED
   testWhatsApp(tenantId: number, phone: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/test-whatsapp`, { tenantId, phone });
-  }
- 
-  // ✅ Test Email
-  testEmail(tenantId: number, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/test-email`, { tenantId, email });
-  }
- 
-  // ✅ Get notification logs
-  getLogs(tenantId: number, page = 1, pageSize = 20): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${tenantId}/logs?page=${page}&pageSize=${pageSize}`);
-  }
- 
-  // ✅ Get logs by order
-  getOrderLogs(tenantId: number, orderId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${tenantId}/logs/order/${orderId}`);
-  }
- 
-  // ✅ Get failed logs
-  getFailedLogs(tenantId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${tenantId}/logs/failed`);
+    return this.http.post(
+      `${this.apiUrl}/test-whatsapp/${tenantId}?toPhone=${phone}`, {}
+    );
   }
 
+  // ✅ Test Email — FIXED
+  testEmail(tenantId: number, email: string): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/test-email/${tenantId}?toEmail=${email}`, {}
+    );
+  }
+
+  // ✅ Notification Logs — FIXED (alag controller)
+  getLogs(tenantId: number, page = 1, pageSize = 20): Observable<any> {
+    return this.http.get(
+      `${this.logsApiUrl}/tenant/${tenantId}?page=${page}&pageSize=${pageSize}`
+    );
+  }
+
+  // ✅ Logs by Order — FIXED
+  getOrderLogs(tenantId: number, orderId: number): Observable<any> {
+    return this.http.get(
+      `${this.logsApiUrl}/order/${orderId}?tenantId=${tenantId}`
+    );
+  }
+
+  // ✅ Failed Logs — FIXED
+  getFailedLogs(tenantId: number): Observable<any> {
+    return this.http.get(
+      `${this.logsApiUrl}/failed/${tenantId}`
+    );
+  }
 }

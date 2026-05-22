@@ -1,0 +1,275 @@
+/* ── Grid ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+/* ── Card Option ── */
+.card-option {
+  position: relative;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+.card-option:hover { border-color: #d0d0d0; transform: translateY(-2px); }
+.card-option.selected { border-color: #1890ff; }
+
+/* ── Selected badge ── */
+.selected-badge {
+  position: absolute;
+  top: 8px; right: 8px;
+  color: #1890ff;
+  font-size: 18px;
+  line-height: 1;
+  z-index: 2;
+}
+
+/* ── Label ── */
+.card-label {
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #bbb;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ── Section Title ── */
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* ════════════════════════════════
+   PRODUCT CARD PREVIEWS
+════════════════════════════════ */
+.preview-wrap {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ── 1. Fashion (Image 1 style) ── */
+.product-fashion {
+  background: #fff;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+}
+.product-fashion .img-area {
+  flex: 0 0 130px;
+  background: #f4f4f4;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-fashion .img-area::before {
+  content: '';
+  width: 55px; height: 55px;
+  background: #d8d8d8;
+  border-radius: 50%;
+  display: block;
+}
+.product-fashion .img-area::after {
+  content: '';
+  position: absolute;
+  bottom: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 44px; height: 18px;
+  background: #c8c0b4;
+  border-radius: 3px;
+}
+.product-fashion .info {
+  padding: 8px 10px;
+  flex: 1;
+}
+.product-fashion .name {
+  font-size: 11px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+.product-fashion .price-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.product-fashion .price-old {
+  font-size: 10px;
+  color: #aaa;
+  text-decoration: line-through;
+}
+.product-fashion .price {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* ── 2. Badge Grid (Image 2 style) ── */
+.product-badge {
+  background: #fff;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+}
+.product-badge .img-area {
+  flex: 0 0 130px;
+  background: #e8c84a;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-badge .img-area::before {
+  content: '';
+  width: 42px; height: 80px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 40px 40px 20px 20px;
+  display: block;
+}
+.product-badge .badge {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: #f5a623;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.product-badge .info {
+  padding: 8px 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.product-badge .name {
+  font-size: 10px;
+  font-weight: 700;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 3px;
+}
+.product-badge .price {
+  font-size: 11px;
+  font-weight: 600;
+  color: #f5a623;
+}
+
+/* ── 3. Minimal (Image 3 style) ── */
+.product-minimal {
+  background: #fff;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+}
+.product-minimal .img-area {
+  flex: 0 0 125px;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.product-minimal .img-area::before {
+  content: '';
+  width: 52px; height: 64px;
+  background: #c8c8c8;
+  border-radius: 4px;
+  display: block;
+}
+.product-minimal .img-area::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 38px; height: 10px;
+  background: #b0b0b0;
+  border-radius: 2px 2px 0 0;
+}
+.product-minimal .info {
+  padding: 10px 10px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.product-minimal .name {
+  font-size: 10px;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+.product-minimal .price {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e84040;
+}
+
+
+
+/* ════════════════════════════════
+   CATEGORY LAYOUT PREVIEWS
+════════════════════════════════ */
+.layout-preview {
+  background: #f5f5f5;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.layout-row {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.layout-card {
+  flex: 1;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-card-img {
+  background: linear-gradient(135deg, #d0d0d0, #e8e8e8);
+  flex: 2;
+  min-height: 28px;
+}
+
+.layout-card-text {
+  background: #f0f0f0;
+  height: 10px;
+  margin: 4px;
+  border-radius: 2px;
+}
+
+.card-option.selected .layout-card-img {
+  background: linear-gradient(135deg, #b0c4de, #7ba7d4);
+}
