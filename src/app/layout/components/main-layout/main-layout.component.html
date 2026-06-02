@@ -1,4 +1,4 @@
-<nz-layout class="layout-container">
+<!-- <nz-layout class="layout-container">
 
   <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzTheme="dark"
     style="max-width: 280px; width: 280px">
@@ -43,7 +43,6 @@
 
 
 
-      <!-- ✅ Settings Submenu -->
       <li nz-submenu nzTitle="Settings" nzIcon="setting">
         <ul>
           <li nz-menu-item routerLink="/settings/general" routerLinkActive="ant-menu-item-selected">
@@ -92,6 +91,293 @@
     <nz-content class="content">
       <router-outlet></router-outlet>
     </nz-content>
+  </nz-layout>
+
+</nz-layout> -->
+
+
+
+
+
+
+
+
+<nz-layout class="layout-container">
+
+  <!-- =========================
+       MOBILE OVERLAY
+  ========================== -->
+  <div
+    class="mobile-overlay"
+    *ngIf="isMobile && !isCollapsed"
+    (click)="closeSidebar()">
+  </div>
+
+  <!-- =========================
+       SIDEBAR
+  ========================== -->
+  <nz-sider
+    class="sidebar"
+    nzCollapsible
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+    [nzCollapsedWidth]="isMobile ? 0 : 80"
+    [nzWidth]="280"
+    nzTheme="dark">
+
+    <!-- LOGO -->
+    <div class="logo">
+
+      <span *ngIf="!isCollapsed">
+        ECommerce
+      </span>
+
+      <span *ngIf="isCollapsed">
+        EC
+      </span>
+
+    </div>
+
+    <!-- MENU -->
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+
+      <!-- =========================
+           MAIN MODULES
+      ========================== -->
+
+      <!-- Tenant -->
+      <li
+        nz-menu-item
+        routerLink="/tenant/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="team"></span>
+        <span *ngIf="!isCollapsed">Tenant</span>
+
+      </li>
+
+      <!-- User -->
+      <li
+        nz-menu-item
+        routerLink="/user/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="user"></span>
+        <span *ngIf="!isCollapsed">User</span>
+
+      </li>
+
+      <!-- Category -->
+      <li
+        nz-menu-item
+        routerLink="/category/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="appstore"></span>
+        <span *ngIf="!isCollapsed">Category</span>
+
+      </li>
+
+      <!-- Product -->
+      <li
+        nz-menu-item
+        routerLink="/product/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="shopping"></span>
+        <span *ngIf="!isCollapsed">Product</span>
+
+      </li>
+
+      <!-- Order -->
+      <li
+        nz-menu-item
+        routerLink="/order/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="shopping-cart"></span>
+        <span *ngIf="!isCollapsed">Order</span>
+
+      </li>
+
+      <!-- Page -->
+      <li
+        nz-menu-item
+        routerLink="/page/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="file"></span>
+        <span *ngIf="!isCollapsed">Page</span>
+
+      </li>
+
+      <!-- Customer -->
+      <li
+        nz-menu-item
+        routerLink="/customer/dashboard"
+        routerLinkActive="ant-menu-item-selected"
+        (click)="handleMenuClick()">
+
+        <span nz-icon nzType="usergroup-add"></span>
+        <span *ngIf="!isCollapsed">Customer</span>
+
+      </li>
+
+      <!-- =========================
+           SETTINGS
+      ========================== -->
+      <li
+        nz-submenu
+        nzTitle="Settings"
+        nzIcon="setting">
+        
+
+        <ul>
+
+          <!-- General Settings -->
+          <li
+            nz-menu-item
+            routerLink="/settings/general"
+            routerLinkActive="ant-menu-item-selected"
+            (click)="handleMenuClick()">
+
+            <span nz-icon nzType="setting"></span>
+            <span>General Settings</span>
+
+          </li>
+
+          <!-- Theme -->
+          <li
+            nz-menu-item
+            routerLink="/settings/theme"
+            routerLinkActive="ant-menu-item-selected"
+            (click)="handleMenuClick()">
+
+            <span nz-icon nzType="bg-colors"></span>
+            <span>Theme Changes</span>
+
+          </li>
+
+          <!-- Social -->
+          <li
+            nz-menu-item
+            routerLink="/settings/social"
+            routerLinkActive="ant-menu-item-selected"
+            (click)="handleMenuClick()">
+
+            <span nz-icon nzType="share-alt"></span>
+            <span>Social Media</span>
+
+          </li>
+
+          <!-- Slider -->
+          <li
+            nz-menu-item
+            routerLink="/settings/slider"
+            routerLinkActive="ant-menu-item-selected"
+            (click)="handleMenuClick()">
+
+            <span nz-icon nzType="picture"></span>
+            <span>Website Slider</span>
+
+          </li>
+
+          <!-- Integration -->
+          <li
+            nz-menu-item
+            routerLink="/settings/integration"
+            routerLinkActive="ant-menu-item-selected"
+            (click)="handleMenuClick()">
+
+            <span nz-icon nzType="api"></span>
+            <span>Integration</span>
+
+          </li>
+
+          <!-- Card Style -->
+          <li
+            nz-menu-item
+            routerLink="/settings/card-style"
+            routerLinkActive="ant-menu-item-selected"
+            (click)="handleMenuClick()">
+
+            <span nz-icon nzType="appstore"></span>
+            <span>Card Style</span>
+
+          </li>
+
+        </ul>
+
+      </li>
+
+    </ul>
+
+  </nz-sider>
+
+  <!-- =========================
+       MAIN LAYOUT
+  ========================== -->
+  <nz-layout>
+
+    <!-- HEADER -->
+    <nz-header class="header">
+
+      <!-- SIDEBAR TOGGLE -->
+      <span
+        class="trigger"
+        (click)="toggleSidebar()">
+
+        <span
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'">
+        </span>
+
+      </span>
+
+      <!-- RIGHT -->
+      <div class="header-right">
+
+        <!-- OPTIONAL USER -->
+        <div class="header-user">
+
+          <span nz-icon nzType="user"></span>
+
+          <span class="user-name">
+            Admin
+          </span>
+
+        </div>
+
+        <!-- LOGOUT -->
+        <span
+          class="logout"
+          (click)="logout()">
+
+          <span nz-icon nzType="logout"></span>
+
+          <span class="logout-text">
+            Logout
+          </span>
+
+        </span>
+
+      </div>
+
+    </nz-header>
+
+    <!-- CONTENT -->
+    <nz-content class="content">
+
+      <router-outlet></router-outlet>
+
+    </nz-content>
+
   </nz-layout>
 
 </nz-layout>

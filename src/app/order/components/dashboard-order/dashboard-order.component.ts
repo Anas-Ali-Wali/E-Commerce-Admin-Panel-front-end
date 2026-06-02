@@ -99,6 +99,14 @@ orders: OrderResponseDto[] = [];
     this.currentPage = page;
   }
 
+
+  // new
+//   get totalOrders() { return this.originalOrders.length; }
+// get pendingCount() { return this.originalOrders.filter(o => o.status === 'Pending').length; }
+// get deliveredCount() { return this.originalOrders.filter(o => ['Delivered','Completed'].includes(o.status)).length; }
+// get cancelledCount() { return this.originalOrders.filter(o => o.status === 'Cancelled').length; }
+// get totalRevenue() { return this.originalOrders.reduce((sum, o) => sum + o.totalAmount, 0); }
+
   updateStatus(order: OrderResponseDto, newStatus: string): void {
     const payload: OrderUpdateRequestDto = {
       customerName: order.customerName,

@@ -12,7 +12,7 @@
 export const environment = {
   production: true,
   imgbbApiKey: '2e51bd0e0adab5b64c0073234910aa63',
-  // apiUrl: 'https://anasali1-001-site1.ltempurl.com/api'
-    apiUrl: 'https://localhost:7221/api',  // ← live ki jagah local
+  apiUrl: 'https://anasali1-001-site1.ltempurl.com/api'
+    // apiUrl: 'https://localhost:7221/api',  // ← live ki jagah local
 
 };

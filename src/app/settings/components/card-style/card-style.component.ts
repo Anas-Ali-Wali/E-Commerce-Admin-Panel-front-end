@@ -105,9 +105,8 @@ export interface CardDesign {
 }
 
 export const PRODUCT_CARD_STYLES: CardDesign[] = [
-  { id: 'fashion', label: 'Fashion',    type: 'product' },
-  { id: 'badge',   label: 'Badge Grid', type: 'product' },
-  { id: 'minimal', label: 'Minimal',    type: 'product' },
+  { id: 'fashion',  label: 'Square',      type: 'product' },
+  { id: 'badge',    label: 'Fashion Tall', type: 'product' },
 ];
 
 export const CATEGORY_CARD_STYLES: CardDesign[] = [

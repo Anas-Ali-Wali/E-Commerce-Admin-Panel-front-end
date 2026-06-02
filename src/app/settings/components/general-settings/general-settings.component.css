@@ -1,0 +1,48 @@
+.settings-card {
+  max-width: 100%;
+}
+
+/* Images */
+.preview-img {
+  height: 60px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.preview-icon {
+  height: 32px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* BUTTON FIX (IMPORTANT) */
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+
+  .card-body {
+    padding: 12px !important;
+  }
+
+  .form-label {
+    font-size: 14px;
+  }
+
+  .form-control {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* IMPORTANT FIX */
+  .button-wrapper {
+    justify-content: stretch;
+  }
+
+  .button-wrapper .btn {
+    width: 100%;
+  }
+}

@@ -79,7 +79,11 @@
 
 
 
-<nz-card>
+
+
+<!-- without responsive -->
+
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Add Page</h2>
@@ -134,4 +138,178 @@
       </button>
     </div>
   </form>
+</nz-card> -->
+
+
+
+
+
+
+
+
+<nz-card class="add-page-card">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <div
+    nz-row
+    nzJustify="space-between"
+    nzAlign="middle"
+    class="page-header">
+
+    <div nz-col>
+
+      <h2 nz-typography class="page-title">
+        Add Page
+      </h2>
+
+      <p nz-typography nzType="secondary" class="page-subtitle">
+        Create a public page for site content.
+      </p>
+
+    </div>
+
+    <div nz-col>
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/page/dashboard"
+        class="back-btn">
+
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       FORM
+  ========================== -->
+  <form
+    nz-form
+    [formGroup]="pageForm"
+    (ngSubmit)="onSubmit()"
+    nzLayout="vertical">
+
+    <div
+      nz-row
+      [nzGutter]="16">
+
+      <!-- TITLE -->
+      <div
+        nz-col
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Title
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Title is required">
+
+            <input
+              nz-input
+              formControlName="title"
+              placeholder="Enter page title" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- SLUG -->
+      <div
+        nz-col
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Slug
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Slug is required">
+
+            <nz-input-group nzPrefix="/">
+
+              <input
+                nz-input
+                formControlName="slug"
+                placeholder="e.g. about-us"
+                (input)="onSlugInput($event)" />
+
+            </nz-input-group>
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- STATUS -->
+      <div
+        nz-col
+        nzSpan="24">
+
+        <div class="status-box">
+
+          <label
+            nz-checkbox
+            formControlName="status">
+
+            Published / Active
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- =========================
+         ACTIONS
+    ========================== -->
+    <div class="form-actions">
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/page/dashboard"
+        type="button"
+        class="cancel-btn">
+
+        Cancel
+
+      </button>
+
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        class="submit-btn"
+        [disabled]="!pageForm.valid"
+        [nzLoading]="isSubmitting">
+
+        Create Page
+
+      </button>
+
+    </div>
+
+  </form>
+
 </nz-card>

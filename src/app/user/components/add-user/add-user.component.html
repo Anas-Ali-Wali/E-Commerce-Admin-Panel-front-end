@@ -1,4 +1,4 @@
-<nz-card>
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Add User</h2>
@@ -13,7 +13,7 @@
   </div>
 
   <form nz-form [formGroup]="userForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
-    <div nz-row [nzGutter]="16">
+    <div nz-row [nzGutter]="16"> -->
 
       <!-- <div nz-col nzSpan="12">
         <nz-form-item>
@@ -29,7 +29,7 @@
         </nz-form-item>
       </div> -->
 
-      <div nz-col nzSpan="12">
+      <!-- <div nz-col nzSpan="12">
   <nz-form-item>
     <nz-form-label nzRequired>Tenant</nz-form-label>
     <nz-form-control nzErrorTip="Tenant is required">
@@ -114,4 +114,226 @@
     </div>
 
   </form>
+</nz-card> -->
+
+
+
+
+
+
+
+
+<nz-card class="add-user-card">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <div
+    nz-row
+    nzJustify="space-between"
+    nzAlign="middle"
+    class="page-header">
+
+    <div nz-col class="header-left">
+
+      <h2 nz-typography class="page-title">
+        Add User
+      </h2>
+
+      <p nz-typography nzType="secondary" class="page-subtitle">
+        Create a user for a tenant with role and login details.
+      </p>
+
+    </div>
+
+    <div nz-col>
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/user/dashboard"
+        class="back-btn">
+
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       FORM
+  ========================== -->
+  <form
+    nz-form
+    [formGroup]="userForm"
+    (ngSubmit)="onSubmit()"
+    nzLayout="vertical">
+
+    <div nz-row [nzGutter]="16">
+
+      <!-- TENANT -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Tenant
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Tenant is required">
+
+            <nz-select
+              formControlName="tenantId"
+              nzPlaceHolder="Select Tenant"
+              class="full-width">
+
+              <nz-option
+                *ngFor="let tenant of tenants"
+                [nzValue]="tenant.tenantId"
+                [nzLabel]="tenant.name">
+              </nz-option>
+
+            </nz-select>
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- NAME -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Name
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Name is required">
+
+            <input
+              nz-input
+              formControlName="name"
+              placeholder="Enter full name" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- EMAIL -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Email
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Please enter a valid email">
+
+            <input
+              nz-input
+              type="email"
+              formControlName="email"
+              placeholder="user@example.com" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- PASSWORD -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Password
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Password is required">
+
+            <nz-input-group [nzSuffix]="suffixTemplate">
+
+              <input
+                nz-input
+                [type]="passwordVisible ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter password" />
+
+            </nz-input-group>
+
+            <ng-template #suffixTemplate>
+
+              <span
+                nz-icon
+                [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                class="password-icon"
+                (click)="passwordVisible = !passwordVisible">
+              </span>
+
+            </ng-template>
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- ROLE -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Role
+          </nz-form-label>
+
+          <nz-form-control>
+
+            <nz-select
+              formControlName="role"
+              nzPlaceHolder="Select role"
+              class="full-width">
+
+              <nz-option nzValue="user" nzLabel="User"></nz-option>
+
+              <nz-option nzValue="Admin" nzLabel="Admin"></nz-option>
+
+            </nz-select>
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrapper">
+
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        [disabled]="!userForm.valid"
+        [nzLoading]="isSubmitting"
+        class="submit-btn">
+
+        Create User
+
+      </button>
+
+    </div>
+
+  </form>
+
 </nz-card>

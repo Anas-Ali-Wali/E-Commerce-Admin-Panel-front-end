@@ -1,4 +1,4 @@
-<nz-card>
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">User Dashboard</h2>
@@ -76,4 +76,228 @@
     </tbody>
 
   </nz-table>
+</nz-card> -->
+
+
+
+
+
+
+
+
+<nz-card class="user-dashboard-card">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <div
+    nz-row
+    nzJustify="space-between"
+    nzAlign="middle"
+    class="dashboard-header">
+
+    <div nz-col class="header-left">
+
+      <h2 nz-typography class="dashboard-title">
+        User Dashboard
+      </h2>
+
+      <p nz-typography nzType="secondary" class="dashboard-subtitle">
+        Browse users for the selected tenant.
+      </p>
+
+    </div>
+
+    <div nz-col>
+
+      <button
+        nz-button
+        nzType="primary"
+        routerLink="/user/add"
+        class="add-user-btn">
+
+        <span nz-icon nzType="plus"></span>
+        Add User
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       SEARCH
+  ========================== -->
+  <div class="search-wrapper">
+
+    <nz-input-group
+      nzPrefixIcon="search"
+      class="search-box">
+
+      <input
+        nz-input
+        placeholder="Search user..."
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearch()" />
+
+    </nz-input-group>
+
+  </div>
+
+  <!-- =========================
+       DESKTOP TABLE
+  ========================== -->
+  <div class="desktop-table">
+
+    <nz-table
+      #userTable
+      [nzData]="users"
+      [nzLoading]="isLoading"
+      [nzTotal]="totalCount"
+      [nzPageIndex]="currentPage"
+      [nzPageSize]="pageSize"
+      [nzFrontPagination]="true"
+      (nzPageIndexChange)="onPageChange($event)"
+      nzBordered
+      nzSize="middle"
+      [nzScroll]="{ x: '1000px' }">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th nzAlign="right">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let user of users">
+
+          <td>{{ user.userId }}</td>
+
+          <td>{{ user.name }}</td>
+
+          <td class="email-column">
+            {{ user.email }}
+          </td>
+
+          <td>
+
+            <nz-tag [nzColor]="user.role === 'Admin' ? 'purple' : 'blue'">
+              {{ user.role }}
+            </nz-tag>
+
+          </td>
+
+          <td>
+
+            <nz-tag [nzColor]="user.status ? 'success' : 'error'">
+              {{ user.status ? 'Active' : 'Inactive' }}
+            </nz-tag>
+
+          </td>
+
+          <td nzAlign="right">
+
+            <button
+              nz-button
+              nzDanger
+              nzSize="small"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure you want to delete this user?"
+              (nzOnConfirm)="deleteUser(user.userId)">
+
+              <span nz-icon nzType="delete"></span>
+              Delete
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </nz-table>
+
+  </div>
+
+  <!-- =========================
+       MOBILE USER CARDS
+  ========================== -->
+  <div class="mobile-user-cards">
+
+    <div
+      class="user-mobile-card"
+      *ngFor="let user of users">
+
+      <!-- TOP -->
+      <div class="mobile-card-top">
+
+        <div>
+
+          <h3>{{ user.name }}</h3>
+
+          <p>ID: {{ user.userId }}</p>
+
+        </div>
+
+        <nz-tag [nzColor]="user.status ? 'success' : 'error'">
+          {{ user.status ? 'Active' : 'Inactive' }}
+        </nz-tag>
+
+      </div>
+
+      <!-- BODY -->
+      <div class="mobile-card-body">
+
+        <div class="info-item">
+
+          <span class="label">Email</span>
+
+          <span class="value">
+            {{ user.email }}
+          </span>
+
+        </div>
+
+        <div class="info-item">
+
+          <span class="label">Role</span>
+
+          <nz-tag [nzColor]="user.role === 'Admin' ? 'purple' : 'blue'">
+            {{ user.role }}
+          </nz-tag>
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="mobile-card-footer">
+
+        <button
+          nz-button
+          nzDanger
+          nzBlock
+          nzSize="small"
+          nz-popconfirm
+          nzPopconfirmTitle="Delete this user?"
+          (nzOnConfirm)="deleteUser(user.userId)">
+
+          <span nz-icon nzType="delete"></span>
+          Delete User
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </nz-card>

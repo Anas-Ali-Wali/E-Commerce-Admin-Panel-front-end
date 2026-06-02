@@ -87,8 +87,9 @@
 </nz-card> -->
 
 
-<nz-card>
-  <!-- Header -->
+<!-- without responsive -->
+
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Order Dashboard</h2>
@@ -104,7 +105,6 @@
     </div>
   </div>
 
-  <!-- ✅ Filter Tabs -->
   <div style="margin-bottom: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
     <button
       *ngFor="let tab of filterTabs"
@@ -116,17 +116,29 @@
     </button>
   </div>
 
-  <!-- Search -->
   <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
     <input
       nz-input
       placeholder="Search order..."
       [(ngModel)]="searchText"
       (ngModelChange)="onSearch()" />
-  </nz-input-group>
+  </nz-input-group> -->
 
-  <!-- Table -->
-  <nz-table
+
+<!-- new -->
+  <!-- <div nz-row [nzGutter]="12" style="margin-bottom: 20px;">
+  <div nz-col [nzSpan]="5" *ngFor="let s of [
+    {label:'Total Orders', value:totalOrders, color:''},
+    {label:'Pending', value:pendingCount, color:'#faad14'},
+    {label:'Delivered', value:deliveredCount, color:'#52c41a'},
+    {label:'Cancelled', value:cancelledCount, color:'#ff4d4f'},
+    {label:'Revenue', value:'Rs. '+totalRevenue.toLocaleString(), color:'#1677ff'}
+  ]">
+    <nz-statistic [nzTitle]="s.label" [nzValue]="s.value" [nzValueStyle]="{color: s.color}"></nz-statistic>
+  </div>
+</div> -->
+
+  <!-- <nz-table
     #orderTable
     [nzData]="orders"
     [nzLoading]="isLoading"
@@ -165,12 +177,10 @@
         <td>{{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}</td>
         <td>{{ order.createdDate | date:'dd MMM, yyyy' }}</td>
         <td>
-          <!-- ✅ Status Badge -->
           <nz-tag [nzColor]="getStatusColor(order.status)" style="margin-bottom: 4px;">
             {{ order.status }}
           </nz-tag>
           <br/>
-          <!-- ✅ Status Dropdown -->
           <nz-select
             [ngModel]="order.status"
             (ngModelChange)="updateStatus(order, $event)"
@@ -196,4 +206,360 @@
       </tr>
     </tbody>
   </nz-table>
+</nz-card> -->
+
+
+
+
+
+<nz-card class="order-dashboard-card">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <div
+    nz-row
+    nzJustify="space-between"
+    nzAlign="middle"
+    class="dashboard-header">
+
+    <div nz-col>
+
+      <h2 nz-typography class="dashboard-title">
+        Order Dashboard
+      </h2>
+
+      <p nz-typography nzType="secondary" class="dashboard-subtitle">
+        Track and manage all orders with real-time notifications.
+      </p>
+
+    </div>
+
+    <div nz-col>
+
+      <button
+        nz-button
+        nzType="primary"
+        routerLink="/order/add"
+        class="add-order-btn">
+
+        <span nz-icon nzType="plus"></span>
+        Add Order
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       FILTER TABS
+  ========================== -->
+  <div class="filter-tabs">
+
+    <button
+      *ngFor="let tab of filterTabs"
+      nz-button
+      [nzType]="activeFilter === tab ? 'primary' : 'default'"
+      nzSize="small"
+      class="filter-btn"
+      (click)="filterByStatus(tab)">
+
+      {{ tab }}
+
+    </button>
+
+  </div>
+
+  <!-- =========================
+       SEARCH
+  ========================== -->
+  <div class="search-wrapper">
+
+    <nz-input-group
+      nzPrefixIcon="search"
+      class="search-box">
+
+      <input
+        nz-input
+        placeholder="Search order..."
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearch()" />
+
+    </nz-input-group>
+
+  </div>
+
+  <!-- =========================
+       DESKTOP TABLE
+  ========================== -->
+  <div class="desktop-table">
+
+    <nz-table
+      #orderTable
+      [nzData]="orders"
+      [nzLoading]="isLoading"
+      [nzTotal]="totalCount"
+      [nzPageIndex]="currentPage"
+      [nzPageSize]="pageSize"
+      [nzFrontPagination]="true"
+      (nzPageIndexChange)="onPageChange($event)"
+      nzBordered
+      nzSize="middle"
+      [nzScroll]="{ x: '1300px' }">
+
+      <thead>
+
+        <tr>
+
+          <th>ID</th>
+
+          <th>Customer</th>
+
+          <th>Phone</th>
+
+          <th>Products</th>
+
+          <th>Amount</th>
+
+          <th>Date</th>
+
+          <th>Status</th>
+
+          <th nzAlign="right">Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let order of orderTable.data">
+
+          <td>#{{ order.orderId }}</td>
+
+          <td>
+
+            <div class="customer-name">
+              {{ order.customerName }}
+            </div>
+
+            <small class="customer-email">
+              {{ order.customerEmail }}
+            </small>
+
+          </td>
+
+          <td>
+            {{ order.customerPhone }}
+          </td>
+
+          <td>
+
+            <span class="product-summary">
+              {{ order.productsSummary || '—' }}
+            </span>
+
+          </td>
+
+          <td>
+            {{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}
+          </td>
+
+          <td>
+            {{ order.createdDate | date:'dd MMM, yyyy' }}
+          </td>
+
+          <td>
+
+            <nz-tag
+              [nzColor]="getStatusColor(order.status)"
+              class="status-tag">
+
+              {{ order.status }}
+
+            </nz-tag>
+
+            <nz-select
+              [ngModel]="order.status"
+              (ngModelChange)="updateStatus(order, $event)"
+              nzSize="small"
+              class="status-select">
+
+              <nz-option
+                *ngFor="let s of statusOptions"
+                [nzValue]="s.value"
+                [nzLabel]="s.label">
+
+              </nz-option>
+
+            </nz-select>
+
+          </td>
+
+          <td nzAlign="right">
+
+            <button
+              nz-button
+              nzType="default"
+              nzDanger
+              nzSize="small"
+              nz-popconfirm
+              nzPopconfirmTitle="Are you sure you want to delete this order?"
+              (nzOnConfirm)="deleteOrder(order.orderId)">
+
+              <span nz-icon nzType="delete"></span>
+              Delete
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </nz-table>
+
+  </div>
+
+  <!-- =========================
+       MOBILE CARDS
+  ========================== -->
+  <div class="mobile-order-cards">
+
+    <div
+      class="order-mobile-card"
+      *ngFor="let order of orders">
+
+      <!-- TOP -->
+      <div class="mobile-card-top">
+
+        <div>
+
+          <h3>
+            #{{ order.orderId }}
+          </h3>
+
+          <p>
+            {{ order.customerName }}
+          </p>
+
+        </div>
+
+        <nz-tag [nzColor]="getStatusColor(order.status)">
+
+          {{ order.status }}
+
+        </nz-tag>
+
+      </div>
+
+      <!-- BODY -->
+      <div class="mobile-card-body">
+
+        <div class="info-item">
+
+          <span class="label">
+            Phone
+          </span>
+
+          <span class="value">
+            {{ order.customerPhone }}
+          </span>
+
+        </div>
+
+        <div class="info-item">
+
+          <span class="label">
+            Email
+          </span>
+
+          <span class="value">
+            {{ order.customerEmail }}
+          </span>
+
+        </div>
+
+        <div class="info-item">
+
+          <span class="label">
+            Products
+          </span>
+
+          <span class="value">
+            {{ order.productsSummary || '—' }}
+          </span>
+
+        </div>
+
+        <div class="info-item">
+
+          <span class="label">
+            Amount
+          </span>
+
+          <span class="value">
+            {{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}
+          </span>
+
+        </div>
+
+        <div class="info-item">
+
+          <span class="label">
+            Date
+          </span>
+
+          <span class="value">
+            {{ order.createdDate | date:'dd MMM, yyyy' }}
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- STATUS -->
+      <div class="mobile-status">
+
+        <nz-select
+          [ngModel]="order.status"
+          (ngModelChange)="updateStatus(order, $event)"
+          style="width: 100%;">
+
+          <nz-option
+            *ngFor="let s of statusOptions"
+            [nzValue]="s.value"
+            [nzLabel]="s.label">
+
+          </nz-option>
+
+        </nz-select>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="mobile-card-footer">
+
+        <button
+          nz-button
+          nzDanger
+          nzBlock
+          class="delete-btn"
+          nz-popconfirm
+          nzPopconfirmTitle="Delete this order?"
+          (nzOnConfirm)="deleteOrder(order.orderId)">
+
+          <span nz-icon nzType="delete"></span>
+          Delete Order
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </nz-card>

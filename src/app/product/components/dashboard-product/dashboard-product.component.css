@@ -1,0 +1,167 @@
+/* =========================
+   BASE CARD
+========================= */
+.product-dashboard-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* =========================
+   HEADER RESPONSIVE
+========================= */
+.dashboard-header {
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 10px;
+  }
+
+  .add-product-btn {
+    width: 100%;
+  }
+
+  .dashboard-title {
+    font-size: 18px;
+  }
+
+  .dashboard-subtitle {
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   SEARCH BOX
+========================= */
+.search-wrapper {
+  margin: 12px 0;
+}
+
+.search-box {
+  width: 100%;
+}
+
+/* =========================
+   TABLE RESPONSIVE FIX
+========================= */
+.desktop-table {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .desktop-table {
+    display: none;
+  }
+}
+
+/* =========================
+   MOBILE CARDS (SHOW ONLY MOBILE)
+========================= */
+.mobile-product-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-product-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* =========================
+   MOBILE CARD DESIGN
+========================= */
+.product-mobile-card {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.mobile-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.mobile-card-top h3 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.mobile-card-top p {
+  font-size: 12px;
+  color: #888;
+  margin: 2px 0 0;
+}
+
+/* BODY */
+.mobile-card-body {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  gap: 10px;
+}
+
+.info-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 11px;
+  color: #999;
+}
+
+.value {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* FOOTER BUTTONS */
+.mobile-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-btn {
+  font-size: 12px;
+}
+
+/* =========================
+   TAG FIX MOBILE
+========================= */
+@media (max-width: 576px) {
+  nz-tag {
+    font-size: 11px;
+  }
+}
+
+/* =========================
+   TABLE ACTION BUTTONS
+========================= */
+.table-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .table-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-actions button {
+    width: 100%;
+  }
+}
