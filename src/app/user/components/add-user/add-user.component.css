@@ -1,0 +1,129 @@
+/* =========================
+   CARD
+========================= */
+.add-user-card {
+  border-radius: 14px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.page-header {
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.page-title {
+  margin-bottom: 4px !important;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  margin-bottom: 0 !important;
+  font-size: 14px;
+}
+
+.back-btn {
+  height: 42px;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-weight: 500;
+}
+
+/* =========================
+   FORM
+========================= */
+.full-width {
+  width: 100%;
+}
+
+.password-icon {
+  cursor: pointer;
+  color: #8c8c8c;
+  transition: 0.3s;
+}
+
+.password-icon:hover {
+  color: #1677ff;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.submit-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.submit-btn {
+  min-width: 160px;
+  height: 44px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* =========================
+   INPUT HEIGHT
+========================= */
+::ng-deep .ant-input,
+::ng-deep .ant-select-selector,
+::ng-deep .ant-input-affix-wrapper {
+  min-height: 44px !important;
+  border-radius: 10px !important;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 992px) {
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .back-btn {
+    width: 100%;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  .add-user-card {
+    border-radius: 10px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+  }
+
+  .submit-wrapper {
+    justify-content: stretch;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .back-btn {
+    width: 100%;
+    height: 44px;
+  }
+
+  ::ng-deep .ant-form-item {
+    margin-bottom: 16px;
+  }
+}

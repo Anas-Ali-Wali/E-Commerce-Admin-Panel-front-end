@@ -49,183 +49,143 @@
   align-items: center;
 }
 
+
 /* ════════════════════════════════
    PRODUCT CARD PREVIEWS
 ════════════════════════════════ */
-.preview-wrap {
-  width: 100%;
-  overflow: hidden;
-  background: #fff;
-}
 
-/* ── 1. Fashion (Image 1 style) ── */
-.product-fashion {
-  background: #fff;
-  height: 190px;
+/* ── Style 1: Square Card (Smart Watch / Image 1 style) ── */
+.product-square {
+  background: #fafafa;
   display: flex;
   flex-direction: column;
 }
-.product-fashion .img-area {
-  flex: 0 0 130px;
-  background: #f4f4f4;
-  position: relative;
-  overflow: hidden;
+.product-square .img-area {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  /* background: #f0f0f0; */
+    background: #e8e8e8;  /* image area thoda darker */
+
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
-.product-fashion .img-area::before {
+.product-square .img-area::before {
   content: '';
   width: 55px; height: 55px;
-  background: #d8d8d8;
-  border-radius: 50%;
+  background: #d0d0d0;
+  border-radius: 10px;
   display: block;
 }
-.product-fashion .img-area::after {
-  content: '';
+.product-square .add-overlay {
   position: absolute;
-  bottom: 10px; left: 50%;
-  transform: translateX(-50%);
-  width: 44px; height: 18px;
-  background: #c8c0b4;
-  border-radius: 3px;
+  bottom: 0; left: 0; right: 0;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 7px;
+  opacity: 0;
+  transition: opacity 0.2s;
 }
-.product-fashion .info {
+.card-option:hover .add-overlay { opacity: 1; }
+.product-square .info {
   padding: 8px 10px;
-  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+    background: #fafafa;  /* ← light grey, card border se match */
+      border-top: 1px solid #e8e8e8;  /* ← yeh line add karo */
+
+
 }
-.product-fashion .name {
-  font-size: 11px;
+.product-square .name {
+  font-size: 10px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+.product-square .price {
+  font-size: 10px;
+  font-weight: 700;
+  color: #2b7de9;
+}
+
+/* ── Style 2: Tall Portrait Card (Fashion / Image 2 style) ── */
+.product-fashion-tall {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.product-fashion-tall .img-area {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.product-fashion-tall .img-area::before {
+  content: '';
+  width: 42px; height: 72px;
+  background: #c8c8c8;
+  border-radius: 3px;
+  display: block;
+}
+.product-fashion-tall .badge {
+  position: absolute;
+  top: 7px; left: 7px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 7px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.product-fashion-tall .info {
+  padding: 8px 10px 10px;
+    background: #fafafa;  /* ← same light grey */
+
+}
+.product-fashion-tall .name {
+  font-size: 10px;
   font-weight: 500;
   color: #1a1a1a;
   margin-bottom: 4px;
 }
-.product-fashion .price-row {
+.product-fashion-tall .stars {
+  font-size: 9px;
+  color: #e6a817;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+.product-fashion-tall .price-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 5px;
 }
-.product-fashion .price-old {
-  font-size: 10px;
-  color: #aaa;
-  text-decoration: line-through;
-}
-.product-fashion .price {
+.product-fashion-tall .price {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   color: #1a1a1a;
 }
-
-/* ── 2. Badge Grid (Image 2 style) ── */
-.product-badge {
-  background: #fff;
-  height: 190px;
-  display: flex;
-  flex-direction: column;
-}
-.product-badge .img-area {
-  flex: 0 0 130px;
-  background: #e8c84a;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.product-badge .img-area::before {
-  content: '';
-  width: 42px; height: 80px;
-  background: rgba(255,255,255,0.35);
-  border-radius: 40px 40px 20px 20px;
-  display: block;
-}
-.product-badge .badge {
-  position: absolute;
-  top: 8px; left: 8px;
-  background: #f5a623;
-  color: #fff;
+.product-fashion-tall .add-btn {
   font-size: 8px;
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 2px;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-}
-.product-badge .info {
-  padding: 8px 10px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.product-badge .name {
-  font-size: 10px;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 3px;
-}
-.product-badge .price {
-  font-size: 11px;
-  font-weight: 600;
-  color: #f5a623;
-}
-
-/* ── 3. Minimal (Image 3 style) ── */
-.product-minimal {
-  background: #fff;
-  height: 190px;
-  display: flex;
-  flex-direction: column;
-}
-.product-minimal .img-area {
-  flex: 0 0 125px;
-  background: #f7f7f7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-.product-minimal .img-area::before {
-  content: '';
-  width: 52px; height: 64px;
-  background: #c8c8c8;
-  border-radius: 4px;
-  display: block;
-}
-.product-minimal .img-area::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 38px; height: 10px;
-  background: #b0b0b0;
-  border-radius: 2px 2px 0 0;
-}
-.product-minimal .info {
-  padding: 10px 10px 8px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.product-minimal .name {
-  font-size: 10px;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 5px;
-  line-height: 1.4;
-}
-.product-minimal .price {
-  font-size: 12px;
-  font-weight: 600;
   color: #e84040;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
-
 
 
 /* ════════════════════════════════
@@ -272,4 +232,119 @@
 
 .card-option.selected .layout-card-img {
   background: linear-gradient(135deg, #b0c4de, #7ba7d4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   RESPONSIVE FIX FOR CARD STYLE PICKER
+========================================= */
+
+/* ================= TABLET ================= */
+@media (max-width: 992px) {
+
+  nz-card {
+    padding: 12px !important;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  h2[nz-typography] {
+    font-size: 18px !important;
+  }
+
+  .section-title {
+    font-size: 13px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  /* header stack */
+  [nz-row] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px;
+  }
+
+  /* save button full width */
+  button[nz-button] {
+    width: 100%;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .card-option {
+    border-radius: 10px;
+  }
+
+  /* product preview scaling */
+  .product-square .img-area::before {
+    width: 40px;
+    height: 40px;
+  }
+
+  .product-fashion-tall .img-area::before {
+    width: 30px;
+    height: 55px;
+  }
+
+  .card-label {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .selected-badge {
+    font-size: 16px;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+@media (max-width: 480px) {
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card-option {
+    border-radius: 12px;
+  }
+
+  .section-title {
+    font-size: 12px;
+  }
+
+  .card-label {
+    font-size: 10px;
+  }
+
+  /* make previews more compact */
+  .product-square .img-area {
+    aspect-ratio: 1 / 0.9;
+  }
+
+  .product-fashion-tall .img-area {
+    aspect-ratio: 3 / 3.5;
+  }
 }

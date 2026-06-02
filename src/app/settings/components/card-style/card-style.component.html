@@ -30,37 +30,29 @@
 
       <ng-container [ngSwitch]="style.id">
 
-        <!-- Fashion -->
-        <div *ngSwitchCase="'fashion'" class="preview-wrap product-fashion">
-          <div class="img-area"></div>
-          <div class="info">
-            <div class="name">Product Name</div>
-            <div class="price-row">
-              <span class="price-old">Rs. 3,000</span>
-              <span class="price">Rs. 2,000</span>
-            </div>
-          </div>
-        </div>
+   <!-- Style 1: fashion (square image) -->
+<div *ngSwitchCase="'fashion'" class="preview-wrap product-square">
+  <div class="img-area"></div>
+  <div class="info">
+    <span class="name">Product Name</span>
+    <span class="price">Rs. 2,500</span>
+  </div>
+</div>
 
-        <!-- Badge Grid -->
-        <div *ngSwitchCase="'badge'" class="preview-wrap product-badge">
-          <div class="img-area">
-            <div class="badge">New</div>
-          </div>
-          <div class="info">
-            <div class="name">Floral Dress</div>
-            <div class="price">Rs. 3,000</div>
-          </div>
-        </div>
-
-        <!-- Minimal -->
-        <div *ngSwitchCase="'minimal'" class="preview-wrap product-minimal">
-          <div class="img-area"></div>
-          <div class="info">
-            <div class="name">Product Long Name Here</div>
-            <div class="price">Rs. 3,670</div>
-          </div>
-        </div>
+<!-- Style 2: badge (tall portrait) -->
+<div *ngSwitchCase="'badge'" class="preview-wrap product-fashion-tall">
+  <div class="img-area">
+    <div class="badge">Sale</div>
+  </div>
+  <div class="info">
+    <div class="name">Product Name</div>
+    <div class="stars">★★★★☆</div>
+    <div class="price-row">
+      <span class="price">Rs. 2,500</span>
+      <button class="add-btn">+ Add to Cart</button>
+    </div>
+  </div>
+</div>
 
       </ng-container>
 

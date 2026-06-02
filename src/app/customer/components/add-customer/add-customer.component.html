@@ -1,5 +1,4 @@
-<nz-card>
-  <!-- Header -->
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Add Customer</h2>
@@ -16,12 +15,10 @@
     </div>
   </div>
 
-  <!-- Form -->
   <form nz-form [formGroup]="customerForm" (ngSubmit)="submit()" nzLayout="vertical">
 
     <div nz-row [nzGutter]="16">
 
-      <!-- First Name -->
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label nzRequired>First Name</nz-form-label>
@@ -31,7 +28,6 @@
         </nz-form-item>
       </div>
 
-      <!-- Last Name -->
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label nzRequired>Last Name</nz-form-label>
@@ -41,7 +37,6 @@
         </nz-form-item>
       </div>
 
-      <!-- Email -->
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label>Email</nz-form-label>
@@ -51,7 +46,6 @@
         </nz-form-item>
       </div>
 
-      <!-- Password -->
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label nzRequired>Password</nz-form-label>
@@ -61,7 +55,6 @@
         </nz-form-item>
       </div>
 
-      <!-- Status -->
       <div nz-col nzSpan="12" style="display: flex; align-items: center; padding-top: 28px;">
         <nz-form-item style="margin-bottom: 0;">
           <nz-form-control>
@@ -72,7 +65,6 @@
 
     </div>
 
-    <!-- Submit Button -->
     <div style="text-align: right; margin-top: 16px;">
       <button nz-button nzType="primary"
         type="submit"
@@ -85,4 +77,241 @@
     </div>
 
   </form>
+</nz-card> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nz-card class="add-customer-card">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <div
+    nz-row
+    nzJustify="space-between"
+    nzAlign="middle"
+    class="page-header">
+
+    <div nz-col class="header-left">
+
+      <h2 nz-typography class="page-title">
+        Add Customer
+      </h2>
+
+      <p
+        nz-typography
+        nzType="secondary"
+        class="page-subtitle">
+
+        Create a new customer for your tenant.
+
+      </p>
+
+    </div>
+
+    <div nz-col class="header-right">
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/customer/dashboard"
+        class="back-btn">
+
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- =========================
+       FORM
+  ========================== -->
+  <form
+    nz-form
+    [formGroup]="customerForm"
+    (ngSubmit)="submit()"
+    nzLayout="vertical">
+
+    <div nz-row [nzGutter]="16">
+
+      <!-- FIRST NAME -->
+      <div
+        nz-col
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            First Name
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="First name is required">
+
+            <input
+              nz-input
+              formControlName="firstName"
+              placeholder="Enter first name" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- LAST NAME -->
+      <div
+        nz-col
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Last Name
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Last name is required">
+
+            <input
+              nz-input
+              formControlName="lastName"
+              placeholder="Enter last name" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- EMAIL -->
+      <div
+        nz-col
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label>
+            Email
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Enter valid email">
+
+            <input
+              nz-input
+              formControlName="email"
+              placeholder="Enter email" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- PASSWORD -->
+      <div
+        nz-col
+        nzXs="24"
+        nzSm="24"
+        nzMd="12"
+        nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Password
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Password is required">
+
+            <input
+              nz-input
+              type="password"
+              formControlName="password"
+              placeholder="Enter password" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <!-- STATUS -->
+      <div
+        nz-col
+        nzSpan="24">
+
+        <div class="status-wrapper">
+
+          <label
+            nz-checkbox
+            formControlName="status">
+
+            Active Customer
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- =========================
+         ACTIONS
+    ========================== -->
+    <div class="form-actions">
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/customer/dashboard"
+        type="button"
+        class="cancel-btn">
+
+        Cancel
+
+      </button>
+
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        class="submit-btn"
+        [disabled]="!customerForm.valid"
+        [nzLoading]="isSubmitting">
+
+        <span nz-icon nzType="save"></span>
+        Create Customer
+
+      </button>
+
+    </div>
+
+  </form>
+
 </nz-card>

@@ -1,4 +1,4 @@
-.file-upload-box {
+/* .file-upload-box {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,4 +16,311 @@
 .file-upload-box:hover {
   border-color: #1890ff;
   color: #1890ff;
+} */
+
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   PAGE
+========================= */
+
+.product-images-page {
+  border-radius: 16px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header {
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.page-title {
+  margin-bottom: 4px !important;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.page-subtitle {
+  margin-bottom: 0 !important;
+  font-size: 14px;
+}
+
+.back-btn {
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* =========================
+   UPLOAD CARD
+========================= */
+
+.upload-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 14px;
+}
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+.file-upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.25s;
+  width: 100%;
+  color: #888;
+  background: #fafafa;
+  text-align: center;
+}
+
+.file-upload-box:hover {
+  border-color: #1677ff;
+  color: #1677ff;
+  background: #f4f8ff;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-wrapper {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.preview-image {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.remove-btn {
+  margin-top: 8px;
+}
+
+/* =========================
+   CHECKBOX NOTE
+========================= */
+
+.checkbox-note {
+  font-size: 12px;
+  color: #999;
+  margin-left: 4px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.upload-btn {
+  height: 44px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loading-wrapper {
+  text-align: center;
+  padding: 50px 0;
+}
+
+/* =========================
+   IMAGES GRID
+========================= */
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+/* =========================
+   IMAGE CARD
+========================= */
+
+.image-card {
+  border: 1px solid #f0f0f0;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  transition: 0.25s;
+}
+
+.image-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   PRIMARY TAG
+========================= */
+
+.primary-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  border-radius: 20px;
+}
+
+/* =========================
+   PRODUCT IMAGE
+========================= */
+
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================
+   CARD CONTENT
+========================= */
+
+.image-card-content {
+  padding: 12px;
+}
+
+.color-name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+
+.image-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* =========================
+   FORM INPUTS
+========================= */
+
+input[nz-input] {
+  border-radius: 10px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px) {
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .back-btn {
+    width: 100%;
+  }
+
+  .main-grid {
+    row-gap: 20px;
+  }
+
+  .images-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .product-images-page {
+    border-radius: 12px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+  }
+
+  .back-btn {
+    width: 100%;
+    height: 44px;
+  }
+
+  .file-upload-box {
+    padding: 20px;
+  }
+
+  .preview-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .images-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .product-image {
+    height: 140px;
+  }
+
+  .image-card-content {
+    padding: 10px;
+  }
+
+  .color-name {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+  .images-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-image {
+    height: 220px;
+  }
 }

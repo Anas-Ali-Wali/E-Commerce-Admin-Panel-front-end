@@ -1,0 +1,121 @@
+/* =========================
+   BASE CARD FIX
+========================= */
+
+.card {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+.card-body {
+  overflow-x: hidden;
+}
+
+/* =========================
+   MOBILE (TABLET + PHONE)
+========================= */
+@media (max-width: 768px) {
+
+  .card-body {
+    padding: 10px !important;
+  }
+
+  /* 🔥 GRID FIX: force stacking */
+  .row {
+    row-gap: 12px;
+  }
+
+  .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  /* inputs full width + better readability */
+  .form-control,
+  .form-select {
+    font-size: 14px;
+  }
+
+  /* color input fix */
+  .form-control-color {
+    width: 40px !important;
+  }
+
+  /* image upload section */
+  .border {
+    padding: 10px !important;
+  }
+
+  /* preview reduce height */
+  .rounded.border.overflow-hidden {
+    height: 120px !important;
+  }
+
+  /* 🔥 TABLE FIX */
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 800px; /* prevent collapse */
+  }
+
+  /* buttons stack full width */
+  .d-flex.gap-2 {
+    flex-direction: column;
+  }
+
+  .d-flex.gap-2 button {
+    width: 100%;
+  }
+
+  /* switch spacing */
+  .form-check {
+    margin-top: 10px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE (VERY SMALL)
+========================= */
+@media (max-width: 480px) {
+
+  .card-header {
+    font-size: 14px;
+  }
+
+  h6 {
+    font-size: 13px;
+  }
+
+  .badge {
+    font-size: 10px;
+  }
+
+  /* preview even smaller */
+  .rounded.border.overflow-hidden {
+    height: 100px !important;
+  }
+
+  /* table extra safety */
+  table {
+    min-width: 900px;
+  }
+}
+
+
+
+
+
+@media (max-width: 768px) {
+
+  .card {
+    width: 92% !important;   /* 👈 main change */
+    margin: 10px auto !important;
+  }
+
+}

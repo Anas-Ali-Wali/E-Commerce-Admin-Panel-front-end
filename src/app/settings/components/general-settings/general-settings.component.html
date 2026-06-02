@@ -1,4 +1,4 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-header fw-semibold">
     <i class="bi bi-gear me-2"></i>General Settings
   </div>
@@ -58,6 +58,85 @@
                 [disabled]="saving">
           <span *ngIf="saving"
                 class="spinner-border spinner-border-sm me-2"></span>
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+<div class="card settings-card">
+  <div class="card-header fw-semibold">
+    <i class="bi bi-gear me-2"></i>General Settings
+  </div>
+
+  <div class="card-body">
+
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="successMsg" class="alert alert-success">
+        {{ successMsg }}
+      </div>
+
+      <div *ngIf="errorMsg" class="alert alert-danger">
+        {{ errorMsg }}
+      </div>
+
+      <div class="row g-3">
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Store Name</label>
+          <input class="form-control" formControlName="storeName" />
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Footer Tagline</label>
+          <input class="form-control" formControlName="footerTagline" />
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Logo URL</label>
+          <input class="form-control" formControlName="logoUrl" />
+
+          <img *ngIf="form.value.logoUrl"
+               [src]="form.value.logoUrl"
+               class="preview-img mt-2" />
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="form-label">Favicon URL</label>
+          <input class="form-control" formControlName="faviconUrl" />
+
+          <img *ngIf="form.value.faviconUrl"
+               [src]="form.value.faviconUrl"
+               class="preview-icon mt-2" />
+        </div>
+
+      </div>
+
+      <!-- BUTTON WRAPPER FIX -->
+      <div class="button-wrapper mt-4">
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="saving">
+
+          <span *ngIf="saving"
+                class="spinner-border spinner-border-sm me-2"></span>
+
           {{ saving ? 'Saving...' : 'Save Changes' }}
         </button>
       </div>

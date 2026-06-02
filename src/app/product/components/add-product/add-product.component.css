@@ -1,11 +1,10 @@
-.optional-label {
+/* .optional-label {
   font-size: 11px;
   color: #aaa;
   font-weight: 400;
   margin-left: 4px;
 }
 
-/* Tag box */
 .tag-box {
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +35,6 @@
   color: #333;
 }
 
-/* File upload */
 .file-upload-box {
   display: flex;
   align-items: center;
@@ -54,4 +52,235 @@
 .file-upload-box:hover {
   border-color: #1890ff;
   color: #1890ff;
+} */
+
+
+
+
+
+
+
+
+
+
+/* =========================
+   CARD
+========================= */
+
+.add-product-card {
+  border-radius: 16px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.product-header {
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.product-header h2 {
+  margin-bottom: 4px !important;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.product-header p {
+  margin-bottom: 0 !important;
+  font-size: 14px;
+}
+
+.back-btn {
+  height: 42px;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-weight: 500;
+}
+
+/* =========================
+   OPTIONAL LABEL
+========================= */
+
+.optional-label {
+  font-size: 11px;
+  color: #999;
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.product-form-row {
+  width: 100%;
+}
+
+nz-form-label {
+  font-weight: 600;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input[nz-input],
+textarea[nz-input],
+.nz-select-selector,
+.ant-input-number {
+  border-radius: 10px !important;
+}
+
+.ant-input-number {
+  width: 100%;
+}
+
+/* =========================
+   FILE UPLOAD
+========================= */
+
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 12px;
+  cursor: pointer;
+  color: #666;
+  font-size: 14px;
+  transition: 0.25s;
+  width: fit-content;
+  background: #fafafa;
+}
+
+.file-upload-box:hover {
+  border-color: #1677ff;
+  color: #1677ff;
+  background: #f4f8ff;
+}
+
+/* =========================
+   PREVIEW IMAGE
+========================= */
+
+.preview-wrapper {
+  margin-top: 14px;
+}
+
+.preview-image {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.cancel-btn,
+.submit-btn {
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px) {
+
+  .product-header {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+
+  .product-header h2 {
+    font-size: 24px;
+  }
+
+  .back-btn {
+    width: 100%;
+  }
+
+  .form-actions {
+    justify-content: stretch;
+  }
+
+  .cancel-btn,
+  .submit-btn {
+    flex: 1;
+  }
+
+  .file-upload-box {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .add-product-card {
+    border-radius: 12px;
+  }
+
+  .product-header {
+    margin-bottom: 22px;
+  }
+
+  .product-header h2 {
+    font-size: 22px;
+  }
+
+  .product-header p {
+    font-size: 13px;
+  }
+
+  .back-btn {
+    width: 100%;
+    height: 44px;
+  }
+
+  .preview-image {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-btn,
+  .submit-btn {
+    width: 100%;
+  }
+
+  .file-upload-box {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 18px;
+  }
+
+  .ant-select-selection-overflow {
+    flex-wrap: wrap;
+  }
 }

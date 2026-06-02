@@ -33,6 +33,8 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { HttpClientModule } from '@angular/common/http';  // ← ADD KARO
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+
 
 
 const ZORRO_MODULES = [
@@ -65,6 +67,7 @@ const ZORRO_MODULES = [
   NzBreadCrumbModule,
   NzAlertModule,
   NzAvatarModule,
+  NzStatisticModule,
   HttpClientModule
 ];
 
