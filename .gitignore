@@ -40,3 +40,24 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+
+
+
+
+
+# Android SDK files
+android/build-tools/
+android/emulator/
+android/extras/
+android/licenses/
+android/platforms/
+android/platform-tools/
+android/skins/
+android/sources/
+android/system-images/
+android/.downloadIntermediates/
+android/.gradle/
+android/.idea/
+android/.temp/
+android/build/
