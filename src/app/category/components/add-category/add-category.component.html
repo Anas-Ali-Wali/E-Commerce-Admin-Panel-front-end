@@ -157,11 +157,9 @@
 
 
 
-<nz-card class="add-category-card">
+<!-- <nz-card class="add-category-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+ 
   <div
     nz-row
     nzJustify="space-between"
@@ -197,9 +195,7 @@
 
   </div>
 
-  <!-- =========================
-       FORM
-  ========================== -->
+  
   <form
     nz-form
     [formGroup]="categoryForm"
@@ -208,7 +204,6 @@
 
     <div nz-row [nzGutter]="16">
 
-      <!-- CATEGORY NAME -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -230,7 +225,6 @@
 
       </div>
 
-      <!-- PARENT CATEGORY -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -255,7 +249,6 @@
 
       </div>
 
-      <!-- STATUS -->
       <div
         nz-col
         nzXs="24"
@@ -277,7 +270,6 @@
 
       </div>
 
-      <!-- IMAGE -->
       <div nz-col nzSpan="24">
 
         <nz-form-item>
@@ -301,7 +293,6 @@
 
         </nz-form-item>
 
-        <!-- IMAGE PREVIEW -->
         <div
           *ngIf="previewUrl"
           class="preview-wrapper">
@@ -316,7 +307,6 @@
 
     </div>
 
-    <!-- SUBMIT -->
     <div class="submit-wrapper">
 
       <button
@@ -331,6 +321,121 @@
 
       </button>
 
+    </div>
+
+  </form>
+
+</nz-card> -->
+
+
+
+
+
+
+<nz-card class="add-category-card">
+
+  <!-- HEADER -->
+  <div nz-row nzJustify="space-between" nzAlign="middle" class="page-header">
+
+    <div nz-col class="header-left">
+      <h2 class="page-title">Add Category</h2>
+      <p nz-typography nzType="secondary" class="page-subtitle">
+        Add a category for a tenant and assign parent categories.
+      </p>
+    </div>
+
+    <div nz-col>
+      <button nz-button nzType="default" routerLink="/category/dashboard" class="back-btn">
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+      </button>
+    </div>
+
+  </div>
+
+  <!-- FORM -->
+  <form nz-form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+    <div nz-row [nzGutter]="24">
+
+      <!-- NAME -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label nzRequired>Name</nz-form-label>
+          <nz-form-control nzErrorTip="Name is required">
+            <input nz-input formControlName="name" placeholder="Enter category name" class="custom-input" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- PARENT CATEGORY ID -->
+      <div nz-col nzXs="24" nzSm="24" nzMd="12">
+        <nz-form-item>
+          <nz-form-label>Parent Category ID</nz-form-label>
+          <nz-form-control>
+            <nz-input-number
+              formControlName="parentCategoryId"
+              [nzMin]="1"
+              class="full-width custom-input-number"
+              nzPlaceHolder="Enter parent category ID">
+            </nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- STATUS -->
+      <div nz-col nzSpan="24" class="status-col">
+        <nz-form-item class="status-item">
+          <nz-form-control>
+            <label nz-checkbox formControlName="status" class="status-checkbox">
+              Active
+            </label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <!-- CATEGORY IMAGE -->
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Category Image</nz-form-label>
+          <nz-form-control>
+
+            <!-- Upload Area -->
+            <div class="upload-area" (click)="fileInput.click()">
+              <span nz-icon nzType="cloud-upload" nzTheme="outline" class="upload-icon"></span>
+              <p class="upload-text">Click to upload image</p>
+              <p class="upload-hint">PNG, JPG, WEBP — max 5MB</p>
+              <input
+                #fileInput
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+                class="hidden-input" />
+            </div>
+
+            <!-- Preview -->
+            <div *ngIf="previewUrl" class="preview-wrapper">
+              <img [src]="previewUrl" class="preview-image" alt="Category preview" />
+              <span class="preview-label">Preview</span>
+            </div>
+
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrapper">
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        class="submit-btn"
+        [disabled]="!categoryForm.valid"
+        [nzLoading]="isSubmitting">
+        Create Category
+      </button>
     </div>
 
   </form>

@@ -212,11 +212,9 @@
 
 
 
-<nz-card class="order-dashboard-card">
+<!-- <nz-card class="order-dashboard-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+  
   <div
     nz-row
     nzJustify="space-between"
@@ -252,9 +250,7 @@
 
   </div>
 
-  <!-- =========================
-       FILTER TABS
-  ========================== -->
+ 
   <div class="filter-tabs">
 
     <button
@@ -271,9 +267,7 @@
 
   </div>
 
-  <!-- =========================
-       SEARCH
-  ========================== -->
+
   <div class="search-wrapper">
 
     <nz-input-group
@@ -290,9 +284,7 @@
 
   </div>
 
-  <!-- =========================
-       DESKTOP TABLE
-  ========================== -->
+  
   <div class="desktop-table">
 
     <nz-table
@@ -423,16 +415,13 @@
 
   </div>
 
-  <!-- =========================
-       MOBILE CARDS
-  ========================== -->
+  
   <div class="mobile-order-cards">
 
     <div
       class="order-mobile-card"
       *ngFor="let order of orders">
 
-      <!-- TOP -->
       <div class="mobile-card-top">
 
         <div>
@@ -455,7 +444,6 @@
 
       </div>
 
-      <!-- BODY -->
       <div class="mobile-card-body">
 
         <div class="info-item">
@@ -520,7 +508,6 @@
 
       </div>
 
-      <!-- STATUS -->
       <div class="mobile-status">
 
         <nz-select
@@ -539,7 +526,6 @@
 
       </div>
 
-      <!-- FOOTER -->
       <div class="mobile-card-footer">
 
         <button
@@ -562,4 +548,237 @@
 
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+
+<div class="order-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Order Dashboard</h2>
+      <p class="page-subtitle">Track and manage all orders with real-time notifications.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" routerLink="/order/add">
+        <i class="bi bi-plus-lg"></i> Add Order
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="table-card">
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs-wrapper">
+      <div class="filter-tabs">
+        <button
+          *ngFor="let tab of filterTabs"
+          class="filter-btn"
+          [class.active]="activeFilter === tab"
+          (click)="filterByStatus(tab)">
+          {{ tab }}
+        </button>
+      </div>
+    </div>
+
+    <!-- TABLE TOP -->
+    <div class="table-top">
+      <h3 class="table-title">Order List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search order..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Phone</th>
+            <th>Products</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Update Status</th>
+            <th style="text-align:right">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- LOADING -->
+          <tr *ngIf="isLoading">
+            <td colspan="9" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+
+          <!-- ROWS -->
+          <tr *ngFor="let order of pagedOrders; let i = index">
+            <td>#{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td>
+              <div class="customer-name">{{ order.customerName }}</div>
+              <small class="customer-email">{{ order.customerEmail }}</small>
+            </td>
+            <td>{{ order.customerPhone }}</td>
+            <td>
+              <span class="product-summary">{{ order.productsSummary || '—' }}</span>
+            </td>
+            <td>{{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}</td>
+            <td>{{ order.createdDate | date:'dd MMM, yyyy' }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+                {{ order.status }}
+              </span>
+            </td>
+            <td>
+              <select
+                class="status-select"
+                [ngModel]="order.status"
+                (ngModelChange)="updateStatus(order, $event)">
+                <option *ngFor="let s of statusOptions" [value]="s.value">
+                  {{ s.label }}
+                </option>
+              </select>
+            </td>
+            <td style="text-align:right">
+              <div class="action-btns">
+                <button
+                  class="btn-action delete"
+                  title="Delete"
+                  (click)="confirmDelete(order.orderId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <!-- EMPTY -->
+          <tr *ngIf="!isLoading && orders.length === 0">
+            <td colspan="9" class="empty-state">No orders found.</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar">
+        <span class="pagination-info">
+          Showing {{ orders.length === 0 ? 0 : (currentPage - 1) * pageSize + 1 }}
+          to {{ Math.min(currentPage * pageSize, orders.length) }}
+          of {{ orders.length }} entries
+        </span>
+        <div class="pagination-btns">
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            *ngFor="let p of getPages()"
+            [class.active]="p === currentPage"
+            (click)="onPageChange(p)">
+            {{ p }}
+          </button>
+          <button
+            [disabled]="currentPage * pageSize >= orders.length"
+            (click)="onPageChange(currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="order-mobile-card" *ngFor="let order of pagedOrders">
+
+        <div class="mobile-top">
+          <div>
+            <h3>#{{ order.orderId }}</h3>
+            <p>{{ order.customerName }}</p>
+          </div>
+          <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+            {{ order.status }}
+          </span>
+        </div>
+
+        <div class="mobile-body">
+          <div class="info-item">
+            <span class="label">Phone</span>
+            <span class="value">{{ order.customerPhone }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Email</span>
+            <span class="value">{{ order.customerEmail }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Products</span>
+            <span class="value">{{ order.productsSummary || '—' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Amount</span>
+            <span class="value">{{ order.totalAmount | currency:'PKR':'Rs. ':'1.0-0' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Date</span>
+            <span class="value">{{ order.createdDate | date:'dd MMM, yyyy' }}</span>
+          </div>
+        </div>
+
+        <div class="mobile-status">
+          <select
+            class="status-select"
+            style="width:100%"
+            [ngModel]="order.status"
+            (ngModelChange)="updateStatus(order, $event)">
+            <option *ngFor="let s of statusOptions" [value]="s.value">{{ s.label }}</option>
+          </select>
+        </div>
+
+        <div class="mobile-footer">
+          <button class="btn-action delete" style="width:100%; justify-content:center"
+            (click)="confirmDelete(order.orderId)">
+            <i class="bi bi-trash"></i> Delete Order
+          </button>
+        </div>
+
+      </div>
+
+      <div *ngIf="!isLoading && orders.length === 0" class="empty-state">
+        No orders found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Order?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="executeDelete()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

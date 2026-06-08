@@ -75,7 +75,7 @@
 
 
 
-<div class="card settings-card">
+<!-- <div class="card settings-card">
   <div class="card-header fw-semibold">
     <i class="bi bi-gear me-2"></i>General Settings
   </div>
@@ -128,7 +128,6 @@
 
       </div>
 
-      <!-- BUTTON WRAPPER FIX -->
       <div class="button-wrapper mt-4">
         <button type="submit"
                 class="btn btn-primary"
@@ -143,4 +142,105 @@
 
     </form>
   </div>
+</div> -->
+
+
+
+
+
+<div class="settings-wrap">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">General Settings</h2>
+      <p class="page-subtitle">Configure your store's basic information.</p>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner-border spinner-border-sm text-primary"></div>
+    <span>Loading settings...</span>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card" *ngIf="!loading">
+
+    <!-- SUCCESS / ERROR -->
+    <div class="alert-success-custom" *ngIf="successMsg">
+      <i class="bi bi-check-circle-fill"></i> {{ successMsg }}
+    </div>
+    <div class="alert-danger-custom" *ngIf="errorMsg">
+      <i class="bi bi-exclamation-circle-fill"></i> {{ errorMsg }}
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- STORE NAME -->
+        <div class="form-group">
+          <label class="form-label">Store Name</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="storeName"
+            placeholder="e.g. My Awesome Store" />
+        </div>
+
+        <!-- FOOTER TAGLINE -->
+        <div class="form-group">
+          <label class="form-label">Footer Tagline</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="footerTagline"
+            placeholder="e.g. Quality you can trust" />
+        </div>
+
+        <!-- LOGO URL -->
+        <div class="form-group">
+          <label class="form-label">Logo URL</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="logoUrl"
+            placeholder="https://..." />
+          <div class="img-preview" *ngIf="form.value.logoUrl">
+            <img [src]="form.value.logoUrl" class="preview-img" alt="Logo preview" />
+          </div>
+        </div>
+
+        <!-- FAVICON URL -->
+        <div class="form-group">
+          <label class="form-label">Favicon URL</label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="faviconUrl"
+            placeholder="https://..." />
+          <div class="img-preview" *ngIf="form.value.faviconUrl">
+            <img [src]="form.value.faviconUrl" class="preview-icon" alt="Favicon preview" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="saving">
+          <span *ngIf="saving" class="spinner-border spinner-border-sm me-1"></span>
+          <i class="bi bi-floppy" *ngIf="!saving"></i>
+          {{ saving ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
 </div>

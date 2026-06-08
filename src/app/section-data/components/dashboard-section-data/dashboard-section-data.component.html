@@ -1,6 +1,5 @@
-<nz-card>
+<!-- <nz-card>
 
-  <!-- Header -->
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Section Data Dashboard</h2>
@@ -18,7 +17,6 @@
     </div>
   </div>
 
-  <!-- Search -->
   <nz-input-group nzPrefixIcon="search" style="width: 300px; margin-bottom: 16px;">
     <input
       nz-input
@@ -27,7 +25,6 @@
       (ngModelChange)="onSearch()" />
   </nz-input-group>
 
-  <!-- Table -->
   <nz-table
     [nzData]="sectionDataList"
     [nzLoading]="isLoading"
@@ -71,4 +68,121 @@
 
   </nz-table>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+<div class="section-data-db">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Section Data Dashboard</h2>
+      <p class="page-subtitle">Manage key-value data for Section ID: {{ sectionId }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom"
+        [routerLink]="['/section-data/add']"
+        [queryParams]="{ sectionId: sectionId }">
+        <i class="bi bi-plus-lg"></i> Add Data
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="table-card">
+
+    <div class="table-top">
+      <h3 class="table-title">Data List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search key or value..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="4" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let item of sectionDataList; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td><span class="key-badge">{{ item.key }}</span></td>
+            <td class="value-text">{{ item.value || '—' }}</td>
+            <td>
+              <div class="action-btns">
+                <button
+                  class="btn-action delete"
+                  title="Delete"
+                  (click)="confirmDelete(item.dataId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && sectionDataList.length === 0">
+            <td colspan="4" class="empty-state">No data found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="data-mobile-card" *ngFor="let item of sectionDataList">
+        <div class="mobile-top">
+          <span class="key-badge">{{ item.key }}</span>
+        </div>
+        <div class="mobile-value">
+          <span class="value-label">Value</span>
+          <span class="value-text">{{ item.value || '—' }}</span>
+        </div>
+        <div class="mobile-footer">
+          <button class="btn-action delete full-width" (click)="confirmDelete(item.dataId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && sectionDataList.length === 0" class="empty-state">
+        No data found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Data?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="executeDelete()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

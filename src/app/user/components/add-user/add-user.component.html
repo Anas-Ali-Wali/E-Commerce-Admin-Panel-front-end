@@ -123,11 +123,9 @@
 
 
 
-<nz-card class="add-user-card">
+<!-- <nz-card class="add-user-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+ 
   <div
     nz-row
     nzJustify="space-between"
@@ -163,9 +161,7 @@
 
   </div>
 
-  <!-- =========================
-       FORM
-  ========================== -->
+  
   <form
     nz-form
     [formGroup]="userForm"
@@ -174,7 +170,6 @@
 
     <div nz-row [nzGutter]="16">
 
-      <!-- TENANT -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -204,7 +199,6 @@
 
       </div>
 
-      <!-- NAME -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -226,7 +220,6 @@
 
       </div>
 
-      <!-- EMAIL -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -249,7 +242,6 @@
 
       </div>
 
-      <!-- PASSWORD -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -287,7 +279,6 @@
 
       </div>
 
-      <!-- ROLE -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12">
 
         <nz-form-item>
@@ -317,7 +308,6 @@
 
     </div>
 
-    <!-- SUBMIT -->
     <div class="submit-wrapper">
 
       <button
@@ -336,4 +326,123 @@
 
   </form>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+<div class="add-user-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add User</h2>
+      <p class="page-subtitle">Create a user for a tenant with role and login details.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-back" routerLink="/user/dashboard">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- TENANT -->
+        <div class="form-field">
+          <label class="field-label required">Tenant</label>
+          <select class="custom-input" formControlName="tenantId">
+            <option [ngValue]="null" disabled>Select Tenant</option>
+            <option *ngFor="let tenant of tenants" [ngValue]="tenant.tenantId">
+              {{ tenant.name }}
+            </option>
+          </select>
+          <span class="field-error" *ngIf="userForm.get('tenantId')?.invalid && userForm.get('tenantId')?.dirty">
+            Tenant is required
+          </span>
+        </div>
+
+        <!-- NAME -->
+        <div class="form-field">
+          <label class="field-label required">Name</label>
+          <input
+            type="text"
+            class="custom-input"
+            formControlName="name"
+            placeholder="Enter full name" />
+          <span class="field-error" *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.dirty">
+            Name is required
+          </span>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-field">
+          <label class="field-label required">Email</label>
+          <input
+            type="email"
+            class="custom-input"
+            formControlName="email"
+            placeholder="user@example.com" />
+          <span class="field-error" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.dirty">
+            Please enter a valid email
+          </span>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-field">
+          <label class="field-label required">Password</label>
+          <div class="input-with-icon">
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              class="custom-input"
+              formControlName="password"
+              placeholder="Enter password" />
+            <i class="bi password-toggle"
+               [class.bi-eye]="!passwordVisible"
+               [class.bi-eye-slash]="passwordVisible"
+               (click)="passwordVisible = !passwordVisible">
+            </i>
+          </div>
+          <span class="field-error" *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.dirty">
+            Password is required
+          </span>
+        </div>
+
+        <!-- ROLE -->
+        <div class="form-field">
+          <label class="field-label required">Role</label>
+          <select class="custom-input" formControlName="role">
+            <option value="" disabled>Select role</option>
+            <option value="user">User</option>
+            <option value="Admin">Admin</option>
+          </select>
+          <span class="field-error" *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.dirty">
+            Role is required
+          </span>
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="form-footer">
+        <button type="button" class="btn-cancel" routerLink="/user/dashboard">Cancel</button>
+        <button
+          type="submit"
+          class="btn-primary-custom"
+          [disabled]="!userForm.valid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
+          <i *ngIf="!isSubmitting" class="bi bi-plus-lg"></i>
+          {{ isSubmitting ? 'Creating...' : 'Create User' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

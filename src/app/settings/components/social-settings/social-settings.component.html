@@ -1,4 +1,4 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-header fw-semibold">
     <i class="bi bi-share me-2"></i>Social Media Settings
   </div>
@@ -67,4 +67,113 @@
 
     </form>
   </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+<div class="social-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2 class="page-title">Social Media Settings</h2>
+    <p class="page-subtitle">Connect your store's social media profiles.</p>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner-border spinner-border-sm text-primary"></div>
+    <span>Loading settings...</span>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card" *ngIf="!loading">
+
+    <div class="card-top">
+      <h3 class="card-title">
+        <i class="bi bi-share me-2"></i>Social Links
+      </h3>
+    </div>
+
+    <div class="card-body">
+
+      <div class="alert-success-custom" *ngIf="successMsg">
+        <i class="bi bi-check-circle-fill"></i> {{ successMsg }}
+      </div>
+      <div class="alert-danger-custom" *ngIf="errorMsg">
+        <i class="bi bi-exclamation-circle-fill"></i> {{ errorMsg }}
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+
+          <!-- FACEBOOK -->
+          <div class="form-group">
+            <label class="form-label">Facebook URL</label>
+            <div class="input-wrap">
+              <span class="input-icon facebook">
+                <i class="bi bi-facebook"></i>
+              </span>
+              <input
+                type="text"
+                class="form-input"
+                formControlName="facebookUrl"
+                placeholder="https://facebook.com/yourpage" />
+            </div>
+          </div>
+
+          <!-- INSTAGRAM -->
+          <div class="form-group">
+            <label class="form-label">Instagram URL</label>
+            <div class="input-wrap">
+              <span class="input-icon instagram">
+                <i class="bi bi-instagram"></i>
+              </span>
+              <input
+                type="text"
+                class="form-input"
+                formControlName="instagramUrl"
+                placeholder="https://instagram.com/yourpage" />
+            </div>
+          </div>
+
+          <!-- WHATSAPP -->
+          <div class="form-group">
+            <label class="form-label">WhatsApp Number</label>
+            <div class="input-wrap">
+              <span class="input-icon whatsapp">
+                <i class="bi bi-whatsapp"></i>
+              </span>
+              <input
+                type="text"
+                class="form-input"
+                formControlName="whatsappNumber"
+                placeholder="923001234567" />
+            </div>
+            <span class="field-hint">Country code ke saath likho (e.g. 923001234567)</span>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="form-actions">
+      <button
+        class="btn-submit"
+        [disabled]="saving"
+        (click)="onSubmit()">
+        <span *ngIf="saving" class="spinner-border spinner-border-sm"></span>
+        <i class="bi bi-floppy" *ngIf="!saving"></i>
+        {{ saving ? 'Saving...' : 'Save Social Links' }}
+      </button>
+    </div>
+
+  </div>
+
 </div>

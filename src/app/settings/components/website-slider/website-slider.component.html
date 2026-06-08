@@ -1,4 +1,4 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-header fw-semibold">
     <i class="bi bi-images me-2"></i>Website Slider / Banner
   </div>
@@ -328,4 +328,357 @@
     </div>
 
   </div>
+</div> -->
+
+
+
+
+
+
+
+
+<div class="slider-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2 class="page-title">Website Slider / Banner</h2>
+    <p class="page-subtitle">Manage your storefront banners and sliders.</p>
+  </div>
+
+  <!-- ALERTS -->
+  <div class="alert-success-custom" *ngIf="successMsg">
+    <i class="bi bi-check-circle-fill"></i> {{ successMsg }}
+    <button class="alert-close" (click)="successMsg=''">✕</button>
+  </div>
+  <div class="alert-danger-custom" *ngIf="errorMsg">
+    <i class="bi bi-exclamation-circle-fill"></i> {{ errorMsg }}
+    <button class="alert-close" (click)="errorMsg=''">✕</button>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+    <div class="card-top">
+      <i class="bi {{ editingId ? 'bi-pencil' : 'bi-plus-circle' }}"
+         style="color:#4f46e5; font-size:18px;"></i>
+      <h3 class="card-title">{{ editingId ? 'Edit Slider' : 'Add New Slider' }}</h3>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- ROW 1: Layout + Overlay -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="bi bi-layout-wtf me-1"></i> Layout Type
+            </label>
+            <select class="form-select-custom" formControlName="layoutType">
+              <option value="full-image">Full Image Background</option>
+              <option value="text-only">Color Background (No Image)</option>
+              <option value="split-left">Split — Text Left, Image Right</option>
+              <option value="split-right">Split — Image Left, Text Right</option>
+            </select>
+          </div>
+
+          <div class="form-group" *ngIf="isImageLayout && isFullImage">
+            <label class="form-label">
+              <i class="bi bi-circle-half me-1"></i>
+              Image Overlay Darkness: <strong>{{ form.value.overlayOpacity }}%</strong>
+            </label>
+            <div class="range-wrap">
+              <input type="range" class="form-range"
+                     min="0" max="90" step="5"
+                     formControlName="overlayOpacity" />
+              <div class="range-meta">
+                <span>0% (no overlay)</span>
+                <span>90% (very dark)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW 2: Colors -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="bi bi-palette me-1"></i> Background Color
+            </label>
+            <div class="color-input-wrap">
+              <input type="color" class="color-swatch" formControlName="bgColor" />
+              <input type="text"  class="color-text"   formControlName="bgColor" placeholder="#1a1a2e" />
+            </div>
+            <span class="field-hint">
+              {{ form.value.layoutType === 'full-image'
+                ? 'Button color ke liye use hoga'
+                : 'Banner background color' }}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="bi bi-fonts me-1"></i> Text Color
+            </label>
+            <div class="color-input-wrap">
+              <input type="color" class="color-swatch" formControlName="textColor" />
+              <input type="text"  class="color-text"   formControlName="textColor" placeholder="#ffffff" />
+            </div>
+          </div>
+        </div>
+
+        <!-- IMAGE UPLOAD -->
+        <div class="form-group col-full mb-4" *ngIf="isImageLayout">
+          <label class="form-label">
+            <i class="bi bi-image me-1"></i> Banner Image
+          </label>
+          <div class="upload-box">
+
+            <div class="upload-section">
+              <label><i class="bi bi-upload me-1"></i> Computer se upload karein</label>
+              <div class="upload-row">
+                <input type="file" class="form-input"
+                       accept="image/jpeg,image/png,image/webp,image/gif"
+                       (change)="onImageFileSelect($event)"
+                       [disabled]="imageUploading"
+                       style="height:auto; padding:10px;" />
+                <div *ngIf="imageUploading"
+                     class="spinner-border spinner-border-sm text-primary flex-shrink-0"></div>
+              </div>
+              <span class="upload-hint">Max 5MB — JPG, PNG, WebP supported</span>
+            </div>
+
+            <div class="divider">
+              <hr /><span>YA</span><hr />
+            </div>
+
+            <div class="upload-section">
+              <label><i class="bi bi-link-45deg me-1"></i> Image URL directly paste karein</label>
+              <input type="text" class="form-input"
+                     formControlName="imageUrl"
+                     placeholder="https://example.com/banner.jpg"
+                     (input)="onUrlInput($event)" />
+            </div>
+
+            <div *ngIf="imagePreview" class="img-preview-wrap">
+              <img [src]="imagePreview" alt="Preview" (error)="imagePreview=''" />
+              <button type="button" class="btn-remove-img"
+                      (click)="imagePreview=''; form.patchValue({imageUrl:''})">✕</button>
+            </div>
+
+            <div *ngIf="imageUploading" class="upload-progress">
+              <i class="bi bi-cloud-upload"></i> Image upload ho rahi hai, please wait...
+            </div>
+
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="form-group col-full mb-4">
+          <label class="form-label">
+            <i class="bi bi-eye me-1"></i> Live Preview
+          </label>
+          <div class="preview-box"
+               [style.background]="isImageLayout && imagePreview
+                 ? 'url(' + imagePreview + ') center/cover no-repeat, ' + form.value.bgColor
+                 : form.value.bgColor">
+
+            <div *ngIf="isFullImage && imagePreview"
+                 class="preview-overlay"
+                 [style.background]="'rgba(0,0,0,' + (form.value.overlayOpacity/100) + ')'">
+            </div>
+
+            <div *ngIf="form.value.layoutType === 'split-right' && imagePreview"
+                 class="preview-split-img right"
+                 [style.background-image]="'url(' + imagePreview + ')'">
+            </div>
+            <div *ngIf="form.value.layoutType === 'split-left' && imagePreview"
+                 class="preview-split-img left"
+                 [style.background-image]="'url(' + imagePreview + ')'">
+            </div>
+
+            <div class="preview-content"
+                 [style.color]="form.value.textColor"
+                 [style.margin-left]="form.value.layoutType === 'split-right' ? '45%' : '0'"
+                 [style.margin-right]="form.value.layoutType === 'split-left' ? '45%' : '0'">
+              <div class="preview-title">{{ form.value.title || 'Your Title Here' }}</div>
+              <div class="preview-subtitle">{{ form.value.subtitle || 'Your subtitle here' }}</div>
+              <span *ngIf="form.value.buttonText"
+                    class="preview-btn"
+                    [style.background]="form.value.bgColor"
+                    [style.color]="form.value.textColor">
+                {{ form.value.buttonText }} →
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROW: Title + Subtitle -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-input"
+                   formControlName="title" placeholder="Summer Sale!" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subtitle</label>
+            <input type="text" class="form-input"
+                   formControlName="subtitle" placeholder="Up to 50% off" />
+          </div>
+        </div>
+
+        <!-- ROW: Button + Order + Toggles -->
+        <div class="form-grid three-col">
+          <div class="form-group">
+            <label class="form-label">Button Text</label>
+            <input type="text" class="form-input"
+                   formControlName="buttonText" placeholder="Shop Now" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Button Link</label>
+            <input type="text" class="form-input"
+                   formControlName="buttonLink" placeholder="/products" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Order No</label>
+            <input type="number" class="form-input"
+                   formControlName="orderNo" min="1" />
+          </div>
+        </div>
+
+        <!-- TOGGLES -->
+        <div class="form-grid">
+          <div class="toggle-group">
+            <input type="checkbox" class="form-check-input"
+                   id="isActive" formControlName="isActive" />
+            <label class="toggle-label" for="isActive">Active</label>
+          </div>
+          <div class="toggle-group" style="flex-wrap:wrap;">
+            <input type="checkbox" class="form-check-input"
+                   id="isPresetImage" formControlName="isPresetImage" />
+            <label class="toggle-label" for="isPresetImage">
+              <i class="bi bi-images me-1"></i> Preset Image (Gallery Card)
+            </label>
+            <span class="toggle-hint" style="width:100%;">
+              Website pe gallery card mein dikhegi, click se banner change hoga
+            </span>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="form-actions">
+          <button type="submit" class="btn-submit"
+                  [disabled]="saving || imageUploading">
+            <span *ngIf="saving" class="spinner-border spinner-border-sm"></span>
+            <i class="bi bi-floppy" *ngIf="!saving"></i>
+            {{ editingId ? 'Update Slider' : 'Add Slider' }}
+          </button>
+          <button *ngIf="editingId" type="button"
+                  class="btn-cancel-form" (click)="resetForm()">
+            Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="table-card">
+    <div class="table-top">
+      <h3 class="table-title">
+        <i class="bi bi-list-ul me-2"></i>All Sliders
+      </h3>
+    </div>
+
+    <div *ngIf="loading" class="loading-state">
+      <div class="spinner-border spinner-border-sm text-primary"></div>
+      <span>Loading sliders...</span>
+    </div>
+
+    <div *ngIf="!loading && sliders.length === 0" class="empty-state">
+      <i class="bi bi-image"></i>
+      <p>No sliders added yet.</p>
+    </div>
+
+    <div class="desktop-table" *ngIf="!loading && sliders.length > 0">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Preview</th>
+            <th>Title</th>
+            <th>Layout</th>
+            <th>Colors</th>
+            <th>Order</th>
+            <th>Status</th>
+            <th>Preset</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let slider of sliders">
+            <td>{{ slider.sliderId }}</td>
+
+            <td>
+              <img *ngIf="slider.imageUrl?.startsWith('http')"
+                   [src]="slider.imageUrl" class="thumb-img" alt="preview" />
+              <div *ngIf="!slider.imageUrl?.startsWith('http')"
+                   class="thumb-color"
+                   [style.background]="slider.bgColor"></div>
+            </td>
+
+            <td>{{ slider.title || '—' }}</td>
+
+            <td>
+              <span class="badge-layout">
+                {{ slider.layoutType === 'full-image'   ? 'Full Image'   :
+                   slider.layoutType === 'text-only'    ? 'Color BG'     :
+                   slider.layoutType === 'split-left'   ? 'Split Left'   :
+                   slider.layoutType === 'split-right'  ? 'Split Right'  :
+                   slider.layoutType }}
+              </span>
+            </td>
+
+            <td>
+              <div class="color-dots">
+                <div class="color-dot" [style.background]="slider.bgColor"
+                     [title]="'BG: ' + slider.bgColor"></div>
+                <div class="color-dot" [style.background]="slider.textColor"
+                     [title]="'Text: ' + slider.textColor"></div>
+              </div>
+            </td>
+
+            <td>{{ slider.orderNo }}</td>
+
+            <td>
+              <span class="status-badge"
+                    [class.active]="slider.isActive"
+                    [class.inactive]="!slider.isActive">
+                {{ slider.isActive ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+
+            <td>
+              <span class="preset-badge"
+                    [class.yes]="slider.isPresetImage"
+                    [class.no]="!slider.isPresetImage">
+                {{ slider.isPresetImage ? 'Preset' : '—' }}
+              </span>
+            </td>
+
+            <td>
+              <div class="action-btns">
+                <button class="btn-action edit" (click)="onEdit(slider)" title="Edit">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn-action delete" (click)="onDelete(slider.sliderId)" title="Delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>

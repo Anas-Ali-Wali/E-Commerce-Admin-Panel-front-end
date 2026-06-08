@@ -16,6 +16,10 @@ sections: SectionResponseDto[] = [];
   isLoading = false;
   pageId!: number;
 
+    // delete modal
+  showDeleteModal = false;
+  pendingDeleteId!: number;
+
   constructor(
     private sectionService: SectionService,
     private message: NzMessageService,
@@ -56,8 +60,29 @@ sections: SectionResponseDto[] = [];
     );
   }
 
-  deleteSection(id: number) {
-    this.sectionService.deleteSection(id).subscribe({
+  // deleteSection(id: number) {
+  //   this.sectionService.deleteSection(id).subscribe({
+  //     next: (res) => {
+  //       if (res.success) {
+  //         this.message.success('Section deleted successfully');
+  //         this.loadSections();
+  //       } else {
+  //         this.message.error('Failed to delete section');
+  //       }
+  //     },
+  //     error: () => this.message.error('Server error occurred.')
+  //   });
+  // }
+
+
+  confirmDelete(id: number) {
+    this.pendingDeleteId = id;
+    this.showDeleteModal = true;
+  }
+ 
+  executeDelete() {
+    this.showDeleteModal = false;
+    this.sectionService.deleteSection(this.pendingDeleteId).subscribe({
       next: (res) => {
         if (res.success) {
           this.message.success('Section deleted successfully');
@@ -69,5 +94,6 @@ sections: SectionResponseDto[] = [];
       error: () => this.message.error('Server error occurred.')
     });
   }
+
 }
 

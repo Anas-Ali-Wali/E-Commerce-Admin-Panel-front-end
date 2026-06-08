@@ -102,20 +102,14 @@
 
 
 
-<nz-layout class="layout-container">
+<!-- <nz-layout class="layout-container">
 
-  <!-- =========================
-       MOBILE OVERLAY
-  ========================== -->
   <div
     class="mobile-overlay"
     *ngIf="isMobile && !isCollapsed"
     (click)="closeSidebar()">
   </div>
 
-  <!-- =========================
-       SIDEBAR
-  ========================== -->
   <nz-sider
     class="sidebar"
     nzCollapsible
@@ -125,7 +119,6 @@
     [nzWidth]="280"
     nzTheme="dark">
 
-    <!-- LOGO -->
     <div class="logo">
 
       <span *ngIf="!isCollapsed">
@@ -138,14 +131,10 @@
 
     </div>
 
-    <!-- MENU -->
     <ul nz-menu nzTheme="dark" nzMode="inline">
 
-      <!-- =========================
-           MAIN MODULES
-      ========================== -->
+     
 
-      <!-- Tenant -->
       <li
         nz-menu-item
         routerLink="/tenant/dashboard"
@@ -157,7 +146,6 @@
 
       </li>
 
-      <!-- User -->
       <li
         nz-menu-item
         routerLink="/user/dashboard"
@@ -169,7 +157,6 @@
 
       </li>
 
-      <!-- Category -->
       <li
         nz-menu-item
         routerLink="/category/dashboard"
@@ -181,7 +168,6 @@
 
       </li>
 
-      <!-- Product -->
       <li
         nz-menu-item
         routerLink="/product/dashboard"
@@ -193,7 +179,6 @@
 
       </li>
 
-      <!-- Order -->
       <li
         nz-menu-item
         routerLink="/order/dashboard"
@@ -205,7 +190,6 @@
 
       </li>
 
-      <!-- Page -->
       <li
         nz-menu-item
         routerLink="/page/dashboard"
@@ -217,7 +201,6 @@
 
       </li>
 
-      <!-- Customer -->
       <li
         nz-menu-item
         routerLink="/customer/dashboard"
@@ -229,9 +212,7 @@
 
       </li>
 
-      <!-- =========================
-           SETTINGS
-      ========================== -->
+      
       <li
         nz-submenu
         nzTitle="Settings"
@@ -240,7 +221,6 @@
 
         <ul>
 
-          <!-- General Settings -->
           <li
             nz-menu-item
             routerLink="/settings/general"
@@ -252,7 +232,6 @@
 
           </li>
 
-          <!-- Theme -->
           <li
             nz-menu-item
             routerLink="/settings/theme"
@@ -264,7 +243,6 @@
 
           </li>
 
-          <!-- Social -->
           <li
             nz-menu-item
             routerLink="/settings/social"
@@ -276,7 +254,6 @@
 
           </li>
 
-          <!-- Slider -->
           <li
             nz-menu-item
             routerLink="/settings/slider"
@@ -288,7 +265,6 @@
 
           </li>
 
-          <!-- Integration -->
           <li
             nz-menu-item
             routerLink="/settings/integration"
@@ -300,7 +276,6 @@
 
           </li>
 
-          <!-- Card Style -->
           <li
             nz-menu-item
             routerLink="/settings/card-style"
@@ -320,15 +295,11 @@
 
   </nz-sider>
 
-  <!-- =========================
-       MAIN LAYOUT
-  ========================== -->
+
   <nz-layout>
 
-    <!-- HEADER -->
     <nz-header class="header">
 
-      <!-- SIDEBAR TOGGLE -->
       <span
         class="trigger"
         (click)="toggleSidebar()">
@@ -340,10 +311,8 @@
 
       </span>
 
-      <!-- RIGHT -->
       <div class="header-right">
 
-        <!-- OPTIONAL USER -->
         <div class="header-user">
 
           <span nz-icon nzType="user"></span>
@@ -354,7 +323,6 @@
 
         </div>
 
-        <!-- LOGOUT -->
         <span
           class="logout"
           (click)="logout()">
@@ -371,7 +339,6 @@
 
     </nz-header>
 
-    <!-- CONTENT -->
     <nz-content class="content">
 
       <router-outlet></router-outlet>
@@ -380,4 +347,179 @@
 
   </nz-layout>
 
-</nz-layout>
+</nz-layout> -->
+
+
+
+
+
+
+
+
+
+<div class="layout-wrapper">
+
+  <!-- MOBILE OVERLAY -->
+  <div class="mobile-overlay" *ngIf="isMobile && !isCollapsed" (click)="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" [class.collapsed]="isCollapsed" [class.mobile-open]="isMobile && !isCollapsed">
+
+    <!-- LOGO -->
+    <div class="sidebar-logo">
+      <i class="bi bi-shop-window me-2"></i>
+      <span *ngIf="!isCollapsed" class="logo-text">E-Commerce</span>
+    </div>
+
+    <!-- MENU LABEL -->
+    <div class="menu-label" *ngIf="!isCollapsed">MODULES</div>
+
+    <!-- MENU ITEMS -->
+    <ul class="sidebar-menu">
+
+      <li routerLink="/tenant/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-building"></i>
+        <span *ngIf="!isCollapsed">Tenant</span>
+      </li>
+
+      <li routerLink="/user/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-people"></i>
+        <span *ngIf="!isCollapsed">User Management</span>
+      </li>
+
+      <li routerLink="/customer/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-person-check"></i>
+        <span *ngIf="!isCollapsed">Customers</span>
+      </li>
+
+      <li routerLink="/product/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-box-seam"></i>
+        <span *ngIf="!isCollapsed">Products</span>
+      </li>
+
+      <li routerLink="/category/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-grid"></i>
+        <span *ngIf="!isCollapsed">Categories</span>
+      </li>
+
+      <li routerLink="/order/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-cart3"></i>
+        <span *ngIf="!isCollapsed">Orders</span>
+      </li>
+
+      <li routerLink="/page/dashboard" routerLinkActive="active" (click)="handleMenuClick()">
+        <i class="bi bi-file-earmark-text"></i>
+        <span *ngIf="!isCollapsed">Pages</span>
+      </li>
+
+      <!-- SETTINGS SUBMENU -->
+      <li class="has-submenu" [class.open]="settingsOpen" (click)="toggleSettings()">
+        <i class="bi bi-gear"></i>
+        <span *ngIf="!isCollapsed">Settings</span>
+        <i class="bi bi-chevron-down ms-auto arrow" *ngIf="!isCollapsed"></i>
+      </li>
+
+      <ul class="submenu" *ngIf="settingsOpen && !isCollapsed">
+        <li routerLink="/settings/general" routerLinkActive="active" (click)="handleMenuClick()">
+          <i class="bi bi-sliders"></i> General Settings
+        </li>
+        <li routerLink="/settings/theme" routerLinkActive="active" (click)="handleMenuClick()">
+          <i class="bi bi-palette"></i> Theme Changes
+        </li>
+        <li routerLink="/settings/social" routerLinkActive="active" (click)="handleMenuClick()">
+          <i class="bi bi-share"></i> Social Media
+        </li>
+        <li routerLink="/settings/slider" routerLinkActive="active" (click)="handleMenuClick()">
+          <i class="bi bi-images"></i> Website Slider
+        </li>
+        <li routerLink="/settings/integration" routerLinkActive="active" (click)="handleMenuClick()">
+          <i class="bi bi-plug"></i> Integration
+        </li>
+        <li routerLink="/settings/card-style" routerLinkActive="active" (click)="handleMenuClick()">
+          <i class="bi bi-card-image"></i> Card Style
+        </li>
+      </ul>
+
+    </ul>
+
+    <!-- COLLAPSE BUTTON -->
+    <div class="sidebar-footer" *ngIf="!isMobile" (click)="toggleSidebar()">
+      <i class="bi" [class.bi-arrow-bar-left]="!isCollapsed" [class.bi-arrow-bar-right]="isCollapsed"></i>
+      <span *ngIf="!isCollapsed">Collapse</span>
+    </div>
+
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main-area">
+
+    <!-- HEADER -->
+    <header class="top-header">
+      <button class="toggle-btn" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="header-right">
+        <!-- <div class="notif-btn">
+          <i class="bi bi-bell"></i>
+          <span class="badge">2</span>
+        </div> -->
+
+
+        <!-- NOTIFICATION BELL -->
+<div class="notif-wrapper" (click)="toggleNotif()">
+  <div class="notif-btn">
+    <i class="bi bi-bell"></i>
+    <span class="badge" *ngIf="notifCount > 0">{{ notifCount }}</span>
+  </div>
+
+  <div class="notif-dropdown" *ngIf="showNotifDropdown">
+    <div class="notif-header">
+      <span>New Orders</span>
+      <small (click)="goToOrders()">View All</small>
+    </div>
+
+    <div class="notif-empty" *ngIf="recentOrders.length === 0">
+      No new orders
+    </div>
+
+    <div class="notif-item" *ngFor="let order of recentOrders" (click)="goToOrders()">
+      <i class="bi bi-cart3"></i>
+      <div>
+        <div class="notif-order-name">{{ order.customerName }}</div>
+        <div class="notif-order-meta">Rs. {{ order.totalAmount }} • {{ order.status }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div class="user-info">
+          <div class="user-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <!-- <div class="user-details" *ngIf="!isMobile">
+            <span class="user-name">John Doe</span>
+            <span class="user-role">Super Admin</span>
+          </div> -->
+          <!-- user name & role -->
+<div class="user-details" *ngIf="!isMobile">
+  <span class="user-name">{{ currentUser?.name || currentUser?.userName || 'Admin' }}</span>
+  <span class="user-role">{{ currentUser?.role || 'Admin' }}</span>
+</div>
+          <i class="bi bi-chevron-down" *ngIf="!isMobile"></i>
+        </div>
+
+        <button class="logout-btn" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>

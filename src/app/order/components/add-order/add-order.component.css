@@ -3,7 +3,8 @@
 ========================= */
 
 .add-order-card {
-  border-radius: 16px;
+  border-radius: 14px;
+  background: #ffffff;
 }
 
 /* =========================
@@ -17,48 +18,129 @@
 
 .page-title {
   margin-bottom: 4px !important;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
+  color: #1a1a2e;
 }
 
 .page-subtitle {
   margin-bottom: 0 !important;
   font-size: 14px;
+  color: #6b7280;
 }
 
 .back-btn {
   height: 42px;
-  padding: 0 18px;
+  padding: 0 20px;
   border-radius: 10px;
   font-weight: 500;
+  border-color: #d1d5db;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.back-btn:hover {
+  border-color: #6366f1 !important;
+  color: #6366f1 !important;
 }
 
 /* =========================
-   FORM
+   FORM LABELS
 ========================= */
 
-.form-grid {
-  width: 100%;
+::ng-deep .ant-form-item-label > label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
 }
 
-nz-form-label {
-  font-weight: 600;
+::ng-deep .ant-form-item-label > label.ant-form-item-required::before {
+  color: #ef4444 !important;
 }
 
 /* =========================
    INPUTS
 ========================= */
 
-input[nz-input],
-textarea[nz-input],
-.ant-input-number,
-.nz-select-selector,
-.ant-input-affix-wrapper {
+::ng-deep .ant-input,
+::ng-deep .ant-input-affix-wrapper {
+  min-height: 46px !important;
   border-radius: 10px !important;
+  border-color: #e5e7eb !important;
+  font-size: 14px;
+  color: #1f2937;
+  padding: 0 14px;
 }
 
-.ant-input-number {
+::ng-deep .ant-input:focus,
+::ng-deep .ant-input-affix-wrapper:focus,
+::ng-deep .ant-input-affix-wrapper-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+::ng-deep .ant-input::placeholder {
+  color: #9ca3af;
+}
+
+/* INPUT GROUP PREFIX (+) */
+::ng-deep .ant-input-group-addon {
+  border-radius: 10px 0 0 10px !important;
+  border-color: #e5e7eb !important;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 14px;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .ant-input-group > .ant-input {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+/* INPUT NUMBER */
+::ng-deep .ant-input-number {
   width: 100%;
+  border-radius: 10px !important;
+  border-color: #e5e7eb !important;
+  min-height: 46px !important;
+}
+
+::ng-deep .ant-input-number-input {
+  min-height: 44px !important;
+  font-size: 14px;
+  padding: 0 14px;
+}
+
+::ng-deep .ant-input-number:focus,
+::ng-deep .ant-input-number-focused {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* SELECT */
+::ng-deep .ant-select-selector {
+  min-height: 46px !important;
+  border-radius: 10px !important;
+  border-color: #e5e7eb !important;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+::ng-deep .ant-select-focused .ant-select-selector {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+::ng-deep .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background: #f5f3ff;
+  color: #6366f1;
+  font-weight: 600;
 }
 
 /* =========================
@@ -70,15 +152,47 @@ textarea[nz-input],
   justify-content: flex-end;
   gap: 10px;
   margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
   flex-wrap: wrap;
 }
 
-.cancel-btn,
-.submit-btn {
-  height: 44px;
+.cancel-btn {
+  height: 46px;
   padding: 0 24px;
   border-radius: 10px;
   font-weight: 600;
+  border-color: #e5e7eb !important;
+  color: #374151 !important;
+  background: #fff !important;
+}
+
+.cancel-btn:hover {
+  border-color: #6366f1 !important;
+  color: #6366f1 !important;
+  background: #f5f3ff !important;
+}
+
+.submit-btn {
+  height: 46px;
+  padding: 0 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  min-width: 150px;
+  background: #6366f1 !important;
+  border-color: #6366f1 !important;
+}
+
+.submit-btn:hover:not([disabled]) {
+  background: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+}
+
+.submit-btn[disabled] {
+  background: #e5e7eb !important;
+  border-color: #e5e7eb !important;
+  color: #9ca3af !important;
+  cursor: not-allowed;
 }
 
 /* =========================
@@ -93,11 +207,12 @@ textarea[nz-input],
   }
 
   .page-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .back-btn {
     width: 100%;
+    justify-content: center;
   }
 
   .form-actions {
@@ -117,7 +232,7 @@ textarea[nz-input],
 @media (max-width: 768px) {
 
   .add-order-card {
-    border-radius: 12px;
+    border-radius: 10px;
   }
 
   .page-header {
@@ -125,7 +240,7 @@ textarea[nz-input],
   }
 
   .page-title {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .page-subtitle {

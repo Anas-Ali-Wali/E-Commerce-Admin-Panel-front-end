@@ -1,6 +1,5 @@
-<nz-card>
+<!-- <nz-card>
 
-  <!-- Header -->
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Add Section Data</h2>
@@ -18,13 +17,11 @@
     </div>
   </div>
 
-  <!-- Form -->
   <form nz-form [formGroup]="sectionDataForm"
     (ngSubmit)="onSubmit()" nzLayout="vertical">
 
     <div nz-row [nzGutter]="16">
 
-      <!-- Key -->
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label nzRequired>Key</nz-form-label>
@@ -37,7 +34,6 @@
         </nz-form-item>
       </div>
 
-      <!-- Value -->
       <div nz-col nzSpan="12">
         <nz-form-item>
           <nz-form-label>Value</nz-form-label>
@@ -54,7 +50,6 @@
 
     </div>
 
-    <!-- Submit -->
     <div style="text-align: right; margin-top: 16px;">
       <button
         nz-button
@@ -68,4 +63,83 @@
 
   </form>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+<div class="add-section-data-wrap">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add Section Data</h2>
+      <p class="page-subtitle">Add key-value data for Section ID: {{ sectionId }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-back"
+        [routerLink]="['/section-data/dashboard']"
+        [queryParams]="{ sectionId: sectionId }">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+
+    <form [formGroup]="sectionDataForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- KEY -->
+        <div class="form-group">
+          <label class="form-label">Key <span class="req">*</span></label>
+          <input
+            type="text"
+            class="form-input"
+            formControlName="key"
+            placeholder="e.g. title, image, subtitle"
+            [class.is-invalid]="sectionDataForm.get('key')?.invalid && sectionDataForm.get('key')?.dirty" />
+          <span class="error-msg" *ngIf="sectionDataForm.get('key')?.invalid && sectionDataForm.get('key')?.dirty">
+            Key is required
+          </span>
+        </div>
+
+        <!-- VALUE -->
+        <div class="form-group">
+          <label class="form-label">Value</label>
+          <textarea
+            class="form-textarea"
+            formControlName="value"
+            placeholder="e.g. Welcome to Store"
+            rows="3">
+          </textarea>
+        </div>
+
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-cancel"
+          [routerLink]="['/section-data/dashboard']"
+          [queryParams]="{ sectionId: sectionId }">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="sectionDataForm.invalid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+          <i class="bi bi-floppy" *ngIf="!isSubmitting"></i>
+          {{ isSubmitting ? 'Saving...' : 'Save Data' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

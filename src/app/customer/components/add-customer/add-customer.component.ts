@@ -11,6 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class AddCustomerComponent {
   customerForm: FormGroup;
   isSubmitting = false;
+ passwordVisible = false;
 
   constructor(
     private fb: FormBuilder,
@@ -63,5 +64,10 @@ export class AddCustomerComponent {
       });
     }
   }
+
+  toggleStatus() {
+  const current = this.customerForm.get('status')?.value;
+  this.customerForm.patchValue({ status: !current });
+}
 
 }

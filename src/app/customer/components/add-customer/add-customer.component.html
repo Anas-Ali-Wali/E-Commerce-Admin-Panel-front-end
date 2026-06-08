@@ -95,11 +95,9 @@
 
 
 
-<nz-card class="add-customer-card">
+<!-- <nz-card class="add-customer-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+  
   <div
     nz-row
     nzJustify="space-between"
@@ -140,9 +138,7 @@
 
   </div>
 
-  <!-- =========================
-       FORM
-  ========================== -->
+  
   <form
     nz-form
     [formGroup]="customerForm"
@@ -151,7 +147,6 @@
 
     <div nz-row [nzGutter]="16">
 
-      <!-- FIRST NAME -->
       <div
         nz-col
         nzXs="24"
@@ -178,7 +173,6 @@
 
       </div>
 
-      <!-- LAST NAME -->
       <div
         nz-col
         nzXs="24"
@@ -205,7 +199,6 @@
 
       </div>
 
-      <!-- EMAIL -->
       <div
         nz-col
         nzXs="24"
@@ -232,7 +225,6 @@
 
       </div>
 
-      <!-- PASSWORD -->
       <div
         nz-col
         nzXs="24"
@@ -260,7 +252,6 @@
 
       </div>
 
-      <!-- STATUS -->
       <div
         nz-col
         nzSpan="24">
@@ -281,9 +272,7 @@
 
     </div>
 
-    <!-- =========================
-         ACTIONS
-    ========================== -->
+    
     <div class="form-actions">
 
       <button
@@ -314,4 +303,118 @@
 
   </form>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+<div class="add-customer-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add Customer</h2>
+      <p class="page-subtitle">Create a new customer for your tenant.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-back" routerLink="/customer/dashboard">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+    <form [formGroup]="customerForm" (ngSubmit)="submit()">
+
+      <div class="form-grid">
+
+        <!-- FIRST NAME -->
+        <div class="form-field">
+          <label class="field-label required">First Name</label>
+          <input
+            type="text"
+            class="custom-input"
+            formControlName="firstName"
+            placeholder="Enter first name" />
+          <span class="field-error" *ngIf="customerForm.get('firstName')?.invalid && customerForm.get('firstName')?.dirty">
+            First name is required
+          </span>
+        </div>
+
+        <!-- LAST NAME -->
+        <div class="form-field">
+          <label class="field-label required">Last Name</label>
+          <input
+            type="text"
+            class="custom-input"
+            formControlName="lastName"
+            placeholder="Enter last name" />
+          <span class="field-error" *ngIf="customerForm.get('lastName')?.invalid && customerForm.get('lastName')?.dirty">
+            Last name is required
+          </span>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-field">
+          <label class="field-label">Email</label>
+          <input
+            type="email"
+            class="custom-input"
+            formControlName="email"
+            placeholder="Enter email" />
+          <span class="field-error" *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.dirty">
+            Please enter a valid email
+          </span>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-field">
+          <label class="field-label required">Password</label>
+          <div class="input-with-icon">
+            <input
+              [type]="passwordVisible ? 'text' : 'password'"
+              class="custom-input"
+              formControlName="password"
+              placeholder="Enter password" />
+            <i class="bi password-toggle"
+               [class.bi-eye]="!passwordVisible"
+               [class.bi-eye-slash]="passwordVisible"
+               (click)="passwordVisible = !passwordVisible">
+            </i>
+          </div>
+          <span class="field-error" *ngIf="customerForm.get('password')?.invalid && customerForm.get('password')?.dirty">
+            Password is required
+          </span>
+        </div>
+
+      </div>
+
+      <!-- STATUS TOGGLE -->
+      <div class="status-row">
+        <label class="toggle-label">
+          <div class="toggle-switch" [class.on]="customerForm.get('status')?.value" (click)="toggleStatus()">
+            <div class="toggle-thumb"></div>
+          </div>
+          <span class="toggle-text">Active Customer</span>
+        </label>
+      </div>
+
+      <!-- FOOTER -->
+      <div class="form-footer">
+        <button type="button" class="btn-cancel" routerLink="/customer/dashboard">Cancel</button>
+        <button
+          type="submit"
+          class="btn-primary-custom"
+          [disabled]="!customerForm.valid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
+          <i *ngIf="!isSubmitting" class="bi bi-check-lg"></i>
+          {{ isSubmitting ? 'Creating...' : 'Create Customer' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

@@ -19,6 +19,12 @@ orders: OrderResponseDto[] = [];
   totalCount = 0;
   isLoading = false;
 
+  // Properties add karo existing ke saath
+showDeleteModal = false;
+deleteTargetId: number | null = null;
+Math = Math;
+
+
   // ✅ Sab statuses
   statusOptions = [
     { value: 'Pending',          label: '🕐 Pending' },
@@ -148,6 +154,31 @@ orders: OrderResponseDto[] = [];
     return colors[status] || 'default';
   }
 
+
+// Yeh method add karo
+get pagedOrders(): OrderResponseDto[] {
+  const start = (this.currentPage - 1) * this.pageSize;
+  return this.orders.slice(start, start + this.pageSize);
+}
+
+getPages(): number[] {
+  const total = Math.ceil(this.orders.length / this.pageSize);
+  return Array.from({ length: total }, (_, i) => i + 1);
+}
+
+confirmDelete(id: number) {
+  this.deleteTargetId = id;
+  this.showDeleteModal = true;
+}
+
+executeDelete() {
+  if (!this.deleteTargetId) return;
+  this.deleteOrder(this.deleteTargetId);
+  this.showDeleteModal = false;
+  this.deleteTargetId = null;
+}
+
+
   deleteOrder(id: number) {
     this.orderService.deleteOrder(id).subscribe({
       next: (response) => {
@@ -163,6 +194,25 @@ orders: OrderResponseDto[] = [];
   }
 
   
+  // Status ke liye CSS class
+getStatusClass(status: string): string {
+  const map: { [key: string]: string } = {
+    'Pending':          'badge-pending',
+    'Confirmed':        'badge-confirmed',
+    'Processing':       'badge-processing',
+    'Packed':           'badge-packed',
+    'Shipped':          'badge-shipped',
+    'Out For Delivery': 'badge-outfordelivery',
+    'Delivered':        'badge-delivered',
+    'Completed':        'badge-completed',
+    'Cancelled':        'badge-cancelled',
+    'Returned':         'badge-returned',
+    'Refunded':         'badge-refunded',
+    'Failed':           'badge-failed',
+  };
+  return map[status] || 'badge-pending';
+}
+
 }
 
 
