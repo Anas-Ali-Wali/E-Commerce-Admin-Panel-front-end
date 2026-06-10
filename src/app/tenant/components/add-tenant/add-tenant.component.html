@@ -1,4 +1,4 @@
-<nz-card>
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Add Tenant</h2>
@@ -54,4 +54,87 @@
     </div>
 
   </form>
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+<div class="add-tenant-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add Tenant</h2>
+      <p class="page-subtitle">Create a new tenant with its domain and branding.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-back" routerLink="/tenant/dashboard">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+
+    <form nz-form [formGroup]="tenantForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+      <div class="form-grid">
+
+        <div class="form-field">
+          <label class="field-label required">Name</label>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Name is required">
+              <input nz-input class="custom-input" formControlName="name" placeholder="Enter tenant name" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label required">Domain</label>
+          <nz-form-item>
+            <nz-form-control nzErrorTip="Domain is required">
+              <input nz-input class="custom-input" formControlName="domain" placeholder="e.g. example.com" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">Logo URL</label>
+          <nz-form-item>
+            <nz-form-control>
+              <input nz-input class="custom-input" formControlName="logo" placeholder="https://..." />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div class="form-field">
+          <label class="field-label">Theme Color</label>
+          <nz-form-item>
+            <nz-form-control>
+              <input nz-input class="custom-input" formControlName="themeColor" placeholder="#FFFFFF" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+      </div>
+
+      <div class="form-footer">
+        <button type="button" class="btn-cancel" routerLink="/tenant/dashboard">Cancel</button>
+        <button
+          type="submit"
+          class="btn-primary-custom"
+          [disabled]="!tenantForm.valid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
+          <i *ngIf="!isSubmitting" class="bi bi-plus-lg"></i>
+          {{ isSubmitting ? 'Creating...' : 'Create Tenant' }}
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+</div>

@@ -1,148 +1,280 @@
-/* =========================
-   CARD
-========================= */
+.add-page-wrap { padding: 4px; }
 
-.add-page-card {
-  border-radius: 16px;
-}
-
-/* =========================
-   HEADER
-========================= */
-
+/* HEADER */
 .page-header {
-  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .page-title {
-  margin-bottom: 4px !important;
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
+  color: #111827;
+  margin: 0;
 }
 
 .page-subtitle {
-  margin-bottom: 0 !important;
   font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0;
 }
 
-.back-btn {
-  height: 42px;
-  padding: 0 18px;
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-back {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
-  font-weight: 500;
-}
-
-/* =========================
-   FORM
-========================= */
-
-nz-form-label {
+  padding: 10px 20px;
+  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+  text-decoration: none;
 }
 
-input[nz-input],
-.ant-input-affix-wrapper {
-  border-radius: 10px !important;
+.btn-back:hover {
+  border-color: #4f46e5;
+  color: #4f46e5;
+  background: #f5f3ff;
 }
 
-/* =========================
-   STATUS BOX
-========================= */
+/* FORM CARD */
+.form-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
 
+/* FORM GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+/* FORM GROUP */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.req { color: #ef4444; }
+
+.form-input {
+  height: 46px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0 14px;
+  font-size: 14px;
+  color: #111827;
+  background: #fff;
+  outline: none;
+  transition: 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.08);
+}
+
+.form-input.is-invalid {
+  border-color: #ef4444;
+}
+
+.form-input::placeholder { color: #9ca3af; }
+
+/* PREFIX INPUT */
+.input-prefix-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 46px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+  font-size: 15px;
+  color: #6b7280;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.form-input.with-prefix {
+  padding-left: 50px;
+  border-radius: 0 10px 10px 0;
+  border-left: none;
+}
+
+.form-input.with-prefix:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.08);
+}
+
+.error-msg {
+  font-size: 12px;
+  color: #ef4444;
+}
+
+/* STATUS BOX */
 .status-box {
-  padding: 14px 16px;
-  border: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
-  background: #fafafa;
+  background: #f9fafb;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
 }
 
-/* =========================
-   ACTIONS
-========================= */
+.status-box-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
 
+.status-icon {
+  font-size: 20px;
+  color: #4f46e5;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.status-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  display: block;
+}
+
+.status-desc {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0 0;
+}
+
+/* CUSTOM CHECKBOX */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #4f46e5;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* FORM ACTIONS */
 .form-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
   flex-wrap: wrap;
 }
 
-.cancel-btn,
-.submit-btn {
-  height: 44px;
-  padding: 0 24px;
+.btn-cancel {
+  background: #fff;
+  color: #374151;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
+  padding: 11px 24px;
+  font-size: 14px;
   font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-/* =========================
-   TABLET
-========================= */
+.btn-cancel:hover {
+  border-color: #4f46e5;
+  color: #4f46e5;
+  background: #f5f3ff;
+}
 
+.btn-submit {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.btn-submit:hover:not(:disabled) { background: #4338ca; }
+
+.btn-submit:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* RESPONSIVE */
 @media (max-width: 992px) {
-
-  .page-header {
-    flex-direction: column;
-    align-items: stretch !important;
-  }
-
-  .page-title {
-    font-size: 24px;
-  }
-
-  .back-btn {
-    width: 100%;
-  }
-
-  .form-actions {
-    justify-content: stretch;
-  }
-
-  .cancel-btn,
-  .submit-btn {
-    flex: 1;
-  }
+  .form-grid { grid-template-columns: 1fr; }
 }
-
-/* =========================
-   MOBILE
-========================= */
 
 @media (max-width: 768px) {
-
-  .add-page-card {
-    border-radius: 12px;
-  }
-
-  .page-header {
-    margin-bottom: 22px;
-  }
-
-  .page-title {
-    font-size: 22px;
-  }
-
-  .page-subtitle {
-    font-size: 13px;
-  }
-
-  .back-btn {
-    width: 100%;
-    height: 44px;
-  }
-
-  .form-actions {
-    flex-direction: column-reverse;
-  }
-
-  .cancel-btn,
-  .submit-btn {
-    width: 100%;
-  }
-
-  .status-box {
-    padding: 12px;
-  }
+  .page-header   { flex-direction: column; }
+  .header-actions { width: 100%; }
+  .btn-back      { width: 100%; justify-content: center; }
+  .page-title    { font-size: 20px; }
+  .form-card     { padding: 20px 16px; }
+  .form-actions  { flex-direction: column-reverse; }
+  .btn-cancel,
+  .btn-submit    { width: 100%; justify-content: center; }
+  .status-box    { flex-direction: column; align-items: flex-start; }
 }

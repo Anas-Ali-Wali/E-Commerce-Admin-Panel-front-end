@@ -1,4 +1,4 @@
-<nz-card>
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 28px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Card Style Picker</h2>
@@ -13,7 +13,6 @@
     </div>
   </div>
 
-  <!-- PRODUCT CARDS -->
   <div class="section-title">
     <span nz-icon nzType="appstore" style="margin-right:8px;"></span>
     Product Card Style
@@ -30,7 +29,6 @@
 
       <ng-container [ngSwitch]="style.id">
 
-   <!-- Style 1: fashion (square image) -->
 <div *ngSwitchCase="'fashion'" class="preview-wrap product-square">
   <div class="img-area"></div>
   <div class="info">
@@ -39,7 +37,6 @@
   </div>
 </div>
 
-<!-- Style 2: badge (tall portrait) -->
 <div *ngSwitchCase="'badge'" class="preview-wrap product-fashion-tall">
   <div class="img-area">
     <div class="badge">Sale</div>
@@ -70,7 +67,6 @@
 
   <nz-divider></nz-divider>
 
-  <!-- CATEGORY CARDS -->
   <div class="section-title" style="margin-top: 8px;">
     <span nz-icon nzType="picture" style="margin-right:8px;"></span>
     Category Card Shape
@@ -106,4 +102,122 @@
     </div>
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+<div class="card-picker-page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Card Style Picker</h2>
+      <p class="page-subtitle">Choose how product and category cards look on your storefront.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" [disabled]="saving" (click)="save()">
+        <span *ngIf="saving" class="spinner-border spinner-border-sm"></span>
+        <i class="bi bi-save"></i> Save Changes
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN CARD -->
+  <div class="table-card">
+
+    <!-- PRODUCT CARDS SECTION -->
+    <div class="section-top">
+      <div class="section-title">
+        <i class="bi bi-grid-3x3-gap-fill section-icon"></i>
+        Product Card Style
+      </div>
+      <p class="section-sub">Select how individual product cards appear in your shop.</p>
+    </div>
+
+    <div class="card-grid">
+      <div *ngFor="let style of productStyles"
+           class="card-option"
+           [class.selected]="selectedProductStyle === style.id"
+           (click)="selectProduct(style.id)">
+
+        <ng-container [ngSwitch]="style.id">
+
+          <!-- Style 1: Square Card -->
+          <div *ngSwitchCase="'fashion'" class="preview-wrap product-square">
+            <div class="img-area"></div>
+            <div class="info">
+              <span class="name">Product Name</span>
+              <span class="price">Rs. 2,500</span>
+            </div>
+          </div>
+
+          <!-- Style 2: Tall Portrait Card -->
+          <div *ngSwitchCase="'badge'" class="preview-wrap product-fashion-tall">
+            <div class="img-area">
+              <div class="badge">Sale</div>
+            </div>
+            <div class="info">
+              <div class="name">Product Name</div>
+              <div class="stars">★★★★☆</div>
+              <div class="price-row">
+                <span class="price">Rs. 2,500</span>
+                <button class="add-btn">+ Add</button>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <div class="card-label">{{ style.label }}</div>
+
+        <div class="selected-badge" *ngIf="selectedProductStyle === style.id">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="section-divider"></div>
+
+    <!-- CATEGORY CARDS SECTION -->
+    <div class="section-top">
+      <div class="section-title">
+        <i class="bi bi-image section-icon"></i>
+        Category Card Shape
+      </div>
+      <p class="section-sub">Select the layout used for category cards on your homepage.</p>
+    </div>
+
+    <div class="card-grid">
+      <div *ngFor="let style of categoryStyles"
+           class="card-option"
+           [class.selected]="selectedCategoryStyle === style.id"
+           (click)="selectCategory(style.id)">
+
+        <div class="preview-wrap layout-preview">
+          <div class="layout-row">
+            <div class="layout-card" *ngFor="let c of getLayoutCount(style.id)">
+              <div class="layout-card-img"></div>
+              <div class="layout-card-text"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-label">{{ style.label }}</div>
+
+        <div class="selected-badge" *ngIf="selectedCategoryStyle === style.id">
+          <i class="bi bi-check-circle-fill"></i>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOTTOM PADDING -->
+    <div style="height: 8px;"></div>
+
+  </div>
+
+</div>

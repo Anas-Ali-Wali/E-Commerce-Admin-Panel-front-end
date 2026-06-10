@@ -1,4 +1,4 @@
-<div class="card">
+<!-- <div class="card">
   <div class="card-header fw-semibold">
     <i class="bi bi-palette me-2"></i>Theme Changes
   </div>
@@ -46,4 +46,93 @@
 
     </form>
   </div>
+</div> -->
+
+
+
+
+
+<div class="theme-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2 class="page-title">Theme Changes</h2>
+    <p class="page-subtitle">Customize your storefront's colors and typography.</p>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner-border spinner-border-sm text-primary"></div>
+    <span>Loading theme settings...</span>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card" *ngIf="!loading">
+
+    <!-- CARD HEADER -->
+    <div class="card-top">
+      <h3 class="card-title">
+        <i class="bi bi-palette me-2"></i>Theme Settings
+      </h3>
+    </div>
+
+    <div class="card-body">
+
+      <!-- ALERTS -->
+      <div class="alert-success-custom" *ngIf="successMsg">
+        <i class="bi bi-check-circle-fill"></i> {{ successMsg }}
+      </div>
+      <div class="alert-danger-custom" *ngIf="errorMsg">
+        <i class="bi bi-exclamation-circle-fill"></i> {{ errorMsg }}
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- FONT FAMILY -->
+        <div class="form-group">
+          <label class="form-label">Font Family</label>
+          <select class="form-select-custom" formControlName="fontFamily">
+            <option *ngFor="let f of fontFamilies" [value]="f">{{ f }}</option>
+          </select>
+        </div>
+
+        <!-- COLOR SECTION -->
+        <div class="section-label">
+          <i class="bi bi-palette me-2"></i>Color Settings
+        </div>
+
+        <div class="color-grid">
+          <div class="color-group" *ngFor="let field of colorFields">
+            <label class="form-label">{{ field.label }}</label>
+            <div class="color-input-wrap">
+              <input
+                type="color"
+                class="color-swatch"
+                [formControlName]="field.key" />
+              <input
+                type="text"
+                class="color-text"
+                [formControlName]="field.key"
+                placeholder="#ffffff" />
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="form-actions">
+      <button
+        class="btn-submit"
+        [disabled]="saving || form.invalid"
+        (click)="onSubmit()">
+        <span *ngIf="saving" class="spinner-border spinner-border-sm"></span>
+        <i class="bi bi-floppy" *ngIf="!saving"></i>
+        {{ saving ? 'Saving...' : 'Save Theme' }}
+      </button>
+    </div>
+
+  </div>
+
 </div>

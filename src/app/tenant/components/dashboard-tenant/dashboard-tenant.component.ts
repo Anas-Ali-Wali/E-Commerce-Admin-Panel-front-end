@@ -14,6 +14,9 @@ export class DashboardTenantComponent implements OnInit {
   pageSize = 10;
   totalCount = 0;
   isLoading = false;
+  searchText = '';
+  Math = Math;
+
 
   constructor(
     private tenantService: TenantService,
@@ -62,6 +65,13 @@ export class DashboardTenantComponent implements OnInit {
         this.message.error('Server error occurred. Please try again.');
       }
     });
+  }
+
+
+
+  getPages(): number[] {
+    const total = Math.ceil(this.totalCount / this.pageSize);
+    return Array.from({ length: total }, (_, i) => i + 1);
   }
 
 }

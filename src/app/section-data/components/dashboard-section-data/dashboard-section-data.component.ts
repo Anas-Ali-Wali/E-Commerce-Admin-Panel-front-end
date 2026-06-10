@@ -16,6 +16,11 @@ export class DashboardSectionDataComponent {
   isLoading = false;
   sectionId!: number;
 
+    // delete modal
+  showDeleteModal = false;
+  pendingDeleteId!: number;
+
+
   constructor(
     private sectionDataService: SectionDataService,
     private message: NzMessageService,
@@ -60,9 +65,15 @@ export class DashboardSectionDataComponent {
     );
   }
 
-  // Delete
-  deleteSectionData(id: number) {
-    this.sectionDataService.deleteSectionData(id).subscribe({
+
+    confirmDelete(id: number) {
+    this.pendingDeleteId = id;
+    this.showDeleteModal = true;
+  }
+ 
+  executeDelete() {
+    this.showDeleteModal = false;
+    this.sectionDataService.deleteSectionData(this.pendingDeleteId).subscribe({
       next: (res) => {
         if (res.success) {
           this.message.success('Deleted successfully');
@@ -74,5 +85,7 @@ export class DashboardSectionDataComponent {
       error: () => this.message.error('Server error occurred.')
     });
   }
+ 
+
 
 }

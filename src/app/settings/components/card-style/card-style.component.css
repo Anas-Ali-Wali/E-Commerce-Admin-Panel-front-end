@@ -1,4 +1,98 @@
-/* ── Grid ── */
+/* =============================================
+   Card Style Picker — Customer Dashboard Theme
+============================================= */
+
+.card-picker-page { padding: 4px; }
+
+/* ── HEADER ── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-primary-custom {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s;
+}
+.btn-primary-custom:hover:not(:disabled) { background: #4338ca; }
+.btn-primary-custom:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── TABLE CARD ── */
+.table-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  padding: 20px 24px;
+}
+
+/* ── SECTION TOP ── */
+.section-top {
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-icon {
+  color: #4f46e5;
+  font-size: 15px;
+}
+
+.section-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* ── DIVIDER ── */
+.section-divider {
+  height: 1px;
+  background: #f3f4f6;
+  margin: 24px 0;
+}
+
+/* ── GRID ── */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -6,7 +100,7 @@
   margin-bottom: 8px;
 }
 
-/* ── Card Option ── */
+/* ── CARD OPTION ── */
 .card-option {
   position: relative;
   border: 2px solid #f0f0f0;
@@ -17,44 +111,34 @@
   background: #fff;
 }
 .card-option:hover { border-color: #d0d0d0; transform: translateY(-2px); }
-.card-option.selected { border-color: #1890ff; }
+.card-option.selected { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.1); }
 
-/* ── Selected badge ── */
+/* ── SELECTED BADGE ── */
 .selected-badge {
   position: absolute;
-  top: 8px; right: 8px;
-  color: #1890ff;
+  top: 8px;
+  right: 8px;
+  color: #4f46e5;
   font-size: 18px;
   line-height: 1;
   z-index: 2;
 }
 
-/* ── Label ── */
+/* ── CARD LABEL ── */
 .card-label {
   padding: 10px 12px;
   font-size: 12px;
   font-weight: 600;
-  color: #bbb;
+  color: #6b7280;
   background: #fff;
   border-top: 1px solid #f0f0f0;
 }
 
-/* ── Section Title ── */
-.section-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-}
-
-
-/* ════════════════════════════════
+/* ══════════════════════════════════
    PRODUCT CARD PREVIEWS
-════════════════════════════════ */
+══════════════════════════════════ */
 
-/* ── Style 1: Square Card (Smart Watch / Image 1 style) ── */
+/* Style 1: Square Card */
 .product-square {
   background: #fafafa;
   display: flex;
@@ -63,9 +147,7 @@
 .product-square .img-area {
   width: 100%;
   aspect-ratio: 1 / 1;
-  /* background: #f0f0f0; */
-    background: #e8e8e8;  /* image area thoda darker */
-
+  background: #e8e8e8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,23 +181,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-    background: #fafafa;  /* ← light grey, card border se match */
-      border-top: 1px solid #e8e8e8;  /* ← yeh line add karo */
-
-
+  background: #fafafa;
+  border-top: 1px solid #e8e8e8;
 }
-.product-square .name {
-  font-size: 10px;
-  font-weight: 500;
-  color: #1a1a1a;
-}
-.product-square .price {
-  font-size: 10px;
-  font-weight: 700;
-  color: #2b7de9;
-}
+.product-square .name { font-size: 10px; font-weight: 500; color: #1a1a1a; }
+.product-square .price { font-size: 10px; font-weight: 700; color: #4f46e5; }
 
-/* ── Style 2: Tall Portrait Card (Fashion / Image 2 style) ── */
+/* Style 2: Tall Portrait Card */
 .product-fashion-tall {
   background: #fff;
   display: flex;
@@ -141,58 +213,38 @@
 .product-fashion-tall .badge {
   position: absolute;
   top: 7px; left: 7px;
-  background: #1a1a1a;
+  background: #111827;
   color: #fff;
   font-size: 7px;
   font-weight: 700;
   padding: 2px 7px;
-  border-radius: 2px;
+  border-radius: 4px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 .product-fashion-tall .info {
   padding: 8px 10px 10px;
-    background: #fafafa;  /* ← same light grey */
-
+  background: #fafafa;
 }
-.product-fashion-tall .name {
-  font-size: 10px;
-  font-weight: 500;
-  color: #1a1a1a;
-  margin-bottom: 4px;
-}
-.product-fashion-tall .stars {
-  font-size: 9px;
-  color: #e6a817;
-  margin-bottom: 5px;
-  letter-spacing: 1px;
-}
-.product-fashion-tall .price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.product-fashion-tall .price {
-  font-size: 11px;
-  font-weight: 700;
-  color: #1a1a1a;
-}
+.product-fashion-tall .name { font-size: 10px; font-weight: 500; color: #1a1a1a; margin-bottom: 4px; }
+.product-fashion-tall .stars { font-size: 9px; color: #f59e0b; margin-bottom: 5px; letter-spacing: 1px; }
+.product-fashion-tall .price-row { display: flex; justify-content: space-between; align-items: center; }
+.product-fashion-tall .price { font-size: 11px; font-weight: 700; color: #1a1a1a; }
 .product-fashion-tall .add-btn {
   font-size: 8px;
   font-weight: 700;
-  color: #e84040;
+  color: #4f46e5;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
 }
 
-
-/* ════════════════════════════════
+/* ══════════════════════════════════
    CATEGORY LAYOUT PREVIEWS
-════════════════════════════════ */
+══════════════════════════════════ */
 .layout-preview {
-  background: #f5f5f5;
+  background: #f9fafb;
   padding: 8px;
   display: flex;
   align-items: center;
@@ -231,120 +283,34 @@
 }
 
 .card-option.selected .layout-card-img {
-  background: linear-gradient(135deg, #b0c4de, #7ba7d4);
+  background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================
-   RESPONSIVE FIX FOR CARD STYLE PICKER
-========================================= */
-
-/* ================= TABLET ================= */
-@media (max-width: 992px) {
-
-  nz-card {
-    padding: 12px !important;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-  }
-
-  h2[nz-typography] {
-    font-size: 18px !important;
-  }
-
-  .section-title {
-    font-size: 13px;
-  }
-}
-
-/* ================= MOBILE ================= */
+/* ══════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════ */
 @media (max-width: 768px) {
-
-  /* header stack */
-  [nz-row] {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 12px;
-  }
-
-  /* save button full width */
-  button[nz-button] {
-    width: 100%;
-  }
+  .page-title          { font-size: 20px; }
+  .page-header         { flex-direction: column; }
+  .header-actions      { width: 100%; }
+  .btn-primary-custom  { width: 100%; justify-content: center; }
+  .table-card          { padding: 16px; }
 
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .card-option {
-    border-radius: 10px;
-  }
-
-  /* product preview scaling */
-  .product-square .img-area::before {
-    width: 40px;
-    height: 40px;
-  }
-
-  .product-fashion-tall .img-area::before {
-    width: 30px;
-    height: 55px;
-  }
-
-  .card-label {
-    font-size: 11px;
-    padding: 8px 10px;
-  }
-
-  .selected-badge {
-    font-size: 16px;
-  }
+  .product-square .img-area::before  { width: 40px; height: 40px; }
+  .product-fashion-tall .img-area::before { width: 30px; height: 55px; }
+  .card-label    { font-size: 11px; padding: 8px 10px; }
+  .selected-badge { font-size: 16px; }
 }
 
-/* ================= SMALL MOBILE ================= */
 @media (max-width: 480px) {
-
-  .card-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .card-option {
-    border-radius: 12px;
-  }
-
-  .section-title {
-    font-size: 12px;
-  }
-
-  .card-label {
-    font-size: 10px;
-  }
-
-  /* make previews more compact */
-  .product-square .img-area {
-    aspect-ratio: 1 / 0.9;
-  }
-
-  .product-fashion-tall .img-area {
-    aspect-ratio: 3 / 3.5;
-  }
+  .card-grid { grid-template-columns: 1fr; gap: 10px; }
+  .section-title { font-size: 14px; }
+  .card-label { font-size: 10px; }
+  .product-square .img-area { aspect-ratio: 1 / 0.9; }
+  .product-fashion-tall .img-area { aspect-ratio: 3 / 3.5; }
 }

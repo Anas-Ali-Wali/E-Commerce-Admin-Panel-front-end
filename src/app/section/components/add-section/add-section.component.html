@@ -1,4 +1,4 @@
-<nz-card>
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Add Section</h2>
@@ -59,4 +59,107 @@
       </button>
     </div>
   </form>
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+<div class="add-section-wrap">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add Section</h2>
+      <p class="page-subtitle">Add a new section to Page ID: {{ pageId }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-back"
+        [routerLink]="['/section/dashboard']"
+        [queryParams]="{ pageId: pageId }">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+
+    <form [formGroup]="sectionForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- SECTION TYPE -->
+        <div class="form-group">
+          <label class="form-label">Section Type <span class="req">*</span></label>
+          <select
+            class="form-select"
+            formControlName="type"
+            [class.is-invalid]="sectionForm.get('type')?.invalid && sectionForm.get('type')?.dirty">
+            <option [ngValue]="null" disabled>Select section type</option>
+            <option *ngFor="let t of sectionTypes" [value]="t">{{ t }}</option>
+          </select>
+          <span class="error-msg" *ngIf="sectionForm.get('type')?.invalid && sectionForm.get('type')?.dirty">
+            Type is required
+          </span>
+        </div>
+
+        <!-- ORDER NO -->
+        <div class="form-group">
+          <label class="form-label">Order No <span class="req">*</span></label>
+          <input
+            type="number"
+            class="form-input"
+            formControlName="orderNo"
+            min="1"
+            placeholder="e.g. 1"
+            [class.is-invalid]="sectionForm.get('orderNo')?.invalid && sectionForm.get('orderNo')?.dirty" />
+          <span class="error-msg" *ngIf="sectionForm.get('orderNo')?.invalid && sectionForm.get('orderNo')?.dirty">
+            Order No is required
+          </span>
+        </div>
+
+      </div>
+
+      <!-- STATUS BOX -->
+      <div class="status-box">
+        <div class="status-box-left">
+          <i class="bi bi-toggles status-icon"></i>
+          <div>
+            <span class="status-title">Section Status</span>
+            <p class="status-desc">Check to activate this section on the page.</p>
+          </div>
+        </div>
+        <label class="custom-checkbox">
+          <input type="checkbox" formControlName="status" />
+          <span class="checkmark"></span>
+          Active
+        </label>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-cancel"
+          [routerLink]="['/section/dashboard']"
+          [queryParams]="{ pageId: pageId }">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="sectionForm.invalid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+          <i class="bi bi-plus-lg" *ngIf="!isSubmitting"></i>
+          {{ isSubmitting ? 'Creating...' : 'Create Section' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

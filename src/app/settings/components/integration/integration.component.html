@@ -1,6 +1,5 @@
-<div class="integration-page">
+<!-- <div class="integration-page">
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="header-left">
       <h2 class="page-title">
@@ -11,14 +10,12 @@
     </div>
   </div>
 
-  <!-- LOADING -->
   <div *ngIf="loading" class="loading-wrapper">
     <nz-spin nzTip="Loading settings..."></nz-spin>
   </div>
 
   <form [formGroup]="form" *ngIf="!loading">
 
-    <!-- WHATSAPP CARD -->
     <nz-card class="integration-card wa-card">
       <div class="card-header-row">
         <div class="card-brand">
@@ -44,7 +41,6 @@
       <div class="fields-grid" *ngIf="isWhatsAppEnabled">
         <nz-divider class="section-divider"></nz-divider>
 
-        <!-- Provider Select -->
         <div class="field-row">
           <label class="field-label">Provider</label>
           <nz-select formControlName="whatsAppProvider"
@@ -55,7 +51,6 @@
           </nz-select>
         </div>
 
-        <!-- ✅ TWILIO FIELDS -->
         <ng-container *ngIf="whatsAppProvider === 'Twilio'">
 
           <div class="provider-badge twilio-badge">
@@ -103,7 +98,6 @@
 
         </ng-container>
 
-        <!-- ✅ META FIELDS -->
         <ng-container *ngIf="whatsAppProvider === 'Meta'">
 
           <div class="provider-badge meta-badge">
@@ -167,7 +161,6 @@
 
         </ng-container>
 
-        <!-- Test Button -->
         <div class="test-section">
           <input nz-input
                  [(ngModel)]="testWaPhone"
@@ -185,7 +178,6 @@
       </div>
     </nz-card>
 
-    <!-- EMAIL CARD -->
     <nz-card class="integration-card email-card">
       <div class="card-header-row">
         <div class="card-brand">
@@ -263,12 +255,276 @@
       </div>
     </nz-card>
 
-    <!-- SAVE BUTTON -->
     <div class="save-row">
       <button nz-button nzType="primary" nzSize="large"
               class="save-btn"
               (click)="save()"
               [nzLoading]="saveLoading">
+        💾 Save Settings
+      </button>
+    </div>
+
+  </form>
+
+</div> -->
+
+
+
+
+
+<div class="integration-page">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Integrations</h2>
+      <p class="page-subtitle">Configure Email & WhatsApp notifications for your store.</p>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner-border spinner-border-sm text-primary"></div>
+    <span>Loading settings...</span>
+  </div>
+
+  <form [formGroup]="form" *ngIf="!loading">
+
+    <!-- WHATSAPP CARD -->
+    <div class="table-card">
+
+      <!-- CARD HEADER -->
+      <div class="card-top">
+        <div class="brand-info">
+          <div class="brand-icon wa-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.533 5.854L.057 23.172a.75.75 0 00.918.919l5.375-1.48A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.93 9.93 0 01-5.077-1.388.75.75 0 00-.576-.077l-3.8 1.047 1.051-3.737a.75.75 0 00-.079-.589A9.93 9.93 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="card-title">WhatsApp Business</h3>
+            <span class="card-sub">Meta Cloud API / Twilio</span>
+          </div>
+        </div>
+        <div class="toggle-wrap">
+          <nz-switch formControlName="isWhatsAppEnabled"
+                     nzCheckedChildren="ON"
+                     nzUnCheckedChildren="OFF">
+          </nz-switch>
+        </div>
+      </div>
+
+      <!-- WHATSAPP FIELDS -->
+      <div class="card-body" *ngIf="isWhatsAppEnabled">
+        <div class="divider"></div>
+
+        <!-- Provider -->
+        <div class="field-row">
+          <label class="field-label">Provider</label>
+          <nz-select formControlName="whatsAppProvider"
+                     class="field-input"
+                     nzPlaceHolder="Select provider">
+            <nz-option nzValue="Twilio" nzLabel="Twilio WhatsApp"></nz-option>
+            <nz-option nzValue="Meta"   nzLabel="Meta WhatsApp Cloud API"></nz-option>
+          </nz-select>
+        </div>
+
+        <!-- TWILIO FIELDS -->
+        <ng-container *ngIf="whatsAppProvider === 'Twilio'">
+          <div class="provider-badge twilio-badge">🔵 Twilio Sandbox — Free Testing</div>
+
+          <div class="field-row">
+            <label class="field-label">Account SID</label>
+            <input nz-input formControlName="whatsAppToken"
+                   class="field-input"
+                   placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+          </div>
+
+          <div class="field-row">
+            <label class="field-label">Auth Token</label>
+            <nz-input-group [nzSuffix]="twilioSuffix" class="field-input">
+              <input nz-input formControlName="twilioAuthToken"
+                     [type]="showTwilioToken ? 'text' : 'password'"
+                     placeholder="your_auth_token" />
+            </nz-input-group>
+            <ng-template #twilioSuffix>
+              <span class="eye-btn" (click)="showTwilioToken = !showTwilioToken">
+                {{ showTwilioToken ? '🙈' : '👁️' }}
+              </span>
+            </ng-template>
+          </div>
+
+          <div class="info-box twilio-info">
+            <div class="info-title">📱 Twilio Sandbox Info</div>
+            <div class="info-row">
+              <span class="info-label">Sandbox Number:</span>
+              <code class="info-code">+14155238886</code>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Join Code:</span>
+              <code class="info-code">join three-topic</code>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Note:</span>
+              <span class="info-note">Customer must join sandbox before receiving messages</span>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- META FIELDS -->
+        <ng-container *ngIf="whatsAppProvider === 'Meta'">
+          <div class="provider-badge meta-badge">🟢 Meta Cloud API — Free 1,000 msgs/month</div>
+
+          <div class="field-row">
+            <label class="field-label">
+              Phone Number ID
+              <a href="https://developers.facebook.com/apps/" target="_blank" class="help-link">(Find in Meta App ↗)</a>
+            </label>
+            <input nz-input formControlName="whatsAppPhoneNumberId"
+                   class="field-input"
+                   placeholder="e.g. 123456789012345" />
+          </div>
+
+          <div class="field-row">
+            <label class="field-label">Permanent Access Token</label>
+            <nz-input-group [nzSuffix]="waSuffix" class="field-input">
+              <input nz-input formControlName="whatsAppToken"
+                     [type]="showWaToken ? 'text' : 'password'"
+                     placeholder="EAAxxxxxxxxxx..." />
+            </nz-input-group>
+            <ng-template #waSuffix>
+              <span class="eye-btn" (click)="showWaToken = !showWaToken">
+                {{ showWaToken ? '🙈' : '👁️' }}
+              </span>
+            </ng-template>
+          </div>
+
+          <div class="field-row">
+            <label class="field-label">
+              Business Account ID
+              <span class="optional-tag">Optional</span>
+            </label>
+            <input nz-input formControlName="whatsAppBusinessId"
+                   class="field-input"
+                   placeholder="e.g. 987654321" />
+          </div>
+
+          <div class="info-box meta-info">
+            <div class="info-title">📡 Webhook Setup (Meta Dashboard)</div>
+            <div class="info-row">
+              <span class="info-label">Webhook URL:</span>
+              <code class="info-code">https://yourdomain.com/api/WhatsAppWebhook</code>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Verify Token:</span>
+              <code class="info-code">YOUR_VERIFY_TOKEN_HERE</code>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Subscribe to:</span>
+              <code class="info-code">messages</code>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Test -->
+        <div class="test-section">
+          <input nz-input [(ngModel)]="testWaPhone"
+                 [ngModelOptions]="{standalone: true}"
+                 placeholder="+923001234567 (with country code)"
+                 class="test-input" />
+          <button class="btn-test wa-test-btn"
+                  (click)="testWhatsApp()"
+                  [disabled]="testWaLoading">
+            <span *ngIf="testWaLoading" class="spinner-border spinner-border-sm"></span>
+            📨 Send Test Message
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL CARD -->
+    <div class="table-card">
+
+      <!-- CARD HEADER -->
+      <div class="card-top">
+        <div class="brand-info">
+          <div class="brand-icon email-icon">✉️</div>
+          <div>
+            <h3 class="card-title">Email Notifications</h3>
+            <span class="card-sub">SendGrid / SMTP</span>
+          </div>
+        </div>
+        <div class="toggle-wrap">
+          <nz-switch formControlName="isEmailEnabled"
+                     nzCheckedChildren="ON"
+                     nzUnCheckedChildren="OFF">
+          </nz-switch>
+        </div>
+      </div>
+
+      <!-- EMAIL FIELDS -->
+      <div class="card-body" *ngIf="isEmailEnabled">
+        <div class="divider"></div>
+
+        <div class="field-row">
+          <label class="field-label">Email Provider</label>
+          <nz-select formControlName="emailProvider"
+                     class="field-input"
+                     nzPlaceHolder="Select provider">
+            <nz-option nzValue="SendGrid" nzLabel="SendGrid"></nz-option>
+            <nz-option nzValue="SMTP"     nzLabel="SMTP"></nz-option>
+          </nz-select>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label">API Key / Password</label>
+          <nz-input-group [nzSuffix]="emailSuffix" class="field-input">
+            <input nz-input formControlName="emailApiKey"
+                   [type]="showEmailKey ? 'text' : 'password'"
+                   placeholder="SG.xxxxxxxxxxxx" />
+          </nz-input-group>
+          <ng-template #emailSuffix>
+            <span class="eye-btn" (click)="showEmailKey = !showEmailKey">
+              {{ showEmailKey ? '🙈' : '👁️' }}
+            </span>
+          </ng-template>
+        </div>
+
+        <div class="field-row">
+          <label class="field-label">Sender Email</label>
+          <input nz-input formControlName="emailSenderAddress"
+                 class="field-input"
+                 placeholder="orders@yourstore.com" />
+        </div>
+
+        <div class="field-row">
+          <label class="field-label">Sender Name</label>
+          <input nz-input formControlName="emailSenderName"
+                 class="field-input"
+                 placeholder="Your Store Name" />
+        </div>
+
+        <!-- Test -->
+        <div class="test-section">
+          <input nz-input [(ngModel)]="testEmail"
+                 [ngModelOptions]="{standalone: true}"
+                 placeholder="test@email.com"
+                 class="test-input" />
+          <button class="btn-test email-test-btn"
+                  (click)="testEmailFn()"
+                  [disabled]="testEmailLoading">
+            <span *ngIf="testEmailLoading" class="spinner-border spinner-border-sm"></span>
+            📧 Send Test Email
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAVE ROW -->
+    <div class="save-row">
+      <button class="btn-primary-custom" (click)="save()" [disabled]="saveLoading">
+        <span *ngIf="saveLoading" class="spinner-border spinner-border-sm"></span>
         💾 Save Settings
       </button>
     </div>

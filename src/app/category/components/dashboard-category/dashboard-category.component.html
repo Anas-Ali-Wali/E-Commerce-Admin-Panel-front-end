@@ -160,11 +160,9 @@
 
 
 
-<nz-card class="category-dashboard-card">
+<!-- <nz-card class="category-dashboard-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+
   <div
     nz-row
     nzJustify="space-between"
@@ -200,9 +198,7 @@
 
   </div>
 
-  <!-- =========================
-       SEARCH
-  ========================== -->
+  
   <div class="search-wrapper">
 
     <nz-input-group
@@ -219,9 +215,7 @@
 
   </div>
 
-  <!-- =========================
-       DESKTOP TABLE
-  ========================== -->
+  
   <div class="desktop-table">
 
     <nz-table
@@ -302,16 +296,13 @@
 
   </div>
 
-  <!-- =========================
-       MOBILE CARDS
-  ========================== -->
+  
   <div class="mobile-category-cards">
 
     <div
       class="category-mobile-card"
       *ngFor="let category of categories">
 
-      <!-- TOP -->
       <div class="mobile-card-top">
 
         <div>
@@ -328,7 +319,6 @@
 
       </div>
 
-      <!-- BODY -->
       <div class="mobile-card-body">
 
         <div class="info-item">
@@ -343,7 +333,6 @@
 
       </div>
 
-      <!-- FOOTER -->
       <div class="mobile-card-footer">
 
         <button
@@ -366,4 +355,156 @@
 
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+<div class="category-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Categories</h2>
+      <p class="page-subtitle">Manage tenant categories and hierarchy.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" routerLink="/category/add">
+        <i class="bi bi-plus-lg"></i> Add Category
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE SECTION -->
+  <div class="table-card">
+
+    <!-- TABLE HEADER -->
+    <div class="table-top">
+      <h3 class="table-title">Category List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search category..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Parent ID</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="5" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let category of pagedCategories; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="category-name">{{ category.name }}</td>
+            <td>{{ category.parentCategoryId || '—' }}</td>
+            <td>
+              <span class="status-badge"
+                [class.active]="category.status"
+                [class.inactive]="!category.status">
+                {{ category.status ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button class="btn-action delete"
+                  title="Delete"
+                  (click)="confirmDelete(category.categoryId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && categories.length === 0">
+            <td colspan="5" class="empty-state">No categories found.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar">
+        <span class="pagination-info">
+          Showing {{ categories.length === 0 ? 0 : (currentPage - 1) * pageSize + 1 }}
+          to {{ Math.min(currentPage * pageSize, categories.length) }}
+          of {{ categories.length }} entries
+        </span>
+        <div class="pagination-btns">
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            *ngFor="let p of getPages()"
+            [class.active]="p === currentPage"
+            (click)="onPageChange(p)">
+            {{ p }}
+          </button>
+          <button [disabled]="currentPage * pageSize >= categories.length" (click)="onPageChange(currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="category-mobile-card" *ngFor="let category of pagedCategories">
+        <div class="mobile-top">
+          <div>
+            <h3>{{ category.name }}</h3>
+            <p>Parent: {{ category.parentCategoryId || '—' }}</p>
+          </div>
+          <span class="status-badge"
+            [class.active]="category.status"
+            [class.inactive]="!category.status">
+            {{ category.status ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="mobile-footer">
+          <button class="btn-action delete" (click)="confirmDelete(category.categoryId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && categories.length === 0" class="empty-state">
+        No categories found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Category?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="deleteCategory()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

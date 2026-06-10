@@ -61,12 +61,10 @@
 
 
 
-
+<!-- 
 <nz-card class="customer-dashboard-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+ 
   <div
     nz-row
     nzJustify="space-between"
@@ -102,9 +100,7 @@
 
   </div>
 
-  <!-- =========================
-       DESKTOP TABLE
-  ========================== -->
+  
   <div class="desktop-table">
 
     <nz-table
@@ -182,16 +178,13 @@
 
   </div>
 
-  <!-- =========================
-       MOBILE CARDS
-  ========================== -->
+  
   <div class="mobile-customer-cards">
 
     <div
       class="customer-mobile-card"
       *ngFor="let c of customers">
 
-      <!-- TOP -->
       <div class="mobile-card-top">
 
         <div>
@@ -214,7 +207,6 @@
 
       </div>
 
-      <!-- BODY -->
       <div class="mobile-card-body">
 
         <div class="info-item">
@@ -231,7 +223,6 @@
 
       </div>
 
-      <!-- FOOTER -->
       <div class="mobile-card-footer">
 
         <button
@@ -254,4 +245,151 @@
 
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+<div class="customer-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Customers</h2>
+      <p class="page-subtitle">Manage customer accounts and view active users.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" routerLink="/customer/add">
+        <i class="bi bi-plus-lg"></i> Add Customer
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE SECTION -->
+  <div class="table-card">
+
+    <!-- TABLE HEADER -->
+    <div class="table-top">
+      <h3 class="table-title">Customer List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search customer..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="5" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let c of pagedCustomers; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="customer-name">{{ c.firstName }} {{ c.lastName }}</td>
+            <td class="email-text">{{ c.email }}</td>
+            <td>
+              <span class="status-badge" [class.active]="c.status" [class.inactive]="!c.status">
+                {{ c.status ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button class="btn-action delete" title="Delete" (click)="confirmDelete(c.customerId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && customers.length === 0">
+            <td colspan="5" class="empty-state">No customers found.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar">
+        <span class="pagination-info">
+          Showing {{ customers.length === 0 ? 0 : (currentPage - 1) * pageSize + 1 }}
+          to {{ Math.min(currentPage * pageSize, customers.length) }}
+          of {{ customers.length }} entries
+        </span>
+        <div class="pagination-btns">
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            *ngFor="let p of getPages()"
+            [class.active]="p === currentPage"
+            (click)="onPageChange(p)">
+            {{ p }}
+          </button>
+          <button [disabled]="currentPage * pageSize >= customers.length" (click)="onPageChange(currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="customer-mobile-card" *ngFor="let c of pagedCustomers">
+        <div class="mobile-top">
+          <div>
+            <h3>{{ c.firstName }} {{ c.lastName }}</h3>
+            <p>{{ c.email }}</p>
+          </div>
+          <span class="status-badge" [class.active]="c.status" [class.inactive]="!c.status">
+            {{ c.status ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="mobile-footer">
+          <button class="btn-action delete" (click)="confirmDelete(c.customerId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && customers.length === 0" class="empty-state">
+        No customers found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Customer?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="deleteCustomer()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

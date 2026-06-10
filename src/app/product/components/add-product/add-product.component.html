@@ -299,14 +299,8 @@
 
 <nz-card class="add-product-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
-  <div
-    nz-row
-    nzJustify="space-between"
-    nzAlign="middle"
-    class="product-header">
+
+  <div nz-row nzJustify="space-between" nzAlign="middle" class="product-header">
 
     <div nz-col>
 
@@ -322,11 +316,7 @@
 
     <div nz-col>
 
-      <button
-        nz-button
-        nzType="default"
-        routerLink="/product/dashboard"
-        class="back-btn">
+      <button nz-button nzType="default" routerLink="/product/dashboard" class="back-btn">
 
         <span nz-icon nzType="arrow-left"></span>
         Back to Dashboard
@@ -337,21 +327,12 @@
 
   </div>
 
-  <!-- =========================
-       FORM
-  ========================== -->
-  <form
-    nz-form
-    [formGroup]="productForm"
-    (ngSubmit)="onSubmit()"
-    nzLayout="vertical">
 
-    <div
-      nz-row
-      [nzGutter]="16"
-      class="product-form-row">
+  <form nz-form [formGroup]="productForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
 
-      <!-- NAME -->
+    <div nz-row [nzGutter]="16" class="product-form-row">
+
+
       <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24">
 
         <nz-form-item>
@@ -362,10 +343,7 @@
 
           <nz-form-control nzErrorTip="Product name is required">
 
-            <input
-              nz-input
-              formControlName="name"
-              placeholder="Enter product name" />
+            <input nz-input formControlName="name" placeholder="Enter product name" />
 
           </nz-form-control>
 
@@ -373,7 +351,7 @@
 
       </div>
 
-      <!-- DESCRIPTION -->
+
       <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24">
 
         <nz-form-item>
@@ -384,10 +362,7 @@
 
           <nz-form-control>
 
-            <textarea
-              nz-input
-              formControlName="description"
-              placeholder="Enter product description"
+            <textarea nz-input formControlName="description" placeholder="Enter product description"
               [nzAutosize]="{ minRows: 3, maxRows: 6 }">
             </textarea>
 
@@ -397,7 +372,6 @@
 
       </div>
 
-      <!-- PRICE -->
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8">
 
         <nz-form-item>
@@ -408,14 +382,8 @@
 
           <nz-form-control nzErrorTip="Price is required">
 
-            <nz-input-number
-              formControlName="price"
-              [nzMin]="0"
-              [nzStep]="0.01"
-              [nzPrecision]="2"
-              nzPrefix="Rs"
-              nzPlaceHolder="0.00"
-              style="width: 100%;">
+            <nz-input-number formControlName="price" [nzMin]="0" [nzStep]="0.01" [nzPrecision]="2" nzPrefix="Rs"
+              nzPlaceHolder="0.00" style="width: 100%;">
 
             </nz-input-number>
 
@@ -425,7 +393,6 @@
 
       </div>
 
-      <!-- STOCK -->
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8">
 
         <nz-form-item>
@@ -436,11 +403,7 @@
 
           <nz-form-control nzErrorTip="Stock quantity is required">
 
-            <nz-input-number
-              formControlName="stockQty"
-              [nzMin]="0"
-              nzPlaceHolder="0"
-              style="width: 100%;">
+            <nz-input-number formControlName="stockQty" [nzMin]="0" nzPlaceHolder="0" style="width: 100%;">
 
             </nz-input-number>
 
@@ -450,7 +413,6 @@
 
       </div>
 
-      <!-- CATEGORY -->
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8">
 
         <nz-form-item>
@@ -461,16 +423,9 @@
 
           <nz-form-control>
 
-            <nz-select
-              formControlName="categoryId"
-              nzAllowClear
-              nzPlaceHolder="Select category"
-              style="width: 100%;">
+            <nz-select formControlName="categoryId" nzAllowClear nzPlaceHolder="Select category" style="width: 100%;">
 
-              <nz-option
-                *ngFor="let cat of categories"
-                [nzValue]="cat.categoryId"
-                [nzLabel]="cat.name">
+              <nz-option *ngFor="let cat of categories" [nzValue]="cat.categoryId" [nzLabel]="cat.name">
               </nz-option>
 
             </nz-select>
@@ -481,7 +436,6 @@
 
       </div>
 
-      <!-- SKU -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12">
 
         <nz-form-item>
@@ -493,10 +447,7 @@
 
           <nz-form-control>
 
-            <input
-              nz-input
-              formControlName="sku"
-              placeholder="e.g. FLB-32B-BK" />
+            <input nz-input formControlName="sku" placeholder="e.g. FLB-32B-BK" />
 
           </nz-form-control>
 
@@ -504,7 +455,6 @@
 
       </div>
 
-      <!-- BRAND -->
       <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12">
 
         <nz-form-item>
@@ -516,10 +466,7 @@
 
           <nz-form-control>
 
-            <input
-              nz-input
-              formControlName="brand"
-              placeholder="e.g. Flourish Bra" />
+            <input nz-input formControlName="brand" placeholder="e.g. Flourish Bra" />
 
           </nz-form-control>
 
@@ -527,7 +474,6 @@
 
       </div>
 
-      <!-- SIZES -->
       <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24">
 
         <nz-form-item>
@@ -539,11 +485,7 @@
 
           <nz-form-control>
 
-            <nz-select
-              formControlName="sizes"
-              nzMode="multiple"
-              nzPlaceHolder="Select sizes"
-              style="width: 100%;"
+            <nz-select formControlName="sizes" nzMode="multiple" nzPlaceHolder="Select sizes" style="width: 100%;"
               [nzOptions]="sizeOptions">
 
             </nz-select>
@@ -554,7 +496,6 @@
 
       </div>
 
-      <!-- COLORS -->
       <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24">
 
         <nz-form-item>
@@ -566,11 +507,7 @@
 
           <nz-form-control>
 
-            <nz-select
-              formControlName="colors"
-              nzMode="multiple"
-              nzPlaceHolder="Select colors"
-              style="width: 100%;"
+            <nz-select formControlName="colors" nzMode="multiple" nzPlaceHolder="Select colors" style="width: 100%;"
               [nzOptions]="colorOptions">
 
             </nz-select>
@@ -581,7 +518,6 @@
 
       </div>
 
-      <!-- IMAGE -->
       <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24">
 
         <nz-form-item>
@@ -595,11 +531,7 @@
 
             <label class="file-upload-box">
 
-              <input
-                type="file"
-                (change)="onFileSelected($event)"
-                accept="image/*"
-                hidden />
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" hidden />
 
               <span nz-icon nzType="upload"></span>
 
@@ -613,14 +545,9 @@
 
         </nz-form-item>
 
-        <!-- PREVIEW -->
-        <div
-          *ngIf="previewUrl"
-          class="preview-wrapper">
+        <div *ngIf="previewUrl" class="preview-wrapper">
 
-          <img
-            [src]="previewUrl"
-            class="preview-image" />
+          <img [src]="previewUrl" class="preview-image" />
 
         </div>
 
@@ -628,32 +555,29 @@
 
     </div>
 
-    <!-- =========================
-         ACTION BUTTONS
-    ========================== -->
+
     <div class="form-actions">
 
-      <button
-        nz-button
-        nzType="default"
-        type="button"
-        routerLink="/product/dashboard"
-        class="cancel-btn">
+      <button nz-button nzType="default" type="button" routerLink="/product/dashboard" class="cancel-btn">
 
         Cancel
 
       </button>
-
-      <button
-        nz-button
-        nzType="primary"
-        type="submit"
-        class="submit-btn"
-        [nzLoading]="isSubmitting">
-
+<!-- 
+      <button nz-button nzType="primary" type="submit" class="btn-primary-custom"
+        [disabled]="!productForm.valid || isSubmitting" [nzLoading]="isSubmitting">
         Create Product
+      </button> -->
 
-      </button>
+
+       <button
+          type="submit"
+          class="btn-primary-custom"
+          [disabled]="!productForm.valid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm"></span>
+          <i *ngIf="!isSubmitting" class="bi bi-check-lg"></i>
+          {{ isSubmitting ? 'Creating...' : 'Create Product' }}
+        </button>
 
     </div>
 

@@ -85,11 +85,8 @@
 
 
 
-<nz-card class="user-dashboard-card">
+<!-- <nz-card class="user-dashboard-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
   <div
     nz-row
     nzJustify="space-between"
@@ -125,9 +122,7 @@
 
   </div>
 
-  <!-- =========================
-       SEARCH
-  ========================== -->
+  
   <div class="search-wrapper">
 
     <nz-input-group
@@ -144,9 +139,7 @@
 
   </div>
 
-  <!-- =========================
-       DESKTOP TABLE
-  ========================== -->
+  
   <div class="desktop-table">
 
     <nz-table
@@ -226,16 +219,13 @@
 
   </div>
 
-  <!-- =========================
-       MOBILE USER CARDS
-  ========================== -->
+  
   <div class="mobile-user-cards">
 
     <div
       class="user-mobile-card"
       *ngFor="let user of users">
 
-      <!-- TOP -->
       <div class="mobile-card-top">
 
         <div>
@@ -252,7 +242,6 @@
 
       </div>
 
-      <!-- BODY -->
       <div class="mobile-card-body">
 
         <div class="info-item">
@@ -277,7 +266,6 @@
 
       </div>
 
-      <!-- FOOTER -->
       <div class="mobile-card-footer">
 
         <button
@@ -300,4 +288,201 @@
 
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+
+<div class="user-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">User Management</h2>
+      <p class="page-subtitle">Browse and manage users for your tenant.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" routerLink="/user/add">
+        <i class="bi bi-plus-lg"></i> Add User
+      </button>
+    </div>
+  </div>
+
+  <!-- STATS CARDS -->
+  <!-- <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="stat-icon purple">
+        <i class="bi bi-people"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Total Users</span>
+        <span class="stat-value">{{ totalCount }}</span>
+        <span class="stat-sub">All Registered Users</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <i class="bi bi-person-check"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Active Users</span>
+        <span class="stat-value">{{ activeCount }}</span>
+        <span class="stat-sub">Currently Active</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon red">
+        <i class="bi bi-person-dash"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-label">Inactive Users</span>
+        <span class="stat-value">{{ inactiveCount }}</span>
+        <span class="stat-sub">Temporarily Inactive</span>
+      </div>
+    </div>
+
+  </div> -->
+
+  <!-- TABLE SECTION -->
+  <div class="table-card">
+
+    <!-- TABLE HEADER -->
+    <div class="table-top">
+      <h3 class="table-title">User List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search user..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="6" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let user of pagedUsers; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="user-name">{{ user.name }}</td>
+            <td class="email-text">{{ user.email }}</td>
+            <td>
+              <span class="role-badge" [class.admin]="user.role === 'Admin'" [class.manager]="user.role === 'Manager'" [class.staff]="user.role === 'Staff'">
+                {{ user.role }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge" [class.active]="user.status" [class.inactive]="!user.status">
+                {{ user.status ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button class="btn-action delete" title="Delete" (click)="confirmDelete(user.userId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && users.length === 0">
+            <td colspan="6" class="empty-state">No users found.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar">
+        <span class="pagination-info">
+          Showing {{ users.length === 0 ? 0 : (currentPage - 1) * pageSize + 1 }}
+          to {{ Math.min(currentPage * pageSize, users.length) }}
+          of {{ users.length }} entries
+        </span>
+        <div class="pagination-btns">
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            *ngFor="let p of getPages()"
+            [class.active]="p === currentPage"
+            (click)="onPageChange(p)">
+            {{ p }}
+          </button>
+          <button [disabled]="currentPage * pageSize >= users.length" (click)="onPageChange(currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="user-mobile-card" *ngFor="let user of pagedUsers">
+        <div class="mobile-top">
+          <div>
+            <h3>{{ user.name }}</h3>
+            <p>{{ user.email }}</p>
+          </div>
+          <span class="status-badge" [class.active]="user.status" [class.inactive]="!user.status">
+            {{ user.status ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="mobile-meta">
+          <span class="role-badge" [class.admin]="user.role === 'Admin'" [class.manager]="user.role === 'Manager'" [class.staff]="user.role === 'Staff'">
+            {{ user.role }}
+          </span>
+        </div>
+        <div class="mobile-footer">
+          <button class="btn-action delete" (click)="confirmDelete(user.userId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && users.length === 0" class="empty-state">
+        No users found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete User?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="deleteUser()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

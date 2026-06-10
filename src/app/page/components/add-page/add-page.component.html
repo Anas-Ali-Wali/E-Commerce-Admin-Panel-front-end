@@ -147,11 +147,9 @@
 
 
 
-<nz-card class="add-page-card">
+<!-- <nz-card class="add-page-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+  
   <div
     nz-row
     nzJustify="space-between"
@@ -187,9 +185,7 @@
 
   </div>
 
-  <!-- =========================
-       FORM
-  ========================== -->
+  
   <form
     nz-form
     [formGroup]="pageForm"
@@ -200,7 +196,6 @@
       nz-row
       [nzGutter]="16">
 
-      <!-- TITLE -->
       <div
         nz-col
         nzXs="24"
@@ -227,7 +222,6 @@
 
       </div>
 
-      <!-- SLUG -->
       <div
         nz-col
         nzXs="24"
@@ -259,7 +253,6 @@
 
       </div>
 
-      <!-- STATUS -->
       <div
         nz-col
         nzSpan="24">
@@ -280,9 +273,7 @@
 
     </div>
 
-    <!-- =========================
-         ACTIONS
-    ========================== -->
+    
     <div class="form-actions">
 
       <button
@@ -312,4 +303,258 @@
 
   </form>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+
+<!-- <nz-card class="add-page-card">
+
+  
+  <div
+    nz-row
+    nzJustify="space-between"
+    nzAlign="middle"
+    class="page-header">
+
+    <div nz-col>
+
+      <h2 nz-typography class="page-title">
+        Add Page
+      </h2>
+
+      <p nz-typography nzType="secondary" class="page-subtitle">
+        Create a public page for site content.
+      </p>
+
+    </div>
+
+    <div nz-col>
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/page/dashboard"
+        class="back-btn">
+
+        <span nz-icon nzType="arrow-left"></span>
+        Back to Dashboard
+
+      </button>
+
+    </div>
+
+  </div>
+
+  
+  <form
+    nz-form
+    [formGroup]="pageForm"
+    (ngSubmit)="onSubmit()"
+    nzLayout="vertical">
+
+    <div nz-row [nzGutter]="16">
+
+      <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Title
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Title is required">
+
+            <input
+              nz-input
+              formControlName="title"
+              placeholder="Enter page title" />
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12">
+
+        <nz-form-item>
+
+          <nz-form-label nzRequired>
+            Slug
+          </nz-form-label>
+
+          <nz-form-control nzErrorTip="Slug is required">
+
+            <nz-input-group nzPrefix="/">
+
+              <input
+                nz-input
+                formControlName="slug"
+                placeholder="e.g. about-us"
+                (input)="onSlugInput($event)" />
+
+            </nz-input-group>
+
+          </nz-form-control>
+
+        </nz-form-item>
+
+      </div>
+
+      <div nz-col nzSpan="24">
+
+        <div class="status-box">
+
+          <div class="status-box-inner">
+
+            <div class="status-box-info">
+              <span nz-icon nzType="eye" class="status-icon"></span>
+              <div>
+                <span class="status-title">Visibility</span>
+                <p class="status-desc">Check to make this page publicly visible on the site.</p>
+              </div>
+            </div>
+
+            <label nz-checkbox formControlName="status" class="status-checkbox">
+              Published / Active
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+   
+    <div class="form-actions">
+
+      <button
+        nz-button
+        nzType="default"
+        routerLink="/page/dashboard"
+        type="button"
+        class="cancel-btn">
+        Cancel
+      </button>
+
+      <button
+        nz-button
+        nzType="primary"
+        type="submit"
+        class="submit-btn"
+        [disabled]="!pageForm.valid"
+        [nzLoading]="isSubmitting">
+        <span nz-icon nzType="plus" *ngIf="!isSubmitting"></span>
+        Create Page
+      </button>
+
+    </div>
+
+  </form>
+
+</nz-card> -->
+
+
+
+
+
+
+<div class="add-page-wrap">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Add Page</h2>
+      <p class="page-subtitle">Create a public page for site content.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-back" routerLink="/page/dashboard">
+        <i class="bi bi-arrow-left"></i> Back to Dashboard
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="form-card">
+
+    <form [formGroup]="pageForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- TITLE -->
+        <div class="form-group">
+          <label class="form-label">Title <span class="req">*</span></label>
+          <input
+            type="text"
+            class="form-input"
+            [class.is-invalid]="pageForm.get('title')?.invalid && pageForm.get('title')?.dirty"
+            formControlName="title"
+            placeholder="Enter page title" />
+          <span class="error-msg" *ngIf="pageForm.get('title')?.invalid && pageForm.get('title')?.dirty">
+            Title is required
+          </span>
+        </div>
+
+        <!-- SLUG -->
+        <div class="form-group">
+          <label class="form-label">Slug <span class="req">*</span></label>
+          <div class="input-prefix-wrap">
+            <span class="input-prefix">/</span>
+            <input
+              type="text"
+              class="form-input with-prefix"
+              [class.is-invalid]="pageForm.get('slug')?.invalid && pageForm.get('slug')?.dirty"
+              formControlName="slug"
+              placeholder="e.g. about-us"
+              (input)="onSlugInput($event)" />
+          </div>
+          <span class="error-msg" *ngIf="pageForm.get('slug')?.invalid && pageForm.get('slug')?.dirty">
+            Slug is required
+          </span>
+        </div>
+
+      </div>
+
+      <!-- STATUS BOX -->
+      <div class="status-box">
+        <div class="status-box-left">
+          <i class="bi bi-eye status-icon"></i>
+          <div>
+            <span class="status-title">Visibility</span>
+            <p class="status-desc">Check to make this page publicly visible on the site.</p>
+          </div>
+        </div>
+        <label class="custom-checkbox">
+          <input type="checkbox" formControlName="status" />
+          <span class="checkmark"></span>
+          Published / Active
+        </label>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" routerLink="/page/dashboard">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="!pageForm.valid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+          <i class="bi bi-plus-lg" *ngIf="!isSubmitting"></i>
+          {{ isSubmitting ? 'Creating...' : 'Create Page' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

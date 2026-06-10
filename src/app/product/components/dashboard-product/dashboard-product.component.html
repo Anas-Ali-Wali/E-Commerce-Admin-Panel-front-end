@@ -167,11 +167,9 @@
 
 
 
-<nz-card class="product-dashboard-card">
+<!-- <nz-card class="product-dashboard-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+  
   <div
     nz-row
     nzJustify="space-between"
@@ -207,9 +205,7 @@
 
   </div>
 
-  <!-- =========================
-       SEARCH
-  ========================== -->
+
   <div class="search-wrapper">
 
     <nz-input-group
@@ -226,9 +222,7 @@
 
   </div>
 
-  <!-- =========================
-       DESKTOP TABLE
-  ========================== -->
+  
   <div class="desktop-table">
 
     <nz-table
@@ -309,7 +303,6 @@
 
             <div class="table-actions">
 
-              <!-- IMAGES -->
               <button
                 nz-button
                 nzType="primary"
@@ -321,7 +314,6 @@
 
               </button>
 
-              <!-- DELETE -->
               <button
                 nz-button
                 nzDanger
@@ -347,16 +339,13 @@
 
   </div>
 
-  <!-- =========================
-       MOBILE CARDS
-  ========================== -->
+  
   <div class="mobile-product-cards">
 
     <div
       class="product-mobile-card"
       *ngFor="let product of products">
 
-      <!-- TOP -->
       <div class="mobile-card-top">
 
         <div>
@@ -375,7 +364,6 @@
 
       </div>
 
-      <!-- BODY -->
       <div class="mobile-card-body">
 
         <div class="info-item">
@@ -409,7 +397,6 @@
 
       </div>
 
-      <!-- FOOTER -->
       <div class="mobile-card-footer">
 
         <button
@@ -444,4 +431,195 @@
 
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="product-page">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Products</h2>
+      <p class="page-subtitle">View product inventory and manage listings.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" routerLink="/product/add">
+        <i class="bi bi-plus-lg"></i> Add Product
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE SECTION -->
+  <div class="table-card">
+
+    <!-- TABLE HEADER -->
+    <div class="table-top">
+      <h3 class="table-title">Product List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search product..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="6" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let product of pagedProducts; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="product-name">{{ product.name }}</td>
+            <!-- <td class="price-text">{{ product.price | currency }}</td> -->
+             <td class="price-text">Rs. {{ product.price | number:'1.0-0' }}</td>
+
+            <td>
+              <span class="stock-badge"
+                [class.out]="product.stockQty === 0"
+                [class.low]="product.stockQty > 0 && product.stockQty < 10"
+                [class.ok]="product.stockQty >= 10">
+                {{ product.stockQty }}
+              </span>
+            </td>
+            <td>
+              <span class="status-badge"
+                [class.active]="product.status"
+                [class.inactive]="!product.status">
+                {{ product.status ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button class="btn-action images"
+                  title="Images"
+                  [routerLink]="['/product/images', product.productId]">
+                  <i class="bi bi-images"></i>
+                </button>
+                <button class="btn-action delete"
+                  title="Delete"
+                  (click)="confirmDelete(product.productId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && products.length === 0">
+            <td colspan="6" class="empty-state">No products found.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar">
+        <span class="pagination-info">
+          Showing {{ products.length === 0 ? 0 : (currentPage - 1) * pageSize + 1 }}
+          to {{ Math.min(currentPage * pageSize, products.length) }}
+          of {{ products.length }} entries
+        </span>
+        <div class="pagination-btns">
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            *ngFor="let p of getPages()"
+            [class.active]="p === currentPage"
+            (click)="onPageChange(p)">
+            {{ p }}
+          </button>
+          <button [disabled]="currentPage * pageSize >= products.length" (click)="onPageChange(currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="product-mobile-card" *ngFor="let product of pagedProducts">
+        <div class="mobile-top">
+          <div>
+            <h3>{{ product.name }}</h3>
+            <!-- <p>{{ product.price | currency }}</p> -->
+             <p>Rs. {{ product.price | number:'1.0-0' }}</p>
+
+          </div>
+          <span class="status-badge"
+            [class.active]="product.status"
+            [class.inactive]="!product.status">
+            {{ product.status ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="mobile-meta">
+          <span class="meta-label">Stock</span>
+          <span class="stock-badge"
+            [class.out]="product.stockQty === 0"
+            [class.low]="product.stockQty > 0 && product.stockQty < 10"
+            [class.ok]="product.stockQty >= 10">
+            {{ product.stockQty }}
+          </span>
+        </div>
+        <div class="mobile-footer">
+          <button class="btn-action images" [routerLink]="['/product/images', product.productId]">
+            <i class="bi bi-images"></i> Images
+          </button>
+          <button class="btn-action delete" (click)="confirmDelete(product.productId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && products.length === 0" class="empty-state">
+        No products found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Product?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="deleteProduct()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

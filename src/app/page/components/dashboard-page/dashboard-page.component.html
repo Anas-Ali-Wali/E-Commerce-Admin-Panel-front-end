@@ -161,11 +161,11 @@
 
 
 
-<nz-card class="page-dashboard-card">
 
-  <!-- =========================
-       HEADER
-  ========================== -->
+
+<!-- <nz-card class="page-dashboard-card">
+
+  
   <div
     nz-row
     nzJustify="space-between"
@@ -201,9 +201,7 @@
 
   </div>
 
-  <!-- =========================
-       DESKTOP TABLE
-  ========================== -->
+  
   <div class="desktop-table">
 
     <nz-table
@@ -273,7 +271,6 @@
 
             <div class="table-actions">
 
-              <!-- SECTIONS -->
               <button
                 nz-button
                 nzType="default"
@@ -286,7 +283,6 @@
 
               </button>
 
-              <!-- DELETE -->
               <button
                 nz-button
                 nzType="default"
@@ -313,16 +309,13 @@
 
   </div>
 
-  <!-- =========================
-       MOBILE CARDS
-  ========================== -->
+  
   <div class="mobile-page-cards">
 
     <div
       class="page-mobile-card"
       *ngFor="let page of pages">
 
-      <!-- TOP -->
       <div class="mobile-card-top">
 
         <div>
@@ -341,7 +334,6 @@
 
       </div>
 
-      <!-- BODY -->
       <div class="mobile-card-body">
 
         <div class="info-item">
@@ -362,7 +354,6 @@
 
       </div>
 
-      <!-- FOOTER -->
       <div class="mobile-card-footer">
 
         <button
@@ -398,4 +389,157 @@
 
   </div>
 
-</nz-card>
+</nz-card> -->
+
+
+
+
+
+<div class="page-db">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Page Dashboard</h2>
+      <p class="page-subtitle">Review pages and publish content for tenants.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom" routerLink="/page/add">
+        <i class="bi bi-plus-lg"></i> Add Page
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="table-card">
+
+    <div class="table-top">
+      <h3 class="table-title">Page List</h3>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Slug</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="5" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let page of pages; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+            <td class="page-name">{{ page.title }}</td>
+            <td class="slug-text">
+              <i class="bi bi-link-45deg"></i> /{{ page.slug }}
+            </td>
+            <td>
+              <span class="status-badge" [class.active]="page.status" [class.inactive]="!page.status">
+                {{ page.status ? 'Published' : 'Draft' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button
+                  class="btn-action sections"
+                  title="Manage Sections"
+                  [routerLink]="['/section/dashboard']"
+                  [queryParams]="{ pageId: page.pageId }">
+                  <i class="bi bi-layout-text-window-reverse"></i>
+                </button>
+                <button
+                  class="btn-action delete"
+                  title="Delete"
+                  (click)="confirmDelete(page.pageId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && pages.length === 0">
+            <td colspan="5" class="empty-state">No pages found.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- PAGINATION -->
+      <div class="pagination-bar">
+        <span class="pagination-info">
+          Showing {{ pages.length === 0 ? 0 : (currentPage - 1) * pageSize + 1 }}
+          to {{ Math.min(currentPage * pageSize, totalCount) }}
+          of {{ totalCount }} entries
+        </span>
+        <div class="pagination-btns">
+          <button [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+          <button
+            *ngFor="let p of getPages()"
+            [class.active]="p === currentPage"
+            (click)="onPageChange(p)">
+            {{ p }}
+          </button>
+          <button [disabled]="currentPage * pageSize >= totalCount" (click)="onPageChange(currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="page-mobile-card" *ngFor="let page of pages">
+        <div class="mobile-top">
+          <div>
+            <h3>{{ page.title }}</h3>
+            <p><i class="bi bi-link-45deg"></i> /{{ page.slug }}</p>
+          </div>
+          <span class="status-badge" [class.active]="page.status" [class.inactive]="!page.status">
+            {{ page.status ? 'Published' : 'Draft' }}
+          </span>
+        </div>
+        <div class="mobile-footer">
+          <button
+            class="btn-mobile-sections"
+            [routerLink]="['/section/dashboard']"
+            [queryParams]="{ pageId: page.pageId }">
+            <i class="bi bi-layout-text-window-reverse"></i> Sections
+          </button>
+          <button class="btn-action delete" (click)="confirmDelete(page.pageId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && pages.length === 0" class="empty-state">
+        No pages found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Page?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="executeDelete()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

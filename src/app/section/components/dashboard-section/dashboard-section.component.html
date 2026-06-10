@@ -1,4 +1,4 @@
-<nz-card>
+<!-- <nz-card>
   <div nz-row nzJustify="space-between" nzAlign="middle" style="margin-bottom: 24px;">
     <div nz-col>
       <h2 nz-typography style="margin-bottom: 4px;">Section Dashboard</h2>
@@ -48,7 +48,6 @@
           </nz-tag>
         </td>
         <td nzAlign="right">
-          <!-- SectionData dekho -->
           <button nz-button nzType="default" nzSize="small"
             style="margin-right: 8px;"
             [routerLink]="['/section-data/dashboard']"
@@ -68,4 +67,143 @@
       </tr>
     </tbody>
   </nz-table>
-</nz-card>
+</nz-card> -->
+
+
+
+<div class="section-db">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Section Dashboard</h2>
+      <p class="page-subtitle">Manage sections for Page ID: {{ pageId }}</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-primary-custom"
+        [routerLink]="['/section/add']"
+        [queryParams]="{ pageId: pageId }">
+        <i class="bi bi-plus-lg"></i> Add Section
+      </button>
+    </div>
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="table-card">
+
+    <div class="table-top">
+      <h3 class="table-title">Section List</h3>
+      <div class="table-search">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search section..."
+          [(ngModel)]="searchText"
+          (ngModelChange)="onSearch()" />
+      </div>
+    </div>
+
+    <!-- DESKTOP TABLE -->
+    <div class="desktop-table">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Order No</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isLoading">
+            <td colspan="5" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary"></div>
+            </td>
+          </tr>
+          <tr *ngFor="let section of sections; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td class="type-cell">
+              <span class="type-badge">{{ section.type }}</span>
+            </td>
+            <td>{{ section.orderNo }}</td>
+            <td>
+              <span class="status-badge" [class.active]="section.status" [class.inactive]="!section.status">
+                {{ section.status ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <button
+                  class="btn-action data"
+                  title="View Data"
+                  [routerLink]="['/section-data/dashboard']"
+                  [queryParams]="{ sectionId: section.sectionId }">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button
+                  class="btn-action delete"
+                  title="Delete"
+                  (click)="confirmDelete(section.sectionId)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="!isLoading && sections.length === 0">
+            <td colspan="5" class="empty-state">No sections found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MOBILE CARDS -->
+    <div class="mobile-cards">
+      <div class="section-mobile-card" *ngFor="let section of sections; let i = index">
+        <div class="mobile-top">
+          <div>
+            <h3><span class="type-badge">{{ section.type }}</span></h3>
+            <p>Order: {{ section.orderNo }}</p>
+          </div>
+          <span class="status-badge" [class.active]="section.status" [class.inactive]="!section.status">
+            {{ section.status ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+        <div class="mobile-footer">
+          <button
+            class="btn-mobile-data"
+            [routerLink]="['/section-data/dashboard']"
+            [queryParams]="{ sectionId: section.sectionId }">
+            <i class="bi bi-eye"></i> View Data
+          </button>
+          <button class="btn-action delete" (click)="confirmDelete(section.sectionId)">
+            <i class="bi bi-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      <div *ngIf="!isLoading && sections.length === 0" class="empty-state">
+        No sections found.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" *ngIf="showDeleteModal" (click)="showDeleteModal = false">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <div class="modal-icon">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+      <h3 class="modal-title">Delete Section?</h3>
+      <p class="modal-desc">This action cannot be undone. Are you sure?</p>
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="showDeleteModal = false">Cancel</button>
+        <button class="btn-danger" (click)="executeDelete()">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
