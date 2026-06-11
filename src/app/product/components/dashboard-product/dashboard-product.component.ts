@@ -10,6 +10,104 @@
   })
   export class DashboardProductComponent {
 
+products: ProductResponseDto[] = [];
+  originalProducts: ProductResponseDto[] = [];
+  searchText = '';
+  tenantId!: number;
+  currentPage = 1;
+  pageSize = 10;
+  totalCount = 0;
+  isLoading = false;
+  Math = Math;
+
+  showDeleteModal = false;
+  pendingDeleteId!: number;
+
+  constructor(
+    private productService: ProductService,
+    private message: NzMessageService
+  ) {}
+
+  ngOnInit() {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    this.tenantId = user.tenantId;
+    this.loadProducts();
+  }
+
+  get pagedProducts(): ProductResponseDto[] {
+  const start = (this.currentPage - 1) * this.pageSize;
+  return this.products.slice(start, start + this.pageSize);
+}
+
+  loadProducts() {
+    this.isLoading = true;
+    this.productService.getProductsByTenant(this.tenantId).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        if (response.success && response.data) {
+          // this.originalProducts = response.data.items;
+           this.originalProducts = [...response.data.items];
+          this.products = [...this.originalProducts];
+          this.totalCount = this.products.length;
+          this.currentPage = 1; // reset page on reload
+        }
+      },
+      error: () => {
+        this.isLoading = false;
+        this.message.error('Failed to load products.');
+      }
+    });
+  }
+
+  onSearch() {
+  const value = this.searchText.toLowerCase();
+  this.products = this.originalProducts.filter(item =>
+    Object.values(item).some(val =>
+      val && val.toString().toLowerCase().includes(value)
+    )
+  );
+  this.currentPage = 1;
+}
+
+onPageChange(page: number) {
+  this.currentPage = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+  getPages(): number[] {
+    const total = Math.ceil(this.products.length / this.pageSize);
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  confirmDelete(id: number) {
+    this.pendingDeleteId = id;
+    this.showDeleteModal = true;
+  }
+
+  deleteProduct() {
+    this.showDeleteModal = false;
+    this.productService.deleteProduct(this.pendingDeleteId).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.message.success('Product deleted successfully');
+          this.loadProducts();
+        } else {
+          this.message.error('Failed to delete product');
+        }
+      },
+      error: () => this.message.error('Server error occurred.')
+    });
+  }
+
+  }
+
+
+
+
+
+
+
+  
 //   products: ProductResponseDto[] = [];
 //   originalProducts: ProductResponseDto[] = []; // 🔥 important
 // searchText: string = '';
@@ -99,99 +197,6 @@
 //       error: () => this.message.error('Server error occurred.')
 //     });
 //   }
-
-
-
-
-
-
-products: ProductResponseDto[] = [];
-  originalProducts: ProductResponseDto[] = [];
-  searchText = '';
-  tenantId!: number;
-  currentPage = 1;
-  pageSize = 10;
-  totalCount = 0;
-  isLoading = false;
-  Math = Math;
-
-  showDeleteModal = false;
-  pendingDeleteId!: number;
-
-  constructor(
-    private productService: ProductService,
-    private message: NzMessageService
-  ) {}
-
-  ngOnInit() {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    this.tenantId = user.tenantId;
-    this.loadProducts();
-  }
-
-  get pagedProducts(): ProductResponseDto[] {
-    const start = (this.currentPage - 1) * this.pageSize;
-    return this.products.slice(start, start + this.pageSize);
-  }
-
-  loadProducts() {
-    this.isLoading = true;
-    this.productService.getProductsByTenant(this.tenantId).subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        if (response.success && response.data) {
-          this.originalProducts = response.data.items;
-          this.products = [...this.originalProducts];
-          this.totalCount = this.products.length;
-        }
-      },
-      error: () => {
-        this.isLoading = false;
-        this.message.error('Failed to load products.');
-      }
-    });
-  }
-
-  onSearch() {
-    const value = this.searchText.toLowerCase();
-    this.products = this.originalProducts.filter(item =>
-      Object.values(item).some(val =>
-        val && val.toString().toLowerCase().includes(value)
-      )
-    );
-    this.currentPage = 1;
-  }
-
-  onPageChange(page: number) {
-    this.currentPage = page;
-  }
-
-  getPages(): number[] {
-    const total = Math.ceil(this.products.length / this.pageSize);
-    return Array.from({ length: total }, (_, i) => i + 1);
-  }
-
-  confirmDelete(id: number) {
-    this.pendingDeleteId = id;
-    this.showDeleteModal = true;
-  }
-
-  deleteProduct() {
-    this.showDeleteModal = false;
-    this.productService.deleteProduct(this.pendingDeleteId).subscribe({
-      next: (response) => {
-        if (response.success) {
-          this.message.success('Product deleted successfully');
-          this.loadProducts();
-        } else {
-          this.message.error('Failed to delete product');
-        }
-      },
-      error: () => this.message.error('Server error occurred.')
-    });
-  }
-
-  }
 
 
 

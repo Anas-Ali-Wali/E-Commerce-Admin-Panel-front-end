@@ -23,13 +23,13 @@ export class ProductService {
     return this.http.get<ApiResponse<ProductResponseDto>>(`${this.apiUrl}/${id}`);
   }
 
-  getProductsByTenant(tenantId: number, pageNumber = 1, pageSize = 10) {
+  getProductsByTenant(tenantId: number, pageNumber = 1, pageSize = 1000) {
     return this.http.get<ApiResponse<PaginatedResponse<ProductResponseDto>>>(
       `${this.apiUrl}/tenant/${tenantId}?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
   }
 
-  getProductsByCategory(categoryId: number, pageNumber = 1, pageSize = 10) {
+  getProductsByCategory(categoryId: number, pageNumber = 1, pageSize = 1000) {
     return this.http.get<ApiResponse<PaginatedResponse<ProductResponseDto>>>(
       `${this.apiUrl}/category/${categoryId}?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );

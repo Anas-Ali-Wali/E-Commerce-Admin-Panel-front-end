@@ -10,13 +10,13 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class DashboardTenantComponent implements OnInit {
  tenants: TenantResponseDto[] = [];
+  originalTenants: TenantResponseDto[] = [];  // ✅ add
   currentPage = 1;
   pageSize = 10;
   totalCount = 0;
   isLoading = false;
-  searchText = '';
+  searchText = '';  // ✅ already tha
   Math = Math;
-
 
   constructor(
     private tenantService: TenantService,
@@ -29,25 +29,44 @@ export class DashboardTenantComponent implements OnInit {
 
   loadTenants() {
     this.isLoading = true;
-    this.tenantService.getAllTenants(this.currentPage, this.pageSize).subscribe({
+    this.tenantService.getAllTenants(1, 1000).subscribe({  // ✅ sab ek baar load
       next: (response) => {
         this.isLoading = false;
         if (response.success && response.data) {
-          this.tenants = response.data.items;
-          this.totalCount = response.data.totalCount;
+          this.originalTenants = response.data.items;  // ✅
+          this.tenants = [...this.originalTenants];     // ✅
+          this.totalCount = this.tenants.length;
+          this.currentPage = 1;
         }
       },
       error: (err) => {
         this.isLoading = false;
-        console.error('Load Error:', err);
         this.message.error('Failed to load tenants.');
       }
     });
   }
 
+  // ✅ local pagination
+  get pagedTenants(): TenantResponseDto[] {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.tenants.slice(start, start + this.pageSize);
+  }
+
+  // ✅ search
+  onSearch() {
+    const value = this.searchText.toLowerCase();
+    this.tenants = this.originalTenants.filter(item =>
+      Object.values(item).some(val =>
+        val && val.toString().toLowerCase().includes(value)
+      )
+    );
+    this.totalCount = this.tenants.length;
+    this.currentPage = 1;
+  }
+
   onPageChange(page: number) {
     this.currentPage = page;
-    this.loadTenants();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   deleteTenant(id: number) {
@@ -60,18 +79,14 @@ export class DashboardTenantComponent implements OnInit {
           this.message.error('Failed to delete tenant');
         }
       },
-      error: (err) => {
-        console.error('Delete Error:', err);
-        this.message.error('Server error occurred. Please try again.');
-      }
+      error: () => this.message.error('Server error occurred.')
     });
   }
-
-
 
   getPages(): number[] {
     const total = Math.ceil(this.totalCount / this.pageSize);
     return Array.from({ length: total }, (_, i) => i + 1);
   }
+
 
 }
