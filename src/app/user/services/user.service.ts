@@ -20,7 +20,7 @@ private apiUrl = `${environment.apiUrl}/user`;
     return this.http.get<ApiResponse<UserResponseDto>>(`${this.apiUrl}/${id}`);
   }
 
-  getUsersByTenant(tenantId: number, pageNumber = 1, pageSize = 10) {
+  getUsersByTenant(tenantId: number, pageNumber = 1, pageSize = 1000) {
     return this.http.get<ApiResponse<PaginatedResponse<UserResponseDto>>>(
       `${this.apiUrl}/tenant/${tenantId}?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );

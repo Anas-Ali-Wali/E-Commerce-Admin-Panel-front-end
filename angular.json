@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/admin-apk",
+            "outputPath": "D:/Projects/E-Commerce-Admin-Panel/ECommerceAdminPanel/wwwroot/admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -41,7 +41,7 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "./",
+              "baseHref": "/admin/",
               "fileReplacements": [
                 {
                   "replace": "src/Environment/environment.ts",
@@ -53,29 +53,6 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "20kb"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "web": {
-              "baseHref": "/admin/",
-              "outputPath": "D:/Projects/E-Commerce-Admin-Panel/ECommerceAdminPanel/wwwroot/admin",
-              "fileReplacements": [
-                {
-                  "replace": "src/Environment/environment.ts",
-                  "with": "src/Environment/environment.prod.ts"
-                }
-              ],
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -101,9 +78,6 @@
           "configurations": {
             "production": {
               "browserTarget": "Admin-Pannel-Front:build:production"
-            },
-            "web": {
-              "browserTarget": "Admin-Pannel-Front:build:web"
             },
             "development": {
               "browserTarget": "Admin-Pannel-Front:build:development"

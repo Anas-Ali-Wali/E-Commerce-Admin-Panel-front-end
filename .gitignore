@@ -43,10 +43,11 @@ Thumbs.db
 
 
 
-
-
-
 # Android SDK files
+android/
+android/.gradle/
+android/app/build/
+android/build/
 android/build-tools/
 android/emulator/
 android/extras/
@@ -57,7 +58,5 @@ android/skins/
 android/sources/
 android/system-images/
 android/.downloadIntermediates/
-android/.gradle/
 android/.idea/
 android/.temp/
-android/build/

@@ -22,7 +22,7 @@ private apiUrl = `${environment.apiUrl}/Category`;
     return this.http.get<ApiResponse<CategoryResponseDto>>(`${this.apiUrl}/${id}`);
   }
 
-  getCategoriesByTenant(tenantId: number, pageNumber = 1, pageSize = 10) {
+  getCategoriesByTenant(tenantId: number, pageNumber = 1, pageSize = 1000) {
     return this.http.get<ApiResponse<PaginatedResponse<CategoryResponseDto>>>(
       `${this.apiUrl}/tenant/${tenantId}?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
