@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserCreateRequestDto, UserUpdateRequestDto, UserResponseDto, ApiResponse, PaginatedResponse } from '../interfaces/user-interfaces';
-import { environment } from 'src/Environment/environment.prod';
+import { environment } from 'src/Environment/environment';
+// import { environment } from 'src/Environment/environment.prod';
 
 @Injectable({
   providedIn: 'root'
